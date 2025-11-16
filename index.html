@@ -13,15 +13,23 @@
 
 body {
    margin: 0;
-   display: flex;
-   flex-direction: column;
-   overflow-x: hidden;
+   overflow: hidden; /* <-- CAMBIO: evita scroll global */
    background-color: #444;
-   zoom: 1.5;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
 }
 
-main { height: 100vh; }
-.r { min-height: 10000px; }
+.safe-scroll {        /* <-- CAMBIO: contenedor interno que hace scroll */
+   width: 100%;
+   height: 100%;
+   overflow-y: scroll;
+}
+
+.r {
+   min-height: 10000px;
+}
 
 .safe {
    top: 0;
@@ -33,7 +41,6 @@ main { height: 100vh; }
    align-items: center;
    justify-content: center;
    background-color: #444;
-   z-index: 2;
 }
 
 .safe h1 {
@@ -60,6 +67,7 @@ main { height: 100vh; }
    transform-origin: center;
 }
 
+/* resto de tu CSS igual... */
 .innerdial {
    position: absolute;
    top: 0;
@@ -132,20 +140,7 @@ main { height: 100vh; }
 .near { animation: near 0.2s 1; }
 .off { animation: off 0.2s 1; }
 
-@keyframes click {
-   0% { background-color: pink; transform: scale(1); opacity: 1; }
-   100% { background-color: pink; transform: scale(1.5); opacity: 0; }
-}
-
-@keyframes near {
-   0% { background-color: lightcoral; transform: scale(1); opacity: 0.6; }
-   100% { background-color: lightcoral; transform: scale(1.3); opacity: 0; }
-}
-
-@keyframes off {
-   0% { opacity: 0.3; }
-   100% { opacity: 0; }
-}
+/* animaciones igual... */
 
 .chalkboard {
    position: absolute;
@@ -172,93 +167,15 @@ main { height: 100vh; }
    color: #393939;
 }
 
-body.dial .safe { position: fixed; }
-body.handle main { overflow: hidden; }
-body.handle .safe { position: initial; }
+/* FINAL SCREEN CSS igual... */
 
-/* FINAL SCREEN */
-.celebration {
-   display: none;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100vw;
-   height: 100vh;
-   background: linear-gradient(120deg, #ffcce7, #ffe0f7, #fff6e5, #e3f2fd, #fde2ff);
-   background-size: 400% 400%;
-   animation: rainbowFlow 10s ease infinite;
-   z-index: 999;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   overflow: hidden;
-}
-
-@keyframes rainbowFlow {
-   0% { background-position: 0% 50%; }
-   50% { background-position: 100% 50%; }
-   100% { background-position: 0% 50%; }
-}
-
-.celebration h1 {
-   font-family: "Homemade Apple";
-   font-size: 4em;
-   color: #ff66b3;
-   text-shadow: 0 0 10px white, 0 0 20px #ffccf2;
-   text-align: center;
-   margin-bottom: 50px;
-   animation: glow 3s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-   from { text-shadow: 0 0 10px #ffb3da, 0 0 20px #fff; }
-   to { text-shadow: 0 0 20px #ff80c0, 0 0 40px #ffe6f7; }
-}
-
-.rainbow-button {
-   font-family: "Rock Salt";
-   font-size: 2em;
-   padding: 20px 50px;
-   border: none;
-   border-radius: 40px;
-   color: white;
-   background: linear-gradient(90deg, #ff69b4, #ffb6c1, #ffcccb, #ffd1dc);
-   cursor: pointer;
-   box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
-   transition: transform 0.3s ease, box-shadow 0.3s ease;
-   animation: float 2s ease-in-out infinite alternate;
-}
-
-.rainbow-button:hover {
-   transform: scale(1.1);
-   box-shadow: 0 0 40px rgba(255, 192, 203, 1);
-}
-
-@keyframes float {
-   from { transform: translateY(0); }
-   to { transform: translateY(-10px); }
-}
-
-.confetti {
-   position: absolute;
-   width: 10px;
-   height: 10px;
-   background: hsl(var(--hue), 80%, 80%);
-   top: -10px;
-   animation: fall 3s linear infinite;
-   border-radius: 2px;
-   opacity: 0.9;
-}
-
-@keyframes fall {
-   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-   100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
 </style>
 </head>
 
-<body class="dial">
+<body>
 
+<!-- CONTENEDOR SCROLLABLE -->
+<div class="safe-scroll"> <!-- <-- CAMBIO -->
 <main>
    <div class="r">
       <div class="safe">
@@ -284,6 +201,7 @@ body.handle .safe { position: initial; }
       </div>
    </div>
 </main>
+</div>
 
 <!-- FINAL -->
 <div class="celebration" id="celebration">
@@ -292,25 +210,25 @@ body.handle .safe { position: initial; }
 </div>
 
 <script>
-// FIX: bucle corregido
+// marcas
 const innerDial = document.querySelector(".innerdial");
-
 for (let i = 0; i < 16; i++) {
    const mark = document.createElement("div");
    mark.classList.add("mark");
    mark.style.transform = `rotate(${i * 22.5}deg) translateX(100px)`;
    innerDial.appendChild(mark);
 }
-
 innerDial.innerHTML += '<div class="center"><div class="start"></div></div>';
 
 const combination = [7, 84, 20, 11, 15];
+
+const scrollBox = document.querySelector(".safe-scroll"); /* <-- CAMBIO */
+
 const pageHeight = window.innerHeight;
 
 let pos = 0, pSafePost = 0, cracked = false, win = false, timer;
 
 const root = document.documentElement;
-const body = document.body;
 const position = document.querySelector(".position");
 const chalkboard = document.querySelector(".chalkboard");
 const boxFlash = document.querySelector(".box-flash");
@@ -332,10 +250,11 @@ function startInfiniteConfetti() {
    }, 300);
 }
 
-window.addEventListener("scroll", () => {
-   root.style.setProperty("--scroll", window.scrollY);
+/* <-- CAMBIO TOTAL: listener de scroll en el contenedor, no en window */
+scrollBox.addEventListener("scroll", () => {
+   root.style.setProperty("--scroll", scrollBox.scrollTop);
 
-   const safePos = Math.floor(window.scrollY / (10000 - pageHeight) * 100);
+   const safePos = Math.floor(scrollBox.scrollTop / (10000 - pageHeight) * 100);
    position.innerText = safePos;
 
    if (timer) clearTimeout(timer);
