@@ -4,12 +4,14 @@
    --scroll: 0;
 }
 
+/* General */
 body {
    margin: 0;
    display: flex;
    flex-direction: column;
    overflow-x: hidden;
    background-color: #444;
+   zoom: 2;
 }
 
 main {
@@ -78,6 +80,7 @@ main {
    background-color: grey;
    border: 1px solid black;
    transform-origin: 10px 3px;
+   color: chartreuse;
 }
 
 .center {
@@ -101,16 +104,27 @@ main {
    transform: rotate(-90deg) translateX(60px);
 }
 
+/* Input editable */
 .position {
    position: relative;
    margin-top: 5px;
    text-align: center;
-   padding: 3px;
-   min-width: 24px;
+   padding: 5px;
+   min-width: 50px;
    border: 1px solid black;
    background-color: #fff;
    font-family: monospace;
-   color: #888;
+   color: #444;
+   border-radius: 5px;
+   transition: 0.3s;
+   font-size: 16px !important;
+}
+
+.correct {
+   background-color: #c6ffbf;
+   color: #145214 !important;
+   border-color: #2b8a3e;
+   font-weight: bold;
 }
 
 .box-flash {
@@ -212,7 +226,7 @@ body.handle .safe {
    position: initial;
 }
 
-/* 🌈 Pantalla final */
+/* Celebración */
 .celebration {
    display: none;
    position: fixed;

@@ -12,8 +12,7 @@ const pageHeight = window.innerHeight;
 let pos = 0, pSafePost = 0, cracked = false, win = false, timer;
 
 const root = document.documentElement;
-const body = document.body;
-const position = document.querySelector(".position");
+const posInput = document.getElementById("posInput");
 const chalkboard = document.querySelector(".chalkboard");
 const boxFlash = document.querySelector(".box-flash");
 const celebration = document.getElementById("celebration");
@@ -34,36 +33,50 @@ function startInfiniteConfetti() {
    }, 300);
 }
 
-window.addEventListener("scroll", () => {
-   root.style.setProperty("--scroll", window.scrollY);
-   const safePos = Math.floor(window.scrollY / (10000 - pageHeight) * 100);
-   position.innerText = safePos;
-
+function handleValue(safePos) {
    if (timer) clearTimeout(timer);
 
    timer = setTimeout(() => {
-      if (safePos === pSafePost) return;
       boxFlash.classList.remove("click", "near", "off");
+      posInput.classList.remove("correct");
+
       if (safePos && combination[pos] === safePos) {
          void boxFlash.offsetWidth;
          boxFlash.classList.add("click");
-         chalkboard.innerText = chalkboard.innerText + safePos + "\n";
+         posInput.classList.add("correct");
+         chalkboard.innerText += safePos + "\n";
          if (++pos === combination.length) cracked = true;
+
       } else if (safePos && Math.abs(combination[pos] - safePos) < 3) {
          void boxFlash.offsetWidth;
          boxFlash.classList.add("near");
+
       } else {
          void boxFlash.offsetWidth;
          boxFlash.classList.add("off");
       }
+
       pSafePost = safePos;
    }, 100);
 
    if (cracked && !win) {
       win = true;
       setTimeout(() => {
+         document.body.style.zoom = "1";
          celebration.style.display = "flex";
          startInfiniteConfetti();
-      }, 800);
+      }, 300);
    }
+}
+
+window.addEventListener("scroll", () => {
+   root.style.setProperty("--scroll", window.scrollY);
+   const safePos = Math.floor(window.scrollY / (10000 - pageHeight) * 100);
+   posInput.value = safePos;
+   handleValue(safePos);
+});
+
+posInput.addEventListener("input", () => {
+   const safePos = parseInt(posInput.value);
+   if (!isNaN(safePos)) handleValue(safePos);
 });
