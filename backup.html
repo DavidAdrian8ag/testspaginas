@@ -19,7 +19,7 @@
          flex-direction: column;
          overflow-x: hidden;
          background-color: #444;
-         zoom: 2;
+         zoom: 2; /* ZOOM SOLO AL INICIO */
       }
 
       main {
@@ -88,6 +88,7 @@
          background-color: grey;
          border: 1px solid black;
          transform-origin: 10px 3px;
+         color: chartreuse;
       }
 
       .center {
@@ -122,8 +123,18 @@
          background-color: #fff;
          font-family: monospace;
          color: #444;
-         font-size: 1em;
          border-radius: 5px;
+         transition: 0.3s;
+         font-size: 16px !important;
+
+      }
+
+      /* ✔ VERDE CUANDO ES CORRECTO */
+      .correct {
+         background-color: #c6ffbf;
+         color: #145214 !important;
+         border-color: #2b8a3e;
+         font-weight: bold;
       }
 
       .box-flash {
@@ -342,7 +353,6 @@
                <div class="box-flash"></div>
             </div>
 
-            <!-- 📱 campo editable -->
             <input class="position" id="posInput" type="number" value="0">
 
             <p>Gira para encontrar la combinación. Detente en el número correcto.</p>
@@ -359,9 +369,8 @@
       </div>
    </main>
 
-   <!-- 🌈 Pantalla final -->
    <div class="celebration" id="celebration">
-      <h1>🌈 ¡Has llegado al final del arcoíris! <br> y a darle color a mi vida 🌈</h1>
+      <h1>🦄 ¡Lo lograste! <br> Continua en <br> tu travesia 🌈</h1>
       <button class="rainbow-button" onclick="window.location.href='papeles.html'">¡Sigamos!</button>
    </div>
 
@@ -408,10 +417,12 @@
 
       timer = setTimeout(() => {
          boxFlash.classList.remove("click", "near", "off");
+         posInput.classList.remove("correct");
 
          if (safePos && combination[pos] === safePos) {
             void boxFlash.offsetWidth;
             boxFlash.classList.add("click");
+            posInput.classList.add("correct"); // 💚 SE PONE VERDE
             chalkboard.innerText += safePos + "\n";
             if (++pos === combination.length) cracked = true;
 
@@ -430,13 +441,16 @@
       if (cracked && !win) {
          win = true;
          setTimeout(() => {
+
+            /* ❗ QUITAR EL ZOOM AL MOSTRAR LA CELEBRACIÓN */
+            document.body.style.zoom = "1";
+
             celebration.style.display = "flex";
             startInfiniteConfetti();
-         }, 800);
+         }, 300);
       }
    }
 
-   /* 🎡 scroll sigue funcionando */
    window.addEventListener("scroll", () => {
       root.style.setProperty("--scroll", window.scrollY);
       const safePos = Math.floor(window.scrollY / (10000 - pageHeight) * 100);
@@ -444,7 +458,6 @@
       handleValue(safePos);
    });
 
-   /* 📱 input manual también funciona */
    posInput.addEventListener("input", () => {
       const safePos = parseInt(posInput.value);
       if (!isNaN(safePos)) handleValue(safePos);
