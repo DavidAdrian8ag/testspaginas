@@ -152,7 +152,6 @@ main {
       transform: scale(1);
       opacity: 1;
    }
-
    100% {
       background-color: pink;
       transform: scale(1.5);
@@ -166,7 +165,6 @@ main {
       transform: scale(1);
       opacity: 0.6;
    }
-
    100% {
       background-color: lightcoral;
       transform: scale(1.3);
@@ -178,7 +176,6 @@ main {
    0% {
       opacity: 0.3;
    }
-
    100% {
       opacity: 0;
    }
@@ -209,19 +206,7 @@ main {
    color: #393939;
 }
 
-body.dial .safe {
-   position: fixed;
-}
-
-body.handle main {
-   overflow: hidden;
-}
-
-body.handle .safe {
-   position: initial;
-}
-
-/* 🌈 Pantalla final */
+/* Pantalla final */
 .celebration {
    display: none;
    position: fixed;
@@ -240,17 +225,9 @@ body.handle .safe {
 }
 
 @keyframes rainbowFlow {
-   0% {
-      background-position: 0% 50%;
-   }
-
-   50% {
-      background-position: 100% 50%;
-   }
-
-   100% {
-      background-position: 0% 50%;
-   }
+   0% { background-position: 0% 50%; }
+   50% { background-position: 100% 50%; }
+   100% { background-position: 0% 50%; }
 }
 
 .celebration h1 {
@@ -260,17 +237,6 @@ body.handle .safe {
    text-shadow: 0 0 10px white, 0 0 20px #ffccf2;
    text-align: center;
    margin-bottom: 50px;
-   animation: glow 3s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-   from {
-      text-shadow: 0 0 10px #ffb3da, 0 0 20px #fff;
-   }
-
-   to {
-      text-shadow: 0 0 20px #ff80c0, 0 0 40px #ffe6f7;
-   }
 }
 
 .rainbow-button {
@@ -283,46 +249,6 @@ body.handle .safe {
    background: linear-gradient(90deg, #ff69b4, #ffb6c1, #ffcccb, #ffd1dc);
    cursor: pointer;
    box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
-   transition: transform 0.3s ease, box-shadow 0.3s ease;
-   animation: float 2s ease-in-out infinite alternate;
-}
-
-.rainbow-button:hover {
-   transform: scale(1.1);
-   box-shadow: 0 0 40px rgba(255, 192, 203, 1);
-}
-
-@keyframes float {
-   from {
-      transform: translateY(0);
-   }
-
-   to {
-      transform: translateY(-10px);
-   }
-}
-
-.confetti {
-   position: absolute;
-   width: 10px;
-   height: 10px;
-   background: hsl(var(--hue), 80%, 80%);
-   top: -10px;
-   animation: fall 3s linear infinite;
-   border-radius: 2px;
-   opacity: 0.9;
-}
-
-@keyframes fall {
-   0% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-   }
-
-   100% {
-      transform: translateY(100vh) rotate(720deg);
-      opacity: 0;
-   }
 }
    </style>
 </head>
@@ -345,22 +271,22 @@ body.handle .safe {
             <p>Modelo de mi iphone</p>
             <p>Año que viajó marty al futuro</p>
             <div class="chalkboard"></div>
-            <div class="hint">
-            </div>
+            <div class="hint"></div>
          </div>
       </div>
    </main>
 
-   <!-- 🌈 Pantalla final -->
+   <!-- Pantalla final -->
    <div class="celebration" id="celebration">
       <h1>🌈 ¡Has llegado al final del arcoíris! <br> y a darle color a mi vida 🌈</h1>
       <button class="rainbow-button" onclick="window.location.href='papeles.html'">¡Sigamos!</button>
    </div>
 
 </body>
-<!-- partial -->
+
 <script>
- const innerDial = document.querySelector(".innerdial");
+// Crear marcas del dial
+const innerDial = document.querySelector(".innerdial");
 for (let i = 0; i < 16; i++) {
    const mark = document.createElement("div");
    mark.classList.add("mark");
@@ -374,12 +300,12 @@ const pageHeight = window.innerHeight;
 let pos = 0, pSafePost = 0, cracked = false, win = false, timer;
 
 const root = document.documentElement;
-const body = document.body;
 const position = document.querySelector(".position");
 const chalkboard = document.querySelector(".chalkboard");
 const boxFlash = document.querySelector(".box-flash");
 const celebration = document.getElementById("celebration");
 
+// Confetti
 function createConfetti() {
    const confetti = document.createElement("div");
    confetti.classList.add("confetti");
@@ -389,15 +315,18 @@ function createConfetti() {
    celebration.appendChild(confetti);
    setTimeout(() => confetti.remove(), 5000);
 }
-
 function startInfiniteConfetti() {
    setInterval(() => {
       for (let i = 0; i < 8; i++) createConfetti();
    }, 300);
 }
 
+// ------------------------------
+// Evento original de scroll
+// ------------------------------
 window.addEventListener("scroll", () => {
    root.style.setProperty("--scroll", window.scrollY);
+
    const safePos = Math.floor(window.scrollY / (10000 - pageHeight) * 100);
    position.innerText = safePos;
 
@@ -406,14 +335,17 @@ window.addEventListener("scroll", () => {
    timer = setTimeout(() => {
       if (safePos === pSafePost) return;
       boxFlash.classList.remove("click", "near", "off");
+
       if (safePos && combination[pos] === safePos) {
          void boxFlash.offsetWidth;
          boxFlash.classList.add("click");
-         chalkboard.innerText = chalkboard.innerText + safePos + "\n";
+         chalkboard.innerText += safePos + "\n";
          if (++pos === combination.length) cracked = true;
+
       } else if (safePos && Math.abs(combination[pos] - safePos) < 3) {
          void boxFlash.offsetWidth;
          boxFlash.classList.add("near");
+
       } else {
          void boxFlash.offsetWidth;
          boxFlash.classList.add("off");
@@ -429,8 +361,39 @@ window.addEventListener("scroll", () => {
       }, 800);
    }
 });
-</script>
 
-</body>
+// ------------------------------
+// SOPORTE TÁCTIL PARA CELULAR
+// Sensibilidad ajustada a 5
+// ------------------------------
+
+let touchStartY = 0;
+let virtualScroll = 0;
+const maxScroll = 10000 - pageHeight;
+const sensitivity = 5;  // ← AQUÍ CONTROLAS LA SENSIBILIDAD
+
+function triggerScrollEvent() {
+   window.dispatchEvent(new Event("scroll"));
+}
+
+window.addEventListener("touchstart", (e) => {
+   touchStartY = e.touches[0].clientY;
+});
+
+window.addEventListener("touchmove", (e) => {
+   const currentY = e.touches[0].clientY;
+   const delta = touchStartY - currentY;
+
+   virtualScroll += delta * sensitivity;
+   if (virtualScroll < 0) virtualScroll = 0;
+   if (virtualScroll > maxScroll) virtualScroll = maxScroll;
+
+   window.scrollTo(0, virtualScroll);
+
+   touchStartY = currentY;
+   triggerScrollEvent();
+}, { passive: false });
+
+</script>
 
 </html>
