@@ -323,13 +323,14 @@
             opacity: 0;
          }
       }
-   @media (max-width: 600px) {
-  body {
-    transform: scale(1.5);
-    transform-origin: top left;
-  }
-}
-</style>
+
+      @media (max-width: 1080px) {
+         body {
+            transform: scale(1.3);
+            transform-origin: top left;
+         }
+      }
+   </style>
 </head>
 
 <body class="dial">
@@ -413,7 +414,7 @@
                void boxFlash.offsetWidth;
                boxFlash.classList.add("click");
                chalkboard.innerText = chalkboard.innerText + safePos + "
-";
+               ";
                if (++pos === combination.length) cracked = true;
             } else if (safePos && Math.abs(combination[pos] - safePos) < 3) {
                void boxFlash.offsetWidth;
