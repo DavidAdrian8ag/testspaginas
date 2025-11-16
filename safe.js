@@ -80,3 +80,9 @@ posInput.addEventListener("input", () => {
    const safePos = parseInt(posInput.value);
    if (!isNaN(safePos)) handleValue(safePos);
 });
+
+const continueBtn = document.getElementById("continueBtn");
+continueBtn.addEventListener("click", () => {
+    window.location.href = "https://www.google.com";
+});
+
