@@ -89,10 +89,11 @@ p {
    opacity: 1;
    padding-top: 12rem;
    text-align: center;
+   font-weight: bolder;
 }
 
 .inicio p {
-   font-size: 40px;
+   font-size: 70px;
    width: 350px;
    height: 450px;
    display: flex;
@@ -102,6 +103,7 @@ p {
    /* Centra horizontalmente */
    text-align: center;
    margin: 0;
+   font-weight: bolder;
    /* Evita márgenes por defecto */
 }
 
@@ -114,5 +116,6 @@ p {
    /* Centra horizontalmente */
    text-align: center;
    margin: 0;
+   font-weight: bolder;
    /* Evita márgenes por defecto */
 }
