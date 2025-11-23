@@ -202,7 +202,7 @@ div#sea {
 
 .icons {
    position: absolute;
-   left: 70px;
+   left: 700px;
    height: auto;
    transform: translateY(10px) rotate(-20deg);
 }
