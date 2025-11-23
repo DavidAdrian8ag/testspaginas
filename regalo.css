@@ -22,9 +22,12 @@ canvas#canvas {
    left: 0;
    width: 100%;
    height: 100%;
-   pointer-events: none;
 }
 
+/* 🚀 Corrección clave: permitir clic en el botón */
+canvas#canvas {
+   pointer-events: none;
+}
 
 div#beach {
    background-image: url(https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png);
@@ -33,7 +36,7 @@ div#beach {
    background-repeat: no-repeat;
 }
 
-/* 🚀 MODIFICACIÓN CLAVE EN CSS: Ocultar al inicio */
+/* 🚀 Ocultar al inicio */
 #billboard {
    position: absolute;
    right: 243px;
@@ -46,7 +49,6 @@ div#beach {
    display: flex;
    justify-content: center;
    align-items: center;
-   /* Ocultar inicialmente y añadir transición para un efecto suave */
    opacity: 0;
    transition: opacity 1s ease-in-out;
 }
@@ -59,9 +61,6 @@ div#video {
    justify-content: center;
    align-items: center;
 }
-
-/* -------------------------------------------------------------------------- */
-
 
 #people {
    position: absolute;
@@ -294,7 +293,7 @@ div#sea {
    opacity: 0;
 }
 
-.step-1 .icons .row span:first-child {
+.step-1 .icons .row span:nth-child(1) {
    transform: translateY(700%) translateX(600%);
 }
 
@@ -347,62 +346,50 @@ div#sea {
 }
 
 .step-2 .icons .row span:nth-child(2) {
-   -webkit-transition-delay: 0.1s;
    transition-delay: 0.1s;
 }
 
 .step-2 .icons .row span:nth-child(3) {
-   -webkit-transition-delay: 0.15s;
    transition-delay: 0.15s;
 }
 
 .step-2 .icons .row span:nth-child(4) {
-   -webkit-transition-delay: 0.2s;
    transition-delay: 0.2s;
 }
 
 .step-2 .icons .row span:nth-child(5) {
-   -webkit-transition-delay: 0.25s;
    transition-delay: 0.25s;
 }
 
 .step-2 .icons .row span:nth-child(6) {
-   -webkit-transition-delay: 0.3s;
    transition-delay: 0.3s;
 }
 
 .step-2 .icons .row span:nth-child(7) {
-   -webkit-transition-delay: 0.35s;
    transition-delay: 0.35s;
 }
 
 .step-2 .icons .row span:nth-child(8) {
-   -webkit-transition-delay: 0.4s;
    transition-delay: 0.4s;
 }
 
 .step-2 .icons .row span:nth-child(9) {
-   -webkit-transition-delay: 0.45s;
    transition-delay: 0.45s;
 }
 
 .step-2 .icons .row span:nth-child(10) {
-   -webkit-transition-delay: 0.5s;
    transition-delay: 0.5s;
 }
 
 .step-2 .icons .row span:nth-child(11) {
-   -webkit-transition-delay: 0.55s;
    transition-delay: 0.55s;
 }
 
 .step-2 .icons .row span:nth-child(12) {
-   -webkit-transition-delay: 0.6s;
    transition-delay: 0.6s;
 }
 
 .step-2 .icons .row span:nth-child(13) {
-   -webkit-transition-delay: 0.65s;
    transition-delay: 0.65s;
 }
 
@@ -473,7 +460,7 @@ div#sea {
    right: 25px;
 }
 
-/* Estilos para el botón de Continuar */
+/* Botón */
 #continueButton {
    background-color: #e74c3c;
    color: white;
