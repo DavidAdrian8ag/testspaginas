@@ -216,7 +216,7 @@ function reveal() {
 
    var btn = document.createElement("button");
    btn.setAttribute("id", "continueButton");
-   btn.innerHTML = "¿Quieres ver más? ❤️";
+   btn.innerHTML = "¿Quieres ver más?";
    btn.onclick = function () {
       window.location.href = "corazon.html";
    };
