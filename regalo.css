@@ -103,8 +103,8 @@ div#sea {
    margin-left: -150px;
    bottom: 40px;
    z-index: 10;
-   transform: scale(2);
-   transform-origin: center bottom;
+   /* transform: scale(2);
+   transform-origin: center bottom; */
 }
 
 .giftbox>div {
