@@ -87,7 +87,7 @@ p {
    font-size: 80px;
    color: rgb(255, 55, 6);
    opacity: 1;
-   padding-top: 8rem;
+   padding-top: 16rem;
    text-align: center;
 }
 
@@ -95,6 +95,18 @@ p {
    font-size: 40px;
    width: 350px;
    height: 450px;
+   display: flex;
+   align-items: center;
+   /* Centra verticalmente */
+   justify-content: center;
+   /* Centra horizontalmente */
+   text-align: center;
+   margin: 0;
+   /* Evita márgenes por defecto */
+}
+
+.fotos p {
+   font-size: 40px;
    display: flex;
    align-items: center;
    /* Centra verticalmente */
