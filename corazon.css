@@ -103,6 +103,8 @@ label:hover {
    background-color: white;
 }
 
+
+
 #ck3:checked+label {
    width: 49.5vmin;
    height: 49.5vmin;
