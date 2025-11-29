@@ -64,23 +64,36 @@
          left: 50%;
          width: 255px;
          height: 155px;
-         background-color: white;
-         border: 2px solid black;
-         box-sizing: border-box;
+         background-color: transparent;
+         /* Blanco pasa a transparente */
          display: flex;
          justify-content: center;
          align-items: center;
          opacity: 0;
          transition: opacity 1s ease-in-out;
-         transform: translate(-65%, 60%);
-         /* 📌 Centrado real */
+         transform: translate(-60%, 60%);
+         border-radius: 20px;
+         /* Bordes redondeados para el contorno */
       }
 
 
+/* 
       div#video {
          position: relative;
          width: 100%;
          height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      } */
+
+      #video {
+         width: 100%;
+         height: 100%;
+         background-color: red;
+         /* Cubre todo el cuadro */
+         border-radius: 20px;
+         /* Bordes redondeados iguales */
          display: flex;
          justify-content: center;
          align-items: center;
