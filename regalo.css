@@ -79,7 +79,7 @@ div#sea {
    background-color: blue;
    height: 85px;
    position: absolute;
-   bottom: 0;
+   b ottom: 0;
    left: 0;
    width: 100%;
    background-image: radial-gradient(circle at center top, #23485a, #0d0246);
@@ -91,9 +91,8 @@ div#sea {
    left: 0px;
    bottom: 0px;
    top: 0px;
-   /* background-color: rgb(68, 221, 213); */
+   background-color: rgb(68, 221, 213);
    transition: background-color 0.5s ease;
-   background-image: url(fondo.png);
 }
 
 .giftbox {
