@@ -521,11 +521,13 @@ div#sea {
 
 #continueButton:hover {
    background-color: #11a8ff;
+   color: #ffffff;
 }
 
 #continueButton:active {
    box-shadow: 0 2px 0 #11a8ff;
    transform: translateY(3px);
+   color: #ffffff;
 }
 
 @media (min-width: 1000px) {
