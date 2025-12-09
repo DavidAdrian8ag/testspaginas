@@ -520,11 +520,11 @@ div#sea {
 }
 
 #continueButton:hover {
-   background-color: #c0392b;
+   background-color: #11a8ff;
 }
 
 #continueButton:active {
-   box-shadow: 0 2px 0 #922b21;
+   box-shadow: 0 2px 0 #11a8ff;
    transform: translateY(3px);
 }
 
