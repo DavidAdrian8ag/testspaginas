@@ -1,292 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
    <meta charset="UTF-8">
-   <title>¿Sabes de mi?</title>
-   <script src="https://public.codepenassets.com/js/prefixfree-1.0.7.min.js"></script>
-   <link rel="icon" href="safe.ico" type="image/x-icon">
+   <title>Candado Interactivo</title>
 
    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
-
-      :root {
-         --scroll: 0;
-      }
-
       body {
-         margin: 0;
-         display: flex;
-         flex-direction: column;
-         overflow-x: hidden;
-         background-color: #444;
-         zoom: 2;
-      }
-
-      main {
-         height: 100vh;
-      }
-
-      .r {
-         min-height: 10000px;
-      }
-
-      .safe {
-         top: 0;
-         bottom: 0;
-         width: 100vw;
-         height: 100vh;
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-         justify-content: center;
-         background-color: #444;
-         z-index: 2;
-      }
-
-      .safe h1 {
-         font-family: "Rajdhani", sans-serif;
-         color: white;
-      }
-
-      .safe p {
-         font-size: 0.9em;
-         line-height: 1.5em;
-         font-family: "Rajdhani", sans-serif;
-         max-width: 250px;
-         text-align: justify;
-         color: white;
-      }
-
-      .box {
-         width: 250px;
-         height: 250px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         transform: rotate(calc(var(--scroll) * 0.08deg));
-         transform-origin: center;
-      }
-
-      .innerdial {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 250px;
-         height: 250px;
-         z-index: 2;
-         background-color: silver;
-         border: 1px solid black;
-         border-radius: 50%;
-      }
-
-      .mark {
-         position: absolute;
-         top: 122px;
-         left: 115px;
-         width: 20px;
-         height: 6px;
-         background-color: grey;
-         border: 1px solid black;
-         transform-origin: 10px 3px;
-         color: chartreuse;
-      }
-
-      .center {
-         position: absolute;
-         top: 50px;
-         left: 50px;
-         width: 150px;
-         height: 150px;
-         border-radius: 50%;
-         background-color: grey;
-         border: 1px solid black;
-      }
-
-      .start {
-         position: absolute;
-         top: 70px;
-         left: 65px;
-         width: 20px;
-         height: 10px;
-         background-color: white;
-         transform: rotate(-90deg) translateX(60px);
-      }
-
-      .position {
-         position: relative;
-         margin-top: 5px;
+         font-family: 'Cinzel', serif;
+         background: #111;
+         color: #eee;
          text-align: center;
-         padding: 5px;
-         min-width: 50px;
-         border: 1px solid black;
-         background-color: #fff;
-         font-family: "Rajdhani", sans-serif;
-         color: #444;
-         border-radius: 5px;
-         transition: 0.3s;
-         font-size: 16px !important;
+         margin: 0;
+         padding: 0;
       }
 
-      .correct {
-         background-color: #c6ffbf;
-         color: #145214 !important;
-         border-color: #2b8a3e;
-         font-weight: bold;
+      /* Pantalla inicial */
+      #lock-screen {
+         padding-top: 60px;
       }
 
-      .box-flash {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 250px;
-         height: 250px;
-         background-color: silver;
-         border-radius: 50%;
-         opacity: 0.9;
-         z-index: -1;
+      .wheel {
+         display: inline-block;
+         margin: 25px;
       }
 
-      .click {
-         animation: click 0.2s 1;
-      }
-
-      .near {
-         animation: near 0.2s 1;
-      }
-
-      .off {
-         animation: off 0.2s 1;
-      }
-
-      @keyframes click {
-         0% {
-            background-color: pink;
-            transform: scale(1);
-            opacity: 1;
-         }
-
-         100% {
-            background-color: pink;
-            transform: scale(1.5);
-            opacity: 0;
-         }
-      }
-
-      @keyframes near {
-         0% {
-            background-color: lightcoral;
-            transform: scale(1);
-            opacity: 0.6;
-         }
-
-         100% {
-            background-color: lightcoral;
-            transform: scale(1.3);
-            opacity: 0;
-         }
-      }
-
-      @keyframes off {
-         0% {
-            opacity: 0.3;
-         }
-
-         100% {
-            opacity: 0;
-         }
-      }
-
-      .chalkboard {
-         position: absolute;
-         left: 15vw;
-         top: 50vh;
-         padding: 20px;
-         font-size: 4em;
-         font-family: "Rajdhani", sans-serif;
-         transform: rotate(15deg);
+      .wheel select {
+         font-size: 28px;
+         padding: 10px;
+         background: #222;
          color: #fff;
-         white-space: pre;
-         line-height: 1em;
+         border: 2px solid #555;
+         border-radius: 8px;
       }
 
-      .hint {
-         position: absolute;
-         right: 20px;
-         bottom: 20px;
-         padding: 20px;
-         font-family: "Rajdhani", sans-serif;
-         transform: rotate(-15deg);
-         white-space: pre;
-         line-height: 1em;
-         color: #393939;
+      #unlock-btn {
+         margin-top: 40px;
+         padding: 12px 28px;
+         font-size: 20px;
+         background: #444;
+         color: #fff;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
       }
 
-      body.dial .safe {
-         position: fixed;
+      #unlock-btn:hover {
+         background: #666;
       }
 
-      body.handle main {
-         overflow: hidden;
-      }
-
-      body.handle .safe {
-         position: initial;
-      }
-
-      /* ===========================
-         NUEVA PANTALLA FINAL MISTERIOSA
-         =========================== */
-
-      .celebration {
+      /* Pantalla misteriosa final */
+      #vault-screen {
          display: none;
-         position: fixed;
-         top: 0;
-         left: 0;
-         width: 100vw;
+         padding-top: 60px;
+         background: radial-gradient(circle at center, #222 0%, #000 70%);
          height: 100vh;
-         background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
-         overflow: hidden;
-         justify-content: center;
-         align-items: center;
-         flex-direction: column;
-         z-index: 999;
+         color: #d7d0be;
       }
 
-      .celebration::before {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background: url("https://i.imgur.com/6g7S7uS.png");
-         opacity: 0.15;
-         mix-blend-mode: screen;
-         animation: fogMove 12s ease-in-out infinite alternate;
-      }
-
-      @keyframes fogMove {
-         from {
-            transform: translateX(-10%) translateY(-5%);
-         }
-
-         to {
-            transform: translateX(10%) translateY(5%);
-         }
-      }
-
-      .secret-circle {
-         position: absolute;
-         width: 400px;
-         height: 400px;
+      /* Imagen giratoria */
+      .vault-spinner {
+         width: 180px;
+         height: 180px;
+         margin: 30px auto;
+         background-image: url('nube.png');
+         /* Reemplaza con la ruta de tu imagen */
+         background-size: cover;
+         background-position: center;
          border-radius: 50%;
-         background: url("https://i.imgur.com/GXHk9TI.png") center/contain no-repeat;
-         opacity: 0.3;
-         animation: rotateCircle 20s linear infinite;
+         animation: spin 5s linear infinite;
+         /* velocidad inicial */
       }
 
-      @keyframes rotateCircle {
+      @keyframes spin {
          from {
             transform: rotate(0deg);
          }
@@ -296,186 +82,129 @@
          }
       }
 
-      .celebration h1 {
-         font-family: "Rajdhani", sans-serif;
-         font-size: 3.5em;
-         text-align: center;
-         color: #c8ffd4;
-         text-shadow: 0 0 15px #0aff9d, 0 0 25px #00d17a;
-         animation: glowMystery 3s ease-in-out infinite alternate;
+      /* Texto en la pantalla secreta */
+      .vault-title {
+         font-size: 40px;
+         letter-spacing: 2px;
+         margin-bottom: 20px;
       }
 
-      @keyframes glowMystery {
-         from {
-            opacity: 0.7;
-            text-shadow: 0 0 10px #00d17a;
-         }
-
-         to {
-            opacity: 1;
-            text-shadow: 0 0 25px #0aff9d;
-         }
+      /* Controles de velocidad */
+      #speed-controls {
+         margin-top: 20px;
       }
 
-      .rune {
-         position: absolute;
-         font-family: "Rajdhani", sans-serif;
-         font-size: 3em;
-         color: #00ffbb;
-         opacity: 0.07;
-         animation: floatRune 6s ease-in-out infinite;
-      }
-
-      @keyframes floatRune {
-         0% {
-            transform: translateY(0) scale(1);
-            opacity: .05;
-         }
-
-         50% {
-            transform: translateY(-20px) scale(1.1);
-            opacity: .12;
-         }
-
-         100% {
-            transform: translateY(0) scale(1);
-            opacity: .05;
-         }
-      }
-
-      .rainbow-button {
-         font-family: "Rajdhani", sans-serif;
-         font-size: 1.6em;
-         padding: 15px 40px;
-         border: 1px solid #00ffbb;
-         border-radius: 8px;
-         background: rgba(0, 0, 0, 0.6);
-         color: #00ffbb;
+      .speed-btn {
+         padding: 10px 20px;
+         background: #333;
+         border: 1px solid #777;
+         color: #ddd;
+         border-radius: 6px;
          cursor: pointer;
-         margin-top: 40px;
-         transition: 0.3s ease;
-         backdrop-filter: blur(3px);
+         margin: 5px;
+         font-size: 16px;
       }
 
-      .rainbow-button:hover {
-         transform: scale(1.1);
-         box-shadow: 0 0 20px #00ffbb;
+      .speed-btn:hover {
+         background: #555;
       }
    </style>
 </head>
 
-<body class="dial">
-   <main>
-      <div class="r">
-         <div class="safe">
-            <h1>Resuelve el código</h1>
+<body>
 
-            <div class="box">
-               <div class="innerdial"></div>
-               <div class="box-flash"></div>
-            </div>
+   <!-- PANTALLA DEL CANDADO -->
+   <div id="lock-screen">
+      <h1>Ingresa la combinación secreta</h1>
 
-            <input class="position" id="posInput" type="number" value="0">
-
-            <p>Gira para encontrar la combinación. Usa el scroll lateral a la rueda (Hasta abajo de la pantalla).</p>
-            <p>¿Qué tanto sabes de mi?</p>
-            <p>Calzo del ...</p>
-            <p>Mi año nacimiento</p>
-            <p>Año que Bluchino fue adoptado</p>
-            <p>Modelo de mi Iphone</p>
-            <p>Año que viajó Marty al futuro</p>
-
-            <div class="chalkboard"></div>
-            <div class="hint"></div>
-         </div>
+      <div class="wheel">
+         <select id="d1">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+         </select>
       </div>
-   </main>
 
-   <!-- NUEVA PANTALLA FINAL -->
-   <div class="celebration" id="celebration">
-      <div class="secret-circle"></div>
+      <div class="wheel">
+         <select id="d2">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+         </select>
+      </div>
 
-      <span class="rune" style="top: 10%; left: 20%;">ᚠ</span>
-      <span class="rune" style="top: 70%; left: 75%;">ᚱ</span>
-      <span class="rune" style="top: 30%; left: 60%;">ᛟ</span>
-      <span class="rune" style="top: 55%; left: 30%;">ᛉ</span>
+      <div class="wheel">
+         <select id="d3">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+         </select>
+      </div>
 
-      <h1>Acceso concedido<br>La bóveda se abre...</h1>
+      <br>
 
-      <button class="rainbow-button" id="continueBtn">Entrar</button>
+      <button id="unlock-btn">Desbloquear</button>
+   </div>
+
+   <!-- PANTALLA DE LA BÓVEDA -->
+   <div id="vault-screen">
+      <div class="vault-title">La bóveda secreta se ha abierto</div>
+
+      <div class="vault-spinner" id="spinner"></div>
+
+      <div id="speed-controls">
+         <button class="speed-btn" onclick="setSpeed('slow')">Lento</button>
+         <button class="speed-btn" onclick="setSpeed('normal')">Normal</button>
+         <button class="speed-btn" onclick="setSpeed('fast')">Rápido</button>
+      </div>
    </div>
 
    <script>
-      const innerDial = document.querySelector(".innerdial");
-      for (let i = 0; i < 16; i++) {
-         const mark = document.createElement("div");
-         mark.classList.add("mark");
-         mark.style.transform = `rotate(${i * 22.5}deg) translateX(100px)`;
-         innerDial.appendChild(mark);
-      }
-      innerDial.innerHTML += '<div class="center"><div class="start"></div></div>';
+      const correctCombination = "528";
 
-      const combination = [7, 84, 20, 11, 15];
-      const pageHeight = window.innerHeight;
-      let pos = 0, pSafePost = 0, cracked = false, win = false, timer;
+      document.getElementById("unlock-btn").onclick = function () {
+         let c =
+            document.getElementById("d1").value +
+            document.getElementById("d2").value +
+            document.getElementById("d3").value;
 
-      const root = document.documentElement;
-      const posInput = document.getElementById("posInput");
-      const chalkboard = document.querySelector(".chalkboard");
-      const boxFlash = document.querySelector(".box-flash");
-      const celebration = document.getElementById("celebration");
-
-      function handleValue(safePos) {
-         if (timer) clearTimeout(timer);
-
-         timer = setTimeout(() => {
-            boxFlash.classList.remove("click", "near", "off");
-            posInput.classList.remove("correct");
-
-            if (safePos && combination[pos] === safePos) {
-               void boxFlash.offsetWidth;
-               boxFlash.classList.add("click");
-               posInput.classList.add("correct");
-               chalkboard.innerText += safePos + "\n";
-               if (++pos === combination.length) cracked = true;
-
-            } else if (safePos && Math.abs(combination[pos] - safePos) < 3) {
-               void boxFlash.offsetWidth;
-               boxFlash.classList.add("near");
-
-            } else {
-               void boxFlash.offsetWidth;
-               boxFlash.classList.add("off");
-            }
-
-            pSafePost = safePos;
-         }, 100);
-
-         if (cracked && !win) {
-            win = true;
-            setTimeout(() => {
-               document.body.style.zoom = "1";
-               celebration.style.display = "flex";
-            }, 300);
+         if (c === correctCombination) {
+            document.getElementById("lock-screen").style.display = "none";
+            document.getElementById("vault-screen").style.display = "block";
+         } else {
+            alert("Combinación incorrecta.");
          }
+      };
+
+      // Control de velocidad de la imagen
+      function setSpeed(speed) {
+         const spinner = document.getElementById("spinner");
+
+         if (speed === "slow") spinner.style.animation = "spin 12s linear infinite";
+         if (speed === "normal") spinner.style.animation = "spin 5s linear infinite";
+         if (speed === "fast") spinner.style.animation = "spin 1.5s linear infinite";
       }
-
-      window.addEventListener("scroll", () => {
-         root.style.setProperty("--scroll", window.scrollY);
-         const safePos = Math.floor(window.scrollY / (10000 - pageHeight) * 100);
-         posInput.value = safePos;
-         handleValue(safePos);
-      });
-
-      posInput.addEventListener("input", () => {
-         const safePos = parseInt(posInput.value);
-         if (!isNaN(safePos)) handleValue(safePos);
-      });
-
-      const continueBtn = document.getElementById("continueBtn");
-      continueBtn.addEventListener("click", () => {
-         window.location.href = "papeles.html";
-      });
    </script>
 
 </body>
