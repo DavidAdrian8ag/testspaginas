@@ -5,8 +5,8 @@
    <meta charset="UTF-8">
    <title>¿Sabes de mi?</title>
    <script src="https://public.codepenassets.com/js/prefixfree-1.0.7.min.js"></script>
+   <!-- <link rel="stylesheet" href="safe.css"> -->
    <link rel="icon" href="safe.ico" type="image/x-icon">
-
    <style>
       @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
 
@@ -14,6 +14,7 @@
          --scroll: 0;
       }
 
+      /* General */
       body {
          margin: 0;
          display: flex;
@@ -113,6 +114,7 @@
          transform: rotate(-90deg) translateX(60px);
       }
 
+      /* Input editable */
       .position {
          position: relative;
          margin-top: 5px;
@@ -234,10 +236,7 @@
          position: initial;
       }
 
-      /* ===========================
-         NUEVA PANTALLA FINAL MISTERIOSA
-         =========================== */
-
+      /* Celebración */
       .celebration {
          display: none;
          position: fixed;
@@ -245,121 +244,100 @@
          left: 0;
          width: 100vw;
          height: 100vh;
-         background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
-         overflow: hidden;
+         background: linear-gradient(120deg, #ffcce7, #ffe0f7, #fff6e5, #e3f2fd, #fde2ff);
+         background-size: 400% 400%;
+         animation: rainbowFlow 10s ease infinite;
+         z-index: 999;
          justify-content: center;
          align-items: center;
          flex-direction: column;
-         z-index: 999;
+         overflow: hidden;
       }
 
-      .celebration::before {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background: url("https://i.imgur.com/6g7S7uS.png");
-         opacity: 0.15;
-         mix-blend-mode: screen;
-         animation: fogMove 12s ease-in-out infinite alternate;
-      }
-
-      @keyframes fogMove {
-         from {
-            transform: translateX(-10%) translateY(-5%);
+      @keyframes rainbowFlow {
+         0% {
+            background-position: 0% 50%;
          }
 
-         to {
-            transform: translateX(10%) translateY(5%);
-         }
-      }
-
-      .secret-circle {
-         position: absolute;
-         width: 400px;
-         height: 400px;
-         border-radius: 50%;
-         background: url("https://i.imgur.com/GXHk9TI.png") center/contain no-repeat;
-         opacity: 0.3;
-         animation: rotateCircle 20s linear infinite;
-      }
-
-      @keyframes rotateCircle {
-         from {
-            transform: rotate(0deg);
+         50% {
+            background-position: 100% 50%;
          }
 
-         to {
-            transform: rotate(360deg);
+         100% {
+            background-position: 0% 50%;
          }
       }
 
       .celebration h1 {
          font-family: "Rajdhani", sans-serif;
-         font-size: 3.5em;
+         font-size: 4em;
+         color: #ff66b3;
+         text-shadow: 0 0 10px white, 0 0 20px #ffccf2;
          text-align: center;
-         color: #c8ffd4;
-         text-shadow: 0 0 15px #0aff9d, 0 0 25px #00d17a;
-         animation: glowMystery 3s ease-in-out infinite alternate;
+         margin-bottom: 50px;
+         animation: glow 3s ease-in-out infinite alternate;
       }
 
-      @keyframes glowMystery {
+      @keyframes glow {
          from {
-            opacity: 0.7;
-            text-shadow: 0 0 10px #00d17a;
+            text-shadow: 0 0 10px #ffb3da, 0 0 20px #fff;
          }
 
          to {
-            opacity: 1;
-            text-shadow: 0 0 25px #0aff9d;
-         }
-      }
-
-      .rune {
-         position: absolute;
-         font-family: "Rajdhani", sans-serif;
-         font-size: 3em;
-         color: #00ffbb;
-         opacity: 0.07;
-         animation: floatRune 6s ease-in-out infinite;
-      }
-
-      @keyframes floatRune {
-         0% {
-            transform: translateY(0) scale(1);
-            opacity: .05;
-         }
-
-         50% {
-            transform: translateY(-20px) scale(1.1);
-            opacity: .12;
-         }
-
-         100% {
-            transform: translateY(0) scale(1);
-            opacity: .05;
+            text-shadow: 0 0 20px #ff80c0, 0 0 40px #ffe6f7;
          }
       }
 
       .rainbow-button {
          font-family: "Rajdhani", sans-serif;
-         font-size: 1.6em;
-         padding: 15px 40px;
-         border: 1px solid #00ffbb;
-         border-radius: 8px;
-         background: rgba(0, 0, 0, 0.6);
-         color: #00ffbb;
+         font-size: 2em;
+         padding: 20px 50px;
+         border: none;
+         border-radius: 40px;
+         color: white;
+         background: linear-gradient(90deg, #ff69b4, #ffb6c1, #ffcccb, #ffd1dc);
          cursor: pointer;
-         margin-top: 40px;
-         transition: 0.3s ease;
-         backdrop-filter: blur(3px);
+         box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
+         transition: transform 0.3s ease, box-shadow 0.3s ease;
+         animation: float 2s ease-in-out infinite alternate;
       }
 
       .rainbow-button:hover {
          transform: scale(1.1);
-         box-shadow: 0 0 20px #00ffbb;
+         box-shadow: 0 0 40px rgba(255, 192, 203, 1);
+      }
+
+      @keyframes float {
+         from {
+            transform: translateY(0);
+         }
+
+         to {
+            transform: translateY(-10px);
+         }
+      }
+
+      .confetti {
+         position: absolute;
+         width: 10px;
+         height: 10px;
+         background: hsl(var(--hue), 80%, 80%);
+         top: -10px;
+         animation: fall 3s linear infinite;
+         border-radius: 2px;
+         opacity: 0.9;
+      }
+
+      @keyframes fall {
+         0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+         }
+
+         100% {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+         }
       }
    </style>
 </head>
@@ -369,7 +347,6 @@
       <div class="r">
          <div class="safe">
             <h1>Resuelve el código</h1>
-
             <div class="box">
                <div class="innerdial"></div>
                <div class="box-flash"></div>
@@ -391,19 +368,12 @@
       </div>
    </main>
 
-   <!-- NUEVA PANTALLA FINAL -->
    <div class="celebration" id="celebration">
-      <div class="secret-circle"></div>
-
-      <span class="rune" style="top: 10%; left: 20%;">ᚠ</span>
-      <span class="rune" style="top: 70%; left: 75%;">ᚱ</span>
-      <span class="rune" style="top: 30%; left: 60%;">ᛟ</span>
-      <span class="rune" style="top: 55%; left: 30%;">ᛉ</span>
-
-      <h1>Acceso concedido<br>La bóveda se abre...</h1>
-
-      <button class="rainbow-button" id="continueBtn">Entrar</button>
+      <h1>🦄 ¡Lo lograste! <br> continua en <br> tu travesía 🌈</h1>
+      <button class="rainbow-button" id="continueBtn">¡Sigamos!</button>
    </div>
+
+   <!-- <script src="safe.js"></script> -->
 
    <script>
       const innerDial = document.querySelector(".innerdial");
@@ -424,6 +394,22 @@
       const chalkboard = document.querySelector(".chalkboard");
       const boxFlash = document.querySelector(".box-flash");
       const celebration = document.getElementById("celebration");
+
+      function createConfetti() {
+         const confetti = document.createElement("div");
+         confetti.classList.add("confetti");
+         confetti.style.left = Math.random() * 100 + "vw";
+         confetti.style.setProperty("--hue", Math.random() * 360);
+         confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+         celebration.appendChild(confetti);
+         setTimeout(() => confetti.remove(), 5000);
+      }
+
+      function startInfiniteConfetti() {
+         setInterval(() => {
+            for (let i = 0; i < 8; i++) createConfetti();
+         }, 300);
+      }
 
       function handleValue(safePos) {
          if (timer) clearTimeout(timer);
@@ -456,6 +442,7 @@
             setTimeout(() => {
                document.body.style.zoom = "1";
                celebration.style.display = "flex";
+               startInfiniteConfetti();
             }, 300);
          }
       }
@@ -476,6 +463,8 @@
       continueBtn.addEventListener("click", () => {
          window.location.href = "papeles.html";
       });
+
+
    </script>
 
 </body>
