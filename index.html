@@ -276,15 +276,49 @@
          }
       }
 
-      .secret-circle {
-         position: absolute;
-         width: 400px;
-         height: 400px;
-         border-radius: 50%;
-         background: url("/nube.png") center/contain no-repeat;
-         opacity: 0.3;
-         animation: rotateCircle 20s linear infinite;
-      }
+.secret-circle {
+   position: absolute;
+   width: 450px;
+   height: 450px;
+   border-radius: 50%;
+   background: radial-gradient(circle, rgba(0,255,200,0.05) 0%, rgba(0,0,0,0.2) 60%, transparent 90%);
+   box-shadow:
+      0 0 40px rgba(0,255,180,0.25),
+      0 0 80px rgba(0,255,180,0.15),
+      inset 0 0 60px rgba(0,255,180,0.08);
+   opacity: 0.7;
+   animation: pulseCircle 6s ease-in-out infinite;
+   backdrop-filter: blur(2px);
+}
+
+/* El círculo ya no gira — ahora "respira" como si algo poderoso estuviera dentro */
+@keyframes pulseCircle {
+   0% {
+      transform: scale(1);
+      box-shadow:
+         0 0 40px rgba(0,255,180,0.25),
+         0 0 80px rgba(0,255,180,0.15),
+         inset 0 0 60px rgba(0,255,180,0.08);
+      opacity: 0.65;
+   }
+   50% {
+      transform: scale(1.15);
+      box-shadow:
+         0 0 70px rgba(0,255,180,0.5),
+         0 0 120px rgba(0,255,180,0.22),
+         inset 0 0 80px rgba(0,255,180,0.15);
+      opacity: 0.9;
+   }
+   100% {
+      transform: scale(1);
+      box-shadow:
+         0 0 40px rgba(0,255,180,0.25),
+         0 0 80px rgba(0,255,180,0.15),
+         inset 0 0 60px rgba(0,255,180,0.08);
+      opacity: 0.65;
+   }
+}
+
 
       @keyframes rotateCircle {
          from {
@@ -402,7 +436,7 @@
 
       <h1>Acceso concedido<br>La bóveda se abre...</h1>
 
-      <button class="rainbow-button" id="continueBtn">Entrar</button>
+      <button class="rainbow-button" id="continueBtn">¿Te atreves?</button>
    </div>
 
    <script>
