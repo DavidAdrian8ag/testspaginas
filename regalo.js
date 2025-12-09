@@ -187,9 +187,16 @@ window.onload = function () {
       box.addEventListener("click", openBox, false);
    }
    function stepClass(step) {
-      merrywrap.className = 'merrywrap';
+      let wrap = document.querySelector('.merrywrap');
       merrywrap.className = 'merrywrap step-' + step;
+
+      // 🚀 Cuando inicia step-2, se quita el fondo
+      if (step === 2) {
+         wrap.style.backgroundImage = "none";
+         wrap.style.backgroundColor = "transparent";
+      }
    }
+
    function openBox() {
       if (step === 1) {
          box.removeEventListener("click", openBox, false);
@@ -208,7 +215,10 @@ window.onload = function () {
 };
 
 function reveal() {
-   document.querySelector('.merrywrap').style.backgroundColor = 'transparent';
+   let wrap = document.querySelector('.merrywrap');
+   wrap.style.backgroundImage = "none";
+   wrap.style.backgroundColor = "transparent";
+
    loop();
 
    // 🚀 MODIFICACIÓN CLAVE EN JS: Mostrar el cuadro blanco
