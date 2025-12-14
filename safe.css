@@ -1,10 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
-
 :root {
    --scroll: 0;
 }
 
-/* General */
 body {
    margin: 0;
    display: flex;
@@ -35,7 +32,8 @@ main {
    z-index: 2;
 }
 
-.safe h1 {
+.safe h1,
+.safe p {
    font-family: "Rajdhani", sans-serif;
    color: white;
 }
@@ -43,10 +41,8 @@ main {
 .safe p {
    font-size: 0.9em;
    line-height: 1.5em;
-   font-family: "Rajdhani", sans-serif;
    max-width: 250px;
    text-align: justify;
-   color: white;
 }
 
 .box {
@@ -80,7 +76,6 @@ main {
    background-color: grey;
    border: 1px solid black;
    transform-origin: 10px 3px;
-   color: chartreuse;
 }
 
 .center {
@@ -104,7 +99,6 @@ main {
    transform: rotate(-90deg) translateX(60px);
 }
 
-/* Input editable */
 .position {
    position: relative;
    margin-top: 5px;
@@ -226,7 +220,10 @@ body.handle .safe {
    position: initial;
 }
 
-/* Celebración */
+/* =======================
+   PANTALLA FINAL
+======================= */
+
 .celebration {
    display: none;
    position: fixed;
@@ -234,98 +231,131 @@ body.handle .safe {
    left: 0;
    width: 100vw;
    height: 100vh;
-   background: linear-gradient(120deg, #ffcce7, #ffe0f7, #fff6e5, #e3f2fd, #fde2ff);
-   background-size: 400% 400%;
-   animation: rainbowFlow 10s ease infinite;
-   z-index: 999;
+   background: radial-gradient(circle, #0a0a0a, #000);
+   overflow: hidden;
    justify-content: center;
    align-items: center;
    flex-direction: column;
-   overflow: hidden;
+   z-index: 999;
 }
 
-@keyframes rainbowFlow {
+.celebration::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: url("https://i.imgur.com/6g7S7uS.png");
+   opacity: 0.15;
+   animation: fogMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes fogMove {
+   from {
+      transform: translateX(-10%) translateY(-5%);
+   }
+
+   to {
+      transform: translateX(10%) translateY(5%);
+   }
+}
+
+/* CÍRCULO MÍSTICO */
+.secret-circle {
+   position: absolute;
+   width: 450px;
+   height: 450px;
+   border-radius: 50%;
+   background: radial-gradient(circle, rgba(0, 255, 200, 0.05), rgba(0, 0, 0, 0.2) 60%, transparent 90%);
+   box-shadow:
+      0 0 40px rgba(0, 255, 180, 0.25),
+      0 0 80px rgba(0, 255, 180, 0.15),
+      inset 0 0 60px rgba(0, 255, 180, 0.08);
+   opacity: 0.7;
+   animation: pulseCircle 6s ease-in-out infinite;
+   backdrop-filter: blur(2px);
+}
+
+@keyframes pulseCircle {
    0% {
-      background-position: 0% 50%;
+      transform: scale(1);
+      opacity: .65;
    }
 
    50% {
-      background-position: 100% 50%;
+      transform: scale(1.15);
+      opacity: .9;
    }
 
    100% {
-      background-position: 0% 50%;
+      transform: scale(1);
+      opacity: .65;
    }
 }
 
 .celebration h1 {
    font-family: "Rajdhani", sans-serif;
-   font-size: 4em;
-   color: #ff66b3;
-   text-shadow: 0 0 10px white, 0 0 20px #ffccf2;
+   font-size: 3.5em;
    text-align: center;
-   margin-bottom: 50px;
-   animation: glow 3s ease-in-out infinite alternate;
+   color: #c8ffd4;
+   text-shadow: 0 0 15px #0aff9d, 0 0 25px #00d17a;
+   animation: glowMystery 3s ease-in-out infinite alternate;
 }
 
-@keyframes glow {
+@keyframes glowMystery {
    from {
-      text-shadow: 0 0 10px #ffb3da, 0 0 20px #fff;
+      opacity: .7;
+      text-shadow: 0 0 10px #00d17a;
    }
 
    to {
-      text-shadow: 0 0 20px #ff80c0, 0 0 40px #ffe6f7;
+      opacity: 1;
+      text-shadow: 0 0 25px #0aff9d;
+   }
+}
+
+.rune {
+   position: absolute;
+   font-family: "Rajdhani", sans-serif;
+   font-size: 3em;
+   color: #00ffbb;
+   opacity: 0.07;
+   animation: floatRune 6s ease-in-out infinite;
+}
+
+@keyframes floatRune {
+   0% {
+      transform: translateY(0) scale(1);
+      opacity: .05;
+   }
+
+   50% {
+      transform: translateY(-20px) scale(1.1);
+      opacity: .12;
+   }
+
+   100% {
+      transform: translateY(0) scale(1);
+      opacity: .05;
    }
 }
 
 .rainbow-button {
    font-family: "Rajdhani", sans-serif;
-   font-size: 2em;
-   padding: 20px 50px;
-   border: none;
-   border-radius: 40px;
-   color: white;
-   background: linear-gradient(90deg, #ff69b4, #ffb6c1, #ffcccb, #ffd1dc);
+   font-size: 1.6em;
+   padding: 15px 40px;
+   border: 1px solid #00ffbb;
+   border-radius: 8px;
+   background: rgba(0, 0, 0, 0.6);
+   color: #00ffbb;
    cursor: pointer;
-   box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
-   transition: transform 0.3s ease, box-shadow 0.3s ease;
-   animation: float 2s ease-in-out infinite alternate;
+   margin-top: 40px;
+   transition: 0.3s ease;
+   backdrop-filter: blur(3px);
 }
 
 .rainbow-button:hover {
    transform: scale(1.1);
-   box-shadow: 0 0 40px rgba(255, 192, 203, 1);
-}
-
-@keyframes float {
-   from {
-      transform: translateY(0);
-   }
-
-   to {
-      transform: translateY(-10px);
-   }
-}
-
-.confetti {
-   position: absolute;
-   width: 10px;
-   height: 10px;
-   background: hsl(var(--hue), 80%, 80%);
-   top: -10px;
-   animation: fall 3s linear infinite;
-   border-radius: 2px;
-   opacity: 0.9;
-}
-
-@keyframes fall {
-   0% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-   }
-
-   100% {
-      transform: translateY(100vh) rotate(720deg);
-      opacity: 0;
-   }
+   box-shadow: 0 0 20px #00ffbb;
 }

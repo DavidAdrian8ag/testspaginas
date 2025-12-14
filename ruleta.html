@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Suertudota</title>
+   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Berkshire+Swash'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rajdhani:400,700'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=League+Script'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lilita+One'>
+   <link rel="stylesheet" href="./ruleta.css">
+   <link rel="icon" href="ruleta.ico" type="image/x-icon">
+
+</head>
+
+<body>
+   <!-- partial:index.partial.html -->
+   <div class="outer-container">
+      <h1 class="wish">- Toma tu Premio -</h1>
+      <div class="container">
+         <div class="arrow"></div>
+         <div class="wheel">
+            <div class="inner-wheel" id="wheel">
+               <div class="section"><span class="lots"></span><span class="fa fa-money"></span></div>
+               <div class="section"><span class="lots"></span><span class="fa fa-cutlery"></span></div>
+               <div class="section"><span class="lots"></span><span class="fa fa-heart"></span></div>
+               <div class="section"><span class="lots"></span><span class="fa fa-plane"></span></div>
+               <div class="section"><span class="lots"></span><span class="fa fa-gift"></span></div>
+               <div class="section"><span class="lots"></span><span class="fa fa-sun-o"></span></div>
+            </div>
+            <div class="spin-button"></div>
+         </div>
+
+         <div class="winner-box" id="winnerBox">
+            <h2 id="winnerText">❤️ ¡Premio Mayor!</h2>
+            <a id="winnerLink" href="./regalo.html" target="_self" style="display:none;">Ganaste:</a>
+         </div>
+      </div>
+   </div>
+
+   <!-- partial -->
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+   <script src="./ruleta.js"></script>
+
+
+
+</body>
+
+</html>

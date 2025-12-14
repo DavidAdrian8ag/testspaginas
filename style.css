@@ -1,0 +1,129 @@
+      body {
+         margin: 0;
+         padding: 0;
+         background: #000;
+         color: #fff;
+         font-family: 'Arial', sans-serif;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         flex-direction: column;
+         text-align: center;
+         overflow: hidden;
+      }
+
+      /* Imagen del muñeco */
+      .jigsaw-img {
+         width: 760px;
+         margin-bottom: 20px;
+      }
+
+      /* Contenedor del texto */
+      h1 {
+         font-size: 3rem;
+         font-weight: bold;
+         color: white;
+         display: inline-block;
+         line-height: 1.1;
+      }
+
+      /* Letras individuales */
+      .letter {
+         position: relative;
+         display: inline-block;
+      }
+
+      /* Gotas de sangre individuales */
+      .letter::after {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 50%;
+         width: 5px;
+         height: 10px;
+         background: red;
+         border-radius: 50%;
+         transform: translateX(-50%);
+         opacity: 0;
+         animation: drip 2s infinite;
+         animation-delay: var(--delay);
+      }
+
+      @keyframes drip {
+         0% {
+            opacity: 0;
+            top: 0;
+         }
+
+         10% {
+            opacity: 1;
+         }
+
+         60% {
+            opacity: 1;
+            top: 25px;
+         }
+
+         100% {
+            opacity: 0;
+            top: 40px;
+         }
+      }
+
+      /* Botón estilo terror */
+      button {
+         margin-top: 30px;
+         padding: 15px 40px;
+         font-size: 1.5rem;
+         background: linear-gradient(to bottom, #8b0000, #4d0000);
+         border: 2px solid red;
+         color: white;
+         cursor: pointer;
+         border-radius: 10px;
+         text-transform: uppercase;
+         letter-spacing: 3px;
+         filter: drop-shadow(0 0 10px red);
+         position: relative;
+         overflow: hidden;
+         transition: 0.3s;
+      }
+
+      button:hover {
+         transform: scale(1.1);
+         filter: drop-shadow(0 0 20px red);
+      }
+
+      button::after {
+         content: "";
+         position: absolute;
+         top: -10px;
+         left: 50%;
+         width: 8px;
+         height: 18px;
+         background: red;
+         border-radius: 50%;
+         transform: translateX(-50%);
+         animation: dripBtn 1.5s infinite;
+      }
+
+      @keyframes dripBtn {
+         0% {
+            opacity: 0;
+            top: -10px;
+         }
+
+         20% {
+            opacity: 1;
+         }
+
+         80% {
+            opacity: 1;
+            top: 30px;
+         }
+
+         100% {
+            opacity: 0;
+            top: 45px;
+         }
+      }
