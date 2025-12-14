@@ -16,7 +16,7 @@
    <!-- <link rel="stylesheet" href="safe.css"> -->
 
    <script src="https://public.codepenassets.com/js/prefixfree-1.0.7.min.js"></script>
-
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <style>
       :root {
          --scroll: 0;
@@ -377,6 +377,168 @@
       .rainbow-button:hover {
          transform: scale(1.1);
          box-shadow: 0 0 20px #00ffbb;
+      }
+
+      /* ========================================================
+   AJUSTES DE RESPONSIVIDAD (PC, TABLETS, IPHONES)
+   ======================================================== */
+
+      /* Mobile First: Ajustes base para Teléfonos/iPhones (hasta 767px) */
+
+      .safe {
+         /* Reducir el padding en móviles para dar espacio al contenido */
+         padding: 10px;
+      }
+
+      .box {
+         /* Reducir el tamaño de la caja fuerte en móviles para que quepa */
+         width: 200px;
+         height: 200px;
+      }
+
+      .innerdial {
+         width: 200px;
+         height: 200px;
+      }
+
+      .mark {
+         /* Ajustar la posición de las marcas para el nuevo tamaño del innerdial */
+         top: 97px;
+         /* 200px / 2 - 3px (half mark height) */
+         left: 90px;
+         /* 200px / 2 - 10px (half mark width) */
+         transform: rotate(calc(var(--i) * 22.5deg)) translateX(80px);
+         /* 100px a 80px */
+      }
+
+      /* Nota: Tu JS usa 'translateX(100px)' para el 'mark'. 
+   Para que el dial quede centrado en 200px, 
+   el JS debería usar 'translateX(80px)' y top/left a 97px/90px.
+   Como no puedo cambiar el JS, el dial puede verse ligeramente descentrado. 
+   Para corregir esto SIN tocar el JS: */
+
+      .innerdial .mark {
+         /* Anular la posición fija en móviles y centrar con flex */
+         position: static;
+      }
+
+      .center {
+         /* Ajustar el tamaño del centro */
+         width: 100px;
+         height: 100px;
+         top: 50px;
+         left: 50px;
+      }
+
+      .chalkboard {
+         /* Mover la pizarra para que no bloquee el dial en móviles */
+         left: 50%;
+         top: 10vh;
+         transform: translateX(-50%) rotate(0deg);
+         font-size: 2em;
+         text-align: center;
+         position: absolute;
+         width: 100%;
+      }
+
+      .hint {
+         /* Mover la pista a una posición más visible en móviles */
+         right: auto;
+         left: 50%;
+         bottom: 10px;
+         transform: translateX(-50%) rotate(0deg);
+         text-align: center;
+         font-size: 0.8em;
+         width: 90%;
+      }
+
+      .safe p {
+         /* Reducir el tamaño de fuente y ancho en móviles */
+         font-size: 0.8em;
+         max-width: 90%;
+         text-align: center;
+         margin-top: 10px;
+      }
+
+      /* ====================================
+   TABLETS (a partir de 768px de ancho)
+   ==================================== */
+      @media (min-width: 768px) {
+         .box {
+            width: 220px;
+            height: 220px;
+         }
+
+         .innerdial {
+            width: 220px;
+            height: 220px;
+         }
+
+         .center {
+            width: 120px;
+            height: 120px;
+            top: 50px;
+            left: 50px;
+         }
+
+         /* Posición de elementos laterales */
+         .chalkboard {
+            left: 10vw;
+            top: 50vh;
+            transform: rotate(15deg);
+            font-size: 3em;
+            text-align: left;
+            width: auto;
+         }
+
+         .hint {
+            right: 10vw;
+            bottom: 20px;
+            left: auto;
+            transform: rotate(-15deg);
+            text-align: left;
+            width: auto;
+         }
+
+         .safe p {
+            max-width: 300px;
+            font-size: 0.9em;
+         }
+      }
+
+
+      /* ======================================
+   PC (a partir de 1024px de ancho)
+   ====================================== */
+      @media (min-width: 1024px) {
+
+         /* Restaurar los valores originales (o adaptarlos ligeramente) */
+         .box {
+            width: 250px;
+            height: 250px;
+         }
+
+         .innerdial {
+            width: 250px;
+            height: 250px;
+         }
+
+         .center {
+            width: 150px;
+            height: 150px;
+            top: 50px;
+            left: 50px;
+         }
+
+         .chalkboard {
+            left: 15vw;
+            font-size: 4em;
+         }
+
+         .hint {
+            right: 20px;
+            font-size: 1em;
+         }
       }
    </style>
 </head>
