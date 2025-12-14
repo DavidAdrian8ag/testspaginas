@@ -187,3 +187,18 @@ span {
       font-size: 30px;
    }
 }
+
+/* 💻 PC y Tablets (Todo lo que sea más grande que un celular) */
+@media (min-width: 481px) {
+   body {
+      /* 'zoom' funciona perfecto en Chrome, Edge y Safari */
+      zoom: 2;
+
+      /* Firefox no suele soportar 'zoom', así que usamos transform como respaldo */
+      -moz-transform: scale(2);
+      -moz-transform-origin: top center;
+
+      /* Opcional: Para evitar barras de desplazamiento si se sale de la pantalla */
+      overflow-x: hidden;
+   }
+}
