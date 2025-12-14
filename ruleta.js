@@ -2,21 +2,21 @@ $(document).ready(function () {
    let spins = 0;
    const sections = ["Dinero", "Cena", "Besos", "Viaje", "Sorpresa", "Playa"];
 
-   $('.spin-button').click(function () {
+   $('.spin-button').on('click', function () {
       $('#winnerBox').hide();
       spins++;
 
-      const randDegree = Math.floor(Math.random() * 1800) + 1;
-      const totalDegree = spins * 1800 + randDegree;
+      const rand = Math.floor(Math.random() * 1800);
+      const total = spins * 1800 + rand;
 
       $('#wheel').css({
-         transform: 'rotate(' + totalDegree + 'deg)'
+         transform: `rotate(${total}deg)`
       });
 
-      setTimeout(function () {
-         const finalRotation = totalDegree % 360;
-         const sectionAngle = 60;
-         const index = Math.floor(((360 - finalRotation + sectionAngle / 2) % 360) / sectionAngle);
+      setTimeout(() => {
+         const finalRotation = total % 360;
+         const sectionSize = 60;
+         const index = Math.floor(((360 - finalRotation + sectionSize / 2) % 360) / sectionSize);
          const result = sections[index];
 
          let message = "";
@@ -24,22 +24,22 @@ $(document).ready(function () {
 
          switch (result) {
             case "Dinero":
-               message = "💸 Yo sé que no eres materialista, así que te daré otra oportunidad...";
+               message = "💸 Mejor gira otra vez…";
                break;
             case "Cena":
-               message = "🍽️ Cena ganada, luego vamos por tacos, pero puedes ganar algo mejor...";
+               message = "🍽️ Cena ganada, pero hay algo mejor…";
                break;
             case "Besos":
-               message = "😘 Besos y abrazos estarán siempre garantizados, gira de nuevo...";
+               message = "😘 Eso nunca falta, gira de nuevo…";
                break;
             case "Viaje":
-               message = "✈️ Viajaremos siempre mucho, pero hay algo mejor esperándote...";
+               message = "✈️ Viajaremos mucho, pero sigue girando…";
                break;
             case "Playa":
-               message = "🏖️ Iremos a la playa, está cerca, sé que quieres algo mejor...";
+               message = "🏖️ La playa espera, pero hay sorpresa…";
                break;
             case "Sorpresa":
-               message = "❤️ ¡Ganaste una sorpresa especial!";
+               message = "❤️ ¡Ganaste la sorpresa especial!";
                showLink = true;
                break;
          }

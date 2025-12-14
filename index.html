@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
    <title>Suertudota</title>
 
-   <!-- CSS externos -->
+   <!-- Normalizador -->
    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire+Swash">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,700">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=League+Script">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lilita+One">
 
-   <!-- Tu CSS -->
-   <link rel="stylesheet" href="ruleta.css">
+   <!-- Iconos y fuentes -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,700">
+
+   <!-- CSS propio -->
+   <link rel="stylesheet" href="styles.css">
 
    <link rel="icon" href="ruleta.ico" type="image/x-icon">
 </head>
@@ -24,33 +23,29 @@
    <h1 class="wish">- Toma tu Premio -</h1>
 
    <div class="container">
-      <div class="wheel-scale">
-         <div class="arrow"></div>
+      <div class="arrow"></div>
 
-         <div class="wheel">
-            <div class="inner-wheel" id="wheel">
-               <div class="section"><span class="fa fa-money"></span></div>
-               <div class="section"><span class="fa fa-cutlery"></span></div>
-               <div class="section"><span class="fa fa-heart"></span></div>
-               <div class="section"><span class="fa fa-plane"></span></div>
-               <div class="section"><span class="fa fa-gift"></span></div>
-               <div class="section"><span class="fa fa-sun-o"></span></div>
-            </div>
-            <div class="spin-button"></div>
+      <div class="wheel">
+         <div class="inner-wheel" id="wheel">
+            <div class="section"><span class="fa fa-money"></span></div>
+            <div class="section"><span class="fa fa-cutlery"></span></div>
+            <div class="section"><span class="fa fa-heart"></span></div>
+            <div class="section"><span class="fa fa-plane"></span></div>
+            <div class="section"><span class="fa fa-gift"></span></div>
+            <div class="section"><span class="fa fa-sun-o"></span></div>
          </div>
+         <div class="spin-button"></div>
       </div>
 
       <div class="winner-box" id="winnerBox">
          <h2 id="winnerText"></h2>
-         <a id="winnerLink" href="./regalo.html" target="_self" style="display:none;">Ganaste:</a>
+         <a id="winnerLink" href="./regalo.html" target="_self" style="display:none;">Ganaste</a>
       </div>
    </div>
 
-   <!-- JS externos -->
+   <!-- JS -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-   <!-- Tu JS -->
-   <script src="ruleta.js"></script>
+   <script src="script.js"></script>
 
 </body>
 </html>
