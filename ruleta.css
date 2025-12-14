@@ -177,7 +177,7 @@ span {
    font-size: 55px;
 }
 
-/* 📱 Responsive */
+/* 📱 iPhone (max-width: 480px) se mantiene igual */
 @media (max-width: 480px) {
    .wish {
       font-size: 36px;
@@ -186,6 +186,10 @@ span {
 
    .wheel-scale {
       transform: scale(0.75);
+   }
+
+   .fa {
+      font-size: 70px;
    }
 
    .winner-box h2 {
@@ -197,21 +201,29 @@ span {
    }
 }
 
-/* 💻 PC y Tablets */
-@media (min-width: 481px) {
+/* 💻 TABLETAS (481px a 1024px) - Escala 1.5 */
+@media (min-width: 481px) and (max-width: 1024px) {
    body {
-      /* Usamos transform en lugar de zoom para mejor control del centro */
-      transform: scale(3);
-      /* 1.5 es más seguro que 2, pero puedes poner 2 si cabe */
+      transform: scale(1.5);
       transform-origin: top center;
-      /* 👈 CLAVE: Escala desde el centro superior */
-
-      /* Ajuste opcional: como al escalar crece hacia abajo, aseguramos que se pueda scrollear */
       height: auto;
       overflow-y: auto;
    }
 
-   /* Un pequeño margen extra al título para que no pegue arriba al escalar */
+   .wish {
+      margin-top: 20px;
+   }
+}
+
+/* 🖥️ PC/Desktop (1025px en adelante) - Escala 4.0 */
+@media (min-width: 1025px) {
+   body {
+      transform: scale(4.0);
+      transform-origin: top center;
+      height: auto;
+      overflow-y: auto;
+   }
+
    .wish {
       margin-top: 20px;
    }
