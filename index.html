@@ -1,21 +1,241 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>¿Quieres jugar un juego?</title>
-   <link rel="stylesheet" href="style.css">
-   <script src="script.js" defer></script>
-   <link rel="icon" href="jiwsaw.ico" type="image/x-icon">
+   <meta charset="UTF-8">
+   <title>Recaditos de Amur</title>
+   <!-- <link rel="stylesheet" href="./papeles.css"> -->
+   <link rel="icon" href="papeles.ico" type="image/x-icon">
+   <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
+      body {
+         height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background-size: 1000px;
+         background-image: url("https://www.psdgraphics.com/wp-content/uploads/2022/01/white-math-paper-texture.jpg");
+         background-position: center center;
+         font-family: "Rajdhani", sans-serif;
+      }
+
+      .paper {
+         background-image: url("https://i0.wp.com/textures.world/wp-content/uploads/2018/10/2-Millimeter-Paper-Background-copy.jpg?ssl=1");
+         background-size: 500px;
+         background-position: center center;
+         padding: 20px 100px;
+         transform: rotateZ(-5deg);
+         box-shadow: 1px 15px 20px 0px rgba(0, 0, 0, 0.5);
+         position: absolute;
+      }
+
+      .paper.heart {
+         position: relative;
+         width: 200px;
+         height: 200px;
+         padding: 0;
+         border-radius: 50%;
+      }
+
+      .paper.image {
+         padding: 10px;
+      }
+
+      .paper.image p {
+         font-size: 30px;
+      }
+
+      img {
+         width: 300px;
+         height: 300px;
+         object-fit: cover;
+         user-select: none;
+         display: block;
+         margin: 0 auto;
+      }
+
+      .paper.heart::after {
+         content: "";
+         background-image: url('https://cdn.pixabay.com/photo/2016/03/31/19/25/cartoon-1294994__340.png');
+         width: 100%;
+         height: 100%;
+         position: absolute;
+         top: 0;
+         left: 0;
+         background-size: 150px;
+         background-position: center center;
+         background-repeat: no-repeat;
+         opacity: 0.6;
+      }
+
+      p {
+         font-family: "Rajdhani", sans-serif;
+         font-size: 45px;
+         color: rgb(255, 55, 6);
+         opacity: 0.85;
+         user-select: none;
+         font-weight: 600;
+         text-align: center;
+      }
+
+      .textofinal p {
+         font-size: 65px;
+         color: rgb(255, 55, 6);
+         opacity: 1;
+         padding-top: 12rem;
+         text-align: center;
+         font-weight: 700;
+      }
+
+      .inicio p {
+         font-size: 60px;
+         width: 350px;
+         height: 450px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin: 0;
+         font-weight: 700;
+      }
+
+      .fotos p {
+         font-size: 38px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin: 0;
+         font-weight: 600;
+      }
+   </style>
 </head>
 
 <body>
-   <img class="jigsaw-img" src="./saw.jpg" alt="Jigsaw Puppet" />
 
-   <h1 id="title"></h1>
+   <!-- Developed by Saravanan  -->
+   <a href="./regalo.html" target="_self" style="text-decoration: none;">
+      <div class="paper heart image textofinal">
+         <p>Te amuu</p>
+      </div>
+   </a>
 
-   <button id="playBtn">Jugar</button>
+   <div class="paper image fotos">
+      <p>Feliz de mi</p>
+      <p>Pequeña Familia 😍</p>
+      <img src="Elena2.png" />
+   </div>
+   <div class="paper image fotos">
+      <p>Hermosa Persona </p>
+      <p>Y Guapeshema ❤️</p>
+      <img src="Elena3.png" />
+   </div>
+   <div class="paper image fotos">
+      <p>Me Inspiras</p>
+      <p>Como Nadie 🎖️</p>
+      <img src="Elena1.png" />
+   </div>
+   <div class="paper red">
+      <p class="p1">Mi Mejor Amiga</p>
+      <p class="p2">y Persona Favorita 😍</p>
+   </div>
+   <div class="paper ">
+      <p class="p1">Eres Hermosa</p>
+      <p class="p1">y Maravillosa <span style="color: red !important;">❤️</span></p>
+   </div>
+   <div class="paper inicio">
+      <p class="p1">Selecciona <br> para mover <Br> abajo</Br> </p>
+   </div>
+   <!-- javascript file -->
+   <!-- <script src="./papeles.js"></script> -->
+   <script>
+      let highestZ = 1;
+
+      class Paper {
+         holdingPaper = false;
+         pointerStartX = 0;
+         pointerStartY = 0;
+         pointerX = 0;
+         pointerY = 0;
+         prevPointerX = 0;
+         prevPointerY = 0;
+         velX = 0;
+         velY = 0;
+         rotation = Math.random() * 30 - 15;
+         currentPaperX = 0;
+         currentPaperY = 0;
+         rotating = false;
+
+         init(paper) {
+            // Manejar movimiento
+            document.addEventListener('pointermove', (e) => {
+               if (!this.rotating) {
+                  this.pointerX = e.clientX;
+                  this.pointerY = e.clientY;
+                  this.velX = this.pointerX - this.prevPointerX;
+                  this.velY = this.pointerY - this.prevPointerY;
+               }
+
+               const dirX = e.clientX - this.pointerStartX;
+               const dirY = e.clientY - this.pointerStartY;
+               const dirLength = Math.sqrt(dirX * dirX + dirY * dirY);
+               const dirNormalizedX = dirX / dirLength;
+               const dirNormalizedY = dirY / dirLength;
+               const angle = Math.atan2(dirNormalizedY, dirNormalizedX);
+               let degrees = (360 + Math.round((180 * angle) / Math.PI)) % 360;
+
+               if (this.rotating) {
+                  this.rotation = degrees;
+               }
+
+               if (this.holdingPaper) {
+                  if (!this.rotating) {
+                     this.currentPaperX += this.velX;
+                     this.currentPaperY += this.velY;
+                  }
+                  this.prevPointerX = this.pointerX;
+                  this.prevPointerY = this.pointerY;
+
+                  paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px) rotateZ(${this.rotation}deg)`;
+               }
+            });
+
+            // Cuando el usuario toca o hace clic
+            paper.addEventListener('pointerdown', (e) => {
+               e.preventDefault(); // Evita scroll en móviles mientras se arrastra
+               if (this.holdingPaper) return;
+
+               this.holdingPaper = true;
+               paper.style.zIndex = highestZ++;
+               this.pointerStartX = e.clientX;
+               this.pointerStartY = e.clientY;
+               this.prevPointerX = e.clientX;
+               this.prevPointerY = e.clientY;
+
+               // Botón derecho en mouse, o segundo dedo en touch → rotar
+               if (e.pointerType === 'mouse' && e.button === 2) {
+                  this.rotating = true;
+               }
+            });
+
+            // Cuando el usuario suelta el dedo o mouse
+            window.addEventListener('pointerup', () => {
+               this.holdingPaper = false;
+               this.rotating = false;
+            });
+         }
+      }
+
+      const papers = Array.from(document.querySelectorAll('.paper'));
+      papers.forEach((paper) => {
+         const p = new Paper();
+         p.init(paper);
+      });
+
+      // Evitar menú contextual con botón derecho
+      window.addEventListener('contextmenu', (e) => e.preventDefault());
+
+
+   </script>
 
 </body>
 
