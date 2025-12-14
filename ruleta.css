@@ -6,7 +6,7 @@ body {
    width: 100vw;
    height: 100vh;
    min-height: 550px;
-   /* zoom: 200%; */
+   zoom: 200%;
 }
 
 .wish {
