@@ -1,53 +1,54 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
    <title>Suertudota</title>
 
-   <!-- Viewport optimizado para iPhone -->
-   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,700">
+   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Berkshire+Swash'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rajdhani:400,700'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=League+Script'>
+   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lilita+One'>
    <link rel="icon" href="ruleta.ico" type="image/x-icon">
 
    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
       body {
          background-color: #4e4d4a;
          width: 100vw;
-         min-height: 100vh;
+         height: 100vh;
          margin: 0;
-         padding-bottom: env(safe-area-inset-bottom);
+         overflow-x: hidden;
       }
 
       .wish {
          text-align: center;
          margin: 0;
-         padding: 20px 10px;
+         padding: 20px;
          font-family: "Rajdhani", sans-serif;
          text-transform: uppercase;
-         font-size: clamp(28px, 6vw, 60px);
+         font-size: 60px;
          font-weight: bold;
          color: #5a6b65;
          background-color: #FFE5D9;
       }
 
       .container {
-         margin: 0 auto 40px;
-         width: 100%;
-         max-width: 400px;
-         display: flex;
-         flex-direction: column;
-         align-items: center;
+         margin: 0 auto 50px;
+         width: 400px;
+         max-width: 90vw;
       }
 
       .arrow {
-         width: 70px;
-         height: 16px;
+         width: 90px;
+         height: 20px;
          background-color: #FFE5D9;
-         margin: 20px auto;
+         margin: auto;
+         margin-bottom: 30px;
          position: relative;
       }
 
@@ -56,37 +57,44 @@
          width: 0;
          height: 0;
          border-style: solid;
-         border-width: 25px 45px 0;
+         border-width: 30px 55px 0;
          border-color: #FFE5D9 transparent;
          position: absolute;
-         top: 16px;
+         top: 20px;
          left: -10px;
       }
 
+      .wheel,
+      .inner-wheel {
+         width: 400px;
+         height: 400px;
+         max-width: 90vw;
+         max-height: 90vw;
+      }
+
       .wheel {
-         width: min(90vw, 400px);
-         height: min(90vw, 400px);
          border-radius: 50%;
          position: relative;
          overflow: hidden;
+         margin: auto;
       }
 
       .inner-wheel {
-         width: 100%;
-         height: 100%;
          border-radius: 50%;
+         position: relative;
+         overflow: hidden;
          transition: transform 3.5s cubic-bezier(0.33, 1, 0.68, 1);
+         transform: rotate(0deg);
       }
 
       .spin-button {
          position: absolute;
-         width: 55px;
-         height: 55px;
+         width: 60px;
+         height: 60px;
          background-color: #373B44;
          border-radius: 50%;
-         top: 50%;
-         left: 50%;
-         transform: translate(-50%, -50%);
+         top: calc(50% - 30px);
+         left: calc(50% - 30px);
          z-index: 10;
          cursor: pointer;
       }
@@ -94,21 +102,20 @@
       .spin-button:after {
          content: "Girar";
          position: absolute;
-         top: 18px;
+         top: 22px;
          left: 10px;
          color: white;
-         font-size: 14px;
-         font-family: "Rajdhani", sans-serif;
       }
 
       .section {
          position: absolute;
+         text-align: center;
          width: 0;
          height: 0;
          border-style: solid;
          border-width: 200px 116px 0;
-         left: calc(50% - 116px);
-         top: 0;
+         left: 84px;
+         top: 0px;
          transform-origin: 116px 200px;
          border-color: #5a6b65 transparent;
       }
@@ -127,9 +134,10 @@
          font-family: "Rajdhani", sans-serif;
       }
 
-      /* ICONOS */
       .fa {
          font-size: 50px;
+         margin-left: -35px;
+         top: -155px;
       }
 
       .winner-box {
@@ -138,60 +146,51 @@
          background-color: #FFE5D9;
          color: #373B44;
          font-family: "Rajdhani", sans-serif;
-         border-radius: 14px;
-         padding: 18px;
-         width: 90%;
-         max-width: 320px;
-         margin-top: 25px;
-         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-         animation: appear 0.8s ease;
+         border-radius: 12px;
+         padding: 20px;
+         width: 280px;
+         max-width: 85vw;
+         margin: 30px auto 0;
       }
 
-      /* TEXTO DEL PREMIO */
       .winner-box h2 {
          margin: 0;
-         font-size: 16px;
-         line-height: 1.3;
+         font-size: 10px;
       }
 
       .winner-box a {
          display: inline-block;
          margin-top: 15px;
-         padding: 12px 22px;
+         padding: 10px 20px;
          background-color: #373B44;
          color: #fff;
-         border-radius: 10px;
+         border-radius: 8px;
          text-decoration: none;
-         font-size: 22px;
+         font-size: 55px;
       }
 
-      @keyframes appear {
-         from { opacity: 0; transform: scale(0.85); }
-         to { opacity: 1; transform: scale(1); }
-      }
-
-      /* ===================== */
-      /* 📱 iPhone adjustments */
-      /* ===================== */
+      /* 📱 RESPONSIVE iPhone */
       @media (max-width: 480px) {
-         .fa {
-            font-size: 36px;
+         .wish { font-size: 36px; padding: 15px; }
+
+         .wheel,
+         .inner-wheel {
+            width: 300px;
+            height: 300px;
          }
 
-         .winner-box h2 {
-            font-size: 18px;
+         .section {
+            border-width: 150px 87px 0;
+            left: 63px;
          }
 
-         .spin-button {
-            width: 50px;
-            height: 50px;
-         }
+         span { top: -140px; margin-left: -50px; }
 
-         .spin-button:after {
-            font-size: 13px;
-            top: 16px;
-            left: 9px;
-         }
+         .fa { font-size: 32px; }
+
+         .winner-box h2 { font-size: 16px; }
+
+         .winner-box a { font-size: 28px; }
       }
    </style>
 </head>
@@ -216,43 +215,48 @@
       </div>
 
       <div class="winner-box" id="winnerBox">
-         <h2 id="winnerText">❤️ ¡Premio Mayor!</h2>
-         <a id="winnerLink" href="./regalo.html" style="display:none;">Ganaste</a>
+         <h2 id="winnerText"></h2>
+         <a id="winnerLink" href="./regalo.html" target="_self" style="display:none;">Ganaste:</a>
       </div>
    </div>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
    <script>
-      $(function () {
+      $(document).ready(function () {
          let spins = 0;
          const sections = ["Dinero", "Cena", "Besos", "Viaje", "Sorpresa", "Playa"];
 
          $('.spin-button').click(function () {
             $('#winnerBox').hide();
             spins++;
+            const randDegree = Math.floor(Math.random() * 1800) + 1;
+            const totalDegree = spins * 1800 + randDegree;
+            $('#wheel').css({ 'transform': 'rotate(' + totalDegree + 'deg)' });
 
-            const rand = Math.floor(Math.random() * 1800) + 1;
-            const total = spins * 1800 + rand;
-
-            $('#wheel').css('transform', 'rotate(' + total + 'deg)');
-
-            setTimeout(() => {
-               const angle = total % 360;
-               const index = Math.floor(((360 - angle + 30) % 360) / 60);
+            setTimeout(function () {
+               const finalRotation = totalDegree % 360;
+               const sectionAngle = 60;
+               const index = Math.floor(((360 - finalRotation + sectionAngle / 2) % 360) / sectionAngle);
                const result = sections[index];
 
-               let msg = "";
-               let link = false;
+               let message = "";
+               let showLink = false;
 
-               if (result === "Sorpresa") {
-                  msg = "❤️ ¡Ganaste una sorpresa especial!";
-                  link = true;
-               } else {
-                  msg = "😏 Buen intento… gira otra vez";
+               switch (result) {
+                  case "Dinero": message = "💸 Yo sé que no eres materialista, así que te daré otra oportunidad..."; break;
+                  case "Cena": message = "🍽️ Cena ganada, luego vamos por tacos, pero puedes ganar algo mejor..."; break;
+                  case "Besos": message = "😘 Besos y abrazos estarán siempre garantizados, gira de nuevo..."; break;
+                  case "Viaje": message = "✈️ Viajaremos siempre mucho, pero hay algo mejor esperándote..."; break;
+                  case "Playa": message = "🏖️ Iremos a la playa, está cerca, se que quieres algo mejor..."; break;
+                  case "Sorpresa": message = "❤️ ¡Ganaste una sorpresa especial!"; showLink = true; break;
                }
 
-               $('#winnerText').html(msg);
-               link ? $('#winnerLink').show() : $('#winnerLink').hide();
+               $('#winnerText').html(message);
+               if (showLink) {
+                  $('#winnerLink').show();
+               } else {
+                  $('#winnerLink').hide();
+               }
                $('#winnerBox').fadeIn();
             }, 3500);
          });
