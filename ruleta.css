@@ -35,7 +35,7 @@ body {
    width: 90px;
    height: 20px;
    background-color: #FFE5D9;
-   margin: auto;
+   margin: 0 auto 30px;
    margin-bottom: 30px;
    position: relative;
 }
@@ -101,11 +101,30 @@ body {
    border-color: #5a6b65 transparent;
 }
 
-.section:nth-child(2) { transform: rotate(60deg); border-color: #c9b7b0 transparent; }
-.section:nth-child(3) { transform: rotate(120deg); border-color: #5a6b65 transparent; }
-.section:nth-child(4) { transform: rotate(180deg); border-color: #d5a5a0 transparent; }
-.section:nth-child(5) { transform: rotate(240deg); border-color: #c9b1b2 transparent; }
-.section:nth-child(6) { transform: rotate(300deg); border-color: #BD9391 transparent; }
+.section:nth-child(2) {
+   transform: rotate(60deg);
+   border-color: #c9b7b0 transparent;
+}
+
+.section:nth-child(3) {
+   transform: rotate(120deg);
+   border-color: #5a6b65 transparent;
+}
+
+.section:nth-child(4) {
+   transform: rotate(180deg);
+   border-color: #d5a5a0 transparent;
+}
+
+.section:nth-child(5) {
+   transform: rotate(240deg);
+   border-color: #c9b1b2 transparent;
+}
+
+.section:nth-child(6) {
+   transform: rotate(300deg);
+   border-color: #BD9391 transparent;
+}
 
 span {
    position: relative;
@@ -151,8 +170,20 @@ span {
 
 /* 📱 Responsive */
 @media (max-width: 480px) {
-   .wish { font-size: 36px; padding: 15px; }
-   .wheel-scale { transform: scale(0.75); }
-   .winner-box h2 { font-size: 25px; }
-   .winner-box a { font-size: 30px; }
+   .wish {
+      font-size: 36px;
+      padding: 15px;
+   }
+
+   .wheel-scale {
+      transform: scale(0.75);
+   }
+
+   .winner-box h2 {
+      font-size: 25px;
+   }
+
+   .winner-box a {
+      font-size: 30px;
+   }
 }
