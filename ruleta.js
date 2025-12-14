@@ -5,14 +5,17 @@ $(document).ready(function () {
    $('.spin-button').click(function () {
       $('#winnerBox').hide();
       spins++;
+
       const randDegree = Math.floor(Math.random() * 1800) + 1;
       const totalDegree = spins * 1800 + randDegree;
-      $('#wheel').css({ 'transform': 'rotate(' + totalDegree + 'deg)' });
+
+      $('#wheel').css({
+         transform: 'rotate(' + totalDegree + 'deg)'
+      });
 
       setTimeout(function () {
          const finalRotation = totalDegree % 360;
          const sectionAngle = 60;
-         // índice de la sección según el ángulo (ajustado)
          const index = Math.floor(((360 - finalRotation + sectionAngle / 2) % 360) / sectionAngle);
          const result = sections[index];
 
@@ -33,7 +36,7 @@ $(document).ready(function () {
                message = "✈️ Viajaremos siempre mucho, pero hay algo mejor esperándote...";
                break;
             case "Playa":
-               message = "🏖️ Iremos a la playa, está cerca, se que quieres algo mejor...";
+               message = "🏖️ Iremos a la playa, está cerca, sé que quieres algo mejor...";
                break;
             case "Sorpresa":
                message = "❤️ ¡Ganaste una sorpresa especial!";
@@ -42,11 +45,7 @@ $(document).ready(function () {
          }
 
          $('#winnerText').html(message);
-         if (showLink) {
-            $('#winnerLink').attr("href", "https://www.instagram.com/team.preciosos?igsh=MTJsOWY1cml0YWlqdQ%3D%3D&utm_source=qr'").show();
-         } else {
-            $('#winnerLink').hide();
-         }
+         showLink ? $('#winnerLink').show() : $('#winnerLink').hide();
          $('#winnerBox').fadeIn();
       }, 3500);
    });
