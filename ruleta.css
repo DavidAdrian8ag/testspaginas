@@ -201,7 +201,7 @@ span {
 @media (min-width: 481px) {
    body {
       /* Usamos transform en lugar de zoom para mejor control del centro */
-      transform: scale(1.5);
+      transform: scale(3);
       /* 1.5 es más seguro que 2, pero puedes poner 2 si cabe */
       transform-origin: top center;
       /* 👈 CLAVE: Escala desde el centro superior */
