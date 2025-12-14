@@ -98,3 +98,201 @@ p {
    margin: 0;
    font-weight: 600;
 }
+
+/* ===============================
+   RESPONSIVE – NO ALTERA COLORES NI FUNCIONES
+   =============================== */
+
+/* Evita overflow en móviles */
+body {
+   overflow: hidden;
+}
+
+/* Ajustes generales adaptativos */
+.paper {
+   max-width: 90vw;
+}
+
+/* Imágenes responsivas */
+.paper img {
+   max-width: 80vw;
+   height: auto;
+}
+
+/* ===============================
+   TABLETS (hasta 1024px)
+   =============================== */
+@media (max-width: 1024px) {
+
+   p {
+      font-size: 38px;
+   }
+
+   .inicio p {
+      font-size: 45px;
+      width: 300px;
+      height: 400px;
+   }
+
+   .textofinal p {
+      font-size: 55px;
+      padding-top: 8rem;
+   }
+
+   img {
+      width: 260px;
+      height: 260px;
+   }
+}
+
+/* ===============================
+   MÓVILES (hasta 768px)
+   =============================== */
+@media (max-width: 768px) {
+
+   body {
+      background-size: cover;
+   }
+
+   .paper {
+      padding: 15px 30px;
+   }
+
+   p {
+      font-size: 30px;
+   }
+
+   .fotos p {
+      font-size: 26px;
+   }
+
+   .inicio p {
+      font-size: 35px;
+      width: 260px;
+      height: 360px;
+      text-align: center;
+   }
+
+   .textofinal p {
+      font-size: 45px;
+      padding-top: 6rem;
+   }
+
+   img {
+      width: 220px;
+      height: 220px;
+   }
+}
+
+/* ===============================
+   MÓVILES PEQUEÑOS (hasta 480px)
+   =============================== */
+@media (max-width: 480px) {
+
+   .paper {
+      padding: 10px 20px;
+   }
+
+   p {
+      font-size: 24px;
+   }
+
+   .fotos p {
+      font-size: 22px;
+   }
+
+   .inicio p {
+      font-size: 28px;
+      width: 220px;
+      height: 320px;
+   }
+
+   .textofinal p {
+      font-size: 38px;
+      padding-top: 5rem;
+   }
+
+   img {
+      width: 180px;
+      height: 180px;
+   }
+}
+/* ===============================
+   AJUSTES EXCLUSIVOS IPHONE / IOS
+   =============================== */
+
+/* Fix clásico de Safari iOS */
+@supports (-webkit-touch-callout: none) {
+
+   body {
+      min-height: -webkit-fill-available;
+      height: auto;
+      overflow: hidden;
+   }
+
+   /* Papeles no se salen de pantalla */
+   .paper {
+      max-width: 88vw;
+      padding: 14px 24px;
+   }
+
+   /* Imágenes adaptadas */
+   img {
+      max-width: 78vw;
+      height: auto;
+   }
+
+   /* Texto general */
+   p {
+      font-size: 26px;
+      line-height: 1.2;
+   }
+
+   /* Texto inicial */
+   .inicio p {
+      font-size: 30px;
+      width: 240px;
+      height: 320px;
+   }
+
+   /* Texto final corazón */
+   .textofinal p {
+      font-size: 36px;
+      padding-top: 4.5rem;
+   }
+
+   /* Secciones con fotos */
+   .fotos p {
+      font-size: 22px;
+   }
+
+   /* Corazón centrado */
+   .paper.heart {
+      width: 170px;
+      height: 170px;
+   }
+}
+
+/* ===============================
+   IPHONE PEQUEÑOS (SE, Mini)
+   =============================== */
+@media screen and (max-width: 390px) and (-webkit-touch-callout: none) {
+
+   p {
+      font-size: 22px;
+   }
+
+   .inicio p {
+      font-size: 26px;
+      width: 210px;
+      height: 300px;
+   }
+
+   .textofinal p {
+      font-size: 32px;
+   }
+
+   img {
+      max-width: 70vw;
+   }
+}
