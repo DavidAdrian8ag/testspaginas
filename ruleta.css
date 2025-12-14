@@ -6,7 +6,6 @@ body {
    width: 100vw;
    height: 100vh;
    min-height: 550px;
-   zoom: 200%;
 }
 
 .wish {
@@ -144,7 +143,7 @@ span {
 }
 
 .fa {
-   font-size: 120px;
+   font-size: 50px;
    margin-left: -35px;
    top: -155px;
 }
