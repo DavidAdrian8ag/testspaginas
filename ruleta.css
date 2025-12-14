@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
+body {
+   background-color: #4e4d4a;
+   position: relative;
+   width: 100vw;
+   height: 100vh;
+   min-height: 550px;
+}
+
+.wish {
+   text-align: center;
+   margin: 0;
+   padding: 25px;
+   font-family: "Rajdhani", sans-serif;
+   text-transform: uppercase;
+   font-size: clamp(28px, 6vw, 60px);
+   font-weight: bold;
+   color: #5a6b65;
+   background-color: #FFE5D9;
+}
+
+.container {
+   margin: 0 auto 30px;
+   width: min(90vw, 400px);
+   height: auto;
+}
+
+
+.arrow {
+   width: 90px;
+   height: 20px;
+   background-color: #FFE5D9;
+   margin: auto;
+   margin-bottom: 30px;
+   position: relative;
+}
+
+.arrow:after {
+   content: "";
+   width: 0;
+   height: 0;
+   border-style: solid;
+   border-width: 30px 55px 0;
+   border-color: #FFE5D9 transparent;
+   position: absolute;
+   top: 20px;
+   left: -10px;
+}
+
+.wheel,
+.inner-wheel {
+   width: min(90vw, 400px);
+   height: min(90vw, 400px);
+}
+
+
+.spin-button {
+   width: 15vw;
+   height: 15vw;
+   max-width: 60px;
+   max-height: 60px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 9999999999;
+   cursor: pointer;
+   touch-action: manipulation;
+
+}
+
+.spin-button:after {
+   content: "Girar";
+   position: absolute;
+   top: 22px;
+   left: 10px;
+   color: white;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 3vw;
+   max-font-size: 14px;
+}
+
+.section {
+   position: absolute;
+   text-align: center;
+   width: 0;
+   height: 0;
+   border-style: solid;
+   border-width: 200px 116px 0;
+   left: 84px;
+   top: 0px;
+   opacity: 1;
+   transform-origin: 116px 200px;
+   border-color: #5a6b65 transparent;
+}
+
+.section:nth-child(2) {
+   transform: rotate(60deg);
+   border-color: #c9b7b0 transparent;
+}
+
+.section:nth-child(3) {
+   transform: rotate(120deg);
+   border-color: #5a6b65 transparent;
+}
+
+.section:nth-child(4) {
+   transform: rotate(180deg);
+   border-color: #d5a5a0 transparent;
+}
+
+.section:nth-child(5) {
+   transform: rotate(240deg);
+   border-color: #c9b1b2 transparent;
+}
+
+.section:nth-child(6) {
+   transform: rotate(300deg);
+   border-color: #BD9391 transparent;
+}
+
+span {
+   position: relative;
+   z-index: 999;
+   display: inline-block;
+   text-align: center;
+   margin-left: -67px;
+   top: -185px;
+   font-family: "Rajdhani", sans-serif;
+}
+
+.lots {
+   font-family: "Rajdhani", sans-serif;
+   font-size: 52px;
+   position: absolute;
+   font-weight: bolder;
+   padding-left: 35px;
+}
+
+.fa {
+   font-size: 120px;
+   margin-left: -35px;
+   top: -155px;
+}
+
+.winner-box {
+   display: none;
+   text-align: center;
+   background-color: #FFE5D9;
+   color: #373B44;
+   font-family: "Rajdhani", sans-serif;
+   border-radius: 12px;
+   padding: 20px;
+   font-size: clamp(32px, 8vw, 70px);
+   margin: 30px auto 0;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+   animation: appear 1s ease;
+   width: min(90vw, 280px);
+
+}
+
+.winner-box h2 {
+   margin: 0;
+   font-size: clamp(32px, 8vw, 70px);
+   font-family: "Rajdhani", sans-serif;
+}
+
+.winner-box a {
+   display: inline-block;
+   margin-top: 15px;
+   padding: 10px 20px;
+   background-color: #373B44;
+   color: #fff;
+   border-radius: 8px;
+   text-decoration: none;
+   transition: background 0.3s;
+   font-size: clamp(18px, 5vw, 55px);
+   font-family: "Rajdhani", sans-serif;
+}
+
+.winner-box a:hover {
+   background-color: #5a6b65;
+}
+
+@keyframes appear {
+   from {
+      opacity: 0;
+      transform: scale(0.8);
+   }
+
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+   body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+   }
+}
