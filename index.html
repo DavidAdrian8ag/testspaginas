@@ -15,8 +15,6 @@
    <link rel="icon" href="ruleta.ico" type="image/x-icon">
 
    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
-
       body {
          background-color: #4e4d4a;
          width: 100vw;
@@ -28,7 +26,7 @@
       .wish {
          text-align: center;
          margin: 0;
-         padding: 20px;
+         padding: 25px;
          font-family: "Rajdhani", sans-serif;
          text-transform: uppercase;
          font-size: 60px;
@@ -40,7 +38,15 @@
       .container {
          margin: 0 auto 50px;
          width: 400px;
-         max-width: 90vw;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
+
+      /* 👉 WRAPPER DE ESCALA */
+      .wheel-scale {
+         transform-origin: top center;
       }
 
       .arrow {
@@ -64,23 +70,18 @@
          left: -10px;
       }
 
-      .wheel,
-      .inner-wheel {
+      .wheel {
          width: 400px;
          height: 400px;
-         max-width: 90vw;
-         max-height: 90vw;
-      }
-
-      .wheel {
          border-radius: 50%;
          position: relative;
          overflow: hidden;
-         margin: auto;
       }
 
       .inner-wheel {
          border-radius: 50%;
+         width: 400px;
+         height: 400px;
          position: relative;
          overflow: hidden;
          transition: transform 3.5s cubic-bezier(0.33, 1, 0.68, 1);
@@ -109,13 +110,12 @@
 
       .section {
          position: absolute;
-         text-align: center;
          width: 0;
          height: 0;
          border-style: solid;
          border-width: 200px 116px 0;
          left: 84px;
-         top: 0px;
+         top: 0;
          transform-origin: 116px 200px;
          border-color: #5a6b65 transparent;
       }
@@ -135,7 +135,7 @@
       }
 
       .fa {
-         font-size: 50px;
+         font-size: 70px;
          margin-left: -35px;
          top: -155px;
       }
@@ -149,13 +149,12 @@
          border-radius: 12px;
          padding: 20px;
          width: 280px;
-         max-width: 85vw;
          margin: 30px auto 0;
       }
 
       .winner-box h2 {
          margin: 0;
-         font-size: 10px;
+         font-size: 20px;
       }
 
       .winner-box a {
@@ -169,28 +168,17 @@
          font-size: 55px;
       }
 
-      /* 📱 RESPONSIVE iPhone */
+      /* 📱 iPhone */
       @media (max-width: 480px) {
          .wish { font-size: 36px; padding: 15px; }
 
-         .wheel,
-         .inner-wheel {
-            width: 300px;
-            height: 300px;
-         }
+         .wheel-scale { transform: scale(0.75); }
 
-         .section {
-            border-width: 150px 87px 0;
-            left: 63px;
-         }
-
-         span { top: -140px; margin-left: -50px; }
-
-         .fa { font-size: 32px; }
+         .fa { font-size: 40px; }
 
          .winner-box h2 { font-size: 16px; }
 
-         .winner-box a { font-size: 28px; }
+         .winner-box a { font-size: 30px; }
       }
    </style>
 </head>
@@ -200,18 +188,20 @@
    <h1 class="wish">- Toma tu Premio -</h1>
 
    <div class="container">
-      <div class="arrow"></div>
+      <div class="wheel-scale">
+         <div class="arrow"></div>
 
-      <div class="wheel">
-         <div class="inner-wheel" id="wheel">
-            <div class="section"><span class="fa fa-money"></span></div>
-            <div class="section"><span class="fa fa-cutlery"></span></div>
-            <div class="section"><span class="fa fa-heart"></span></div>
-            <div class="section"><span class="fa fa-plane"></span></div>
-            <div class="section"><span class="fa fa-gift"></span></div>
-            <div class="section"><span class="fa fa-sun-o"></span></div>
+         <div class="wheel">
+            <div class="inner-wheel" id="wheel">
+               <div class="section"><span class="fa fa-money"></span></div>
+               <div class="section"><span class="fa fa-cutlery"></span></div>
+               <div class="section"><span class="fa fa-heart"></span></div>
+               <div class="section"><span class="fa fa-plane"></span></div>
+               <div class="section"><span class="fa fa-gift"></span></div>
+               <div class="section"><span class="fa fa-sun-o"></span></div>
+            </div>
+            <div class="spin-button"></div>
          </div>
-         <div class="spin-button"></div>
       </div>
 
       <div class="winner-box" id="winnerBox">
@@ -252,11 +242,7 @@
                }
 
                $('#winnerText').html(message);
-               if (showLink) {
-                  $('#winnerLink').show();
-               } else {
-                  $('#winnerLink').hide();
-               }
+               showLink ? $('#winnerLink').show() : $('#winnerLink').hide();
                $('#winnerBox').fadeIn();
             }, 3500);
          });
