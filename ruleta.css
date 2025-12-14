@@ -1,9 +1,18 @@
 body {
    background-color: #4e4d4a;
-   width: 100vw;
-   height: 100vh;
+   width: 100%;
+   /* 👈 Cambiado de 100vw a 100% para evitar desbordes */
+   min-height: 100vh;
+   /* Cambiado a min-height para asegurar que cubra todo */
    margin: 0;
    overflow-x: hidden;
+
+   /* 👇 ESTO ES LO NUEVO PARA CENTRAR 👇 */
+   display: flex;
+   flex-direction: column;
+   /* Apila el título y la ruleta verticalmente */
+   align-items: center;
+   /* Centra todo horizontalmente */
 }
 
 .wish {
@@ -188,17 +197,22 @@ span {
    }
 }
 
-/* 💻 PC y Tablets (Todo lo que sea más grande que un celular) */
+/* 💻 PC y Tablets */
 @media (min-width: 481px) {
    body {
-      /* 'zoom' funciona perfecto en Chrome, Edge y Safari */
-      zoom: 2;
+      /* Usamos transform en lugar de zoom para mejor control del centro */
+      transform: scale(1.5);
+      /* 1.5 es más seguro que 2, pero puedes poner 2 si cabe */
+      transform-origin: top center;
+      /* 👈 CLAVE: Escala desde el centro superior */
 
-      /* Firefox no suele soportar 'zoom', así que usamos transform como respaldo */
-      -moz-transform: scale(2);
-      -moz-transform-origin: top center;
+      /* Ajuste opcional: como al escalar crece hacia abajo, aseguramos que se pueda scrollear */
+      height: auto;
+      overflow-y: auto;
+   }
 
-      /* Opcional: Para evitar barras de desplazamiento si se sale de la pantalla */
-      overflow-x: hidden;
+   /* Un pequeño margen extra al título para que no pegue arriba al escalar */
+   .wish {
+      margin-top: 20px;
    }
 }
