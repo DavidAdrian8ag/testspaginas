@@ -26,9 +26,13 @@ canvas#canvas {
 
 div#beach {
    background-image: url(https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png);
-   background-position: bottom right;
-   background-size: 1700px;
+   background-position: bottom center;
+   /* Centrado abajo */
+   background-size: cover;
+   /* Se adapta para cubrir la pantalla */
    background-repeat: no-repeat;
+   z-index: 1;
+   /* Asegura que quede al fondo */
 }
 
 /* 🚀 MODIFICACIÓN CLAVE EN CSS: Ocultar al inicio */
@@ -63,9 +67,17 @@ div#video {
 
 #people {
    position: absolute;
-   bottom: 65px;
-   left: 40px;
-   width: 140px;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   /* Esto lo centra perfectamente siempre */
+   width: 100%;
+   /* Ocupa el ancho de la pantalla */
+   max-width: 800px;
+   /* Pero en PC no crece más de lo necesario */
+   height: auto;
+   z-index: 2;
+   /* Por encima de la playa */
 }
 
 #car {
@@ -85,7 +97,7 @@ div#sea {
    background-image: radial-gradient(circle at center top, #23485a, #0d0246);
 }
 
-.merrywrap {
+/* .merrywrap {
    position: absolute;
    right: 0px;
    left: 0px;
@@ -93,6 +105,17 @@ div#sea {
    top: 0px;
    background-color: #d44;
    transition: background-color 0.5s ease;
+} */
+
+.merrywrap {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   /* Truco maestro para centrar absoluto */
+   z-index: 10;
+   background-color: #d44;
+
 }
 
 .giftbox {
@@ -513,10 +536,19 @@ div#sea {
    }
 
    #billboard {
-      right: 290px;
-      bottom: 235px;
-      width: 295px;
-      height: 185px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* Centrado perfecto */
+      width: 80%;
+      /* Ocupa el 80% del ancho del cel */
+      max-width: 400px;
+      /* En PC se queda en un tamaño decente */
+      opacity: 0;
+      /* Mantiene tu lógica de oculto al inicio */
+      z-index: 20;
+      /* Asegura que salga hasta arriba de todo */
    }
 
    .moon {
