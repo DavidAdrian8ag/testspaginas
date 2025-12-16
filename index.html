@@ -6,51 +6,58 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>¿Quieres jugar un juego?</title>
    <link rel="icon" href="jiwsaw.ico" type="image/x-icon">
+
    <style>
+      * {
+         box-sizing: border-box;
+      }
+
       body {
          margin: 0;
-         padding: 0;
+         padding: 0 10px;
          background: #000;
          color: #fff;
          font-family: 'Arial', sans-serif;
          display: flex;
          justify-content: center;
          align-items: center;
-         height: 100vh;
+         min-height: 100vh;
          flex-direction: column;
          text-align: center;
-         overflow: hidden;
+         overflow-x: hidden;
+         -webkit-text-size-adjust: 100%;
       }
 
-      /* Imagen del muñeco */
+      /* Imagen */
       .jigsaw-img {
-         width: 760px;
+         width: 100%;
+         max-width: 760px;
+         height: auto;
          margin-bottom: 20px;
       }
 
-      /* Contenedor del texto */
+      /* Título */
       h1 {
-         font-size: 3rem;
+         font-size: clamp(1.8rem, 5vw, 3rem);
          font-weight: bold;
          color: white;
-         display: inline-block;
-         line-height: 1.1;
+         line-height: 1.2;
+         margin: 10px 0;
       }
 
-      /* Letras individuales */
+      /* Letras */
       .letter {
          position: relative;
          display: inline-block;
       }
 
-      /* Gotas de sangre individuales */
       .letter::after {
          content: "";
          position: absolute;
          top: 0;
          left: 50%;
-         width: 5px;
-         height: 10px;
+         width: 4px;
+         height: 8px;
          background: red;
          border-radius: 50%;
          transform: translateX(-50%);
@@ -60,46 +67,31 @@
       }
 
       @keyframes drip {
-         0% {
-            opacity: 0;
-            top: 0;
-         }
-
-         10% {
-            opacity: 1;
-         }
-
-         60% {
-            opacity: 1;
-            top: 25px;
-         }
-
-         100% {
-            opacity: 0;
-            top: 40px;
-         }
+         0% { opacity: 0; top: 0; }
+         10% { opacity: 1; }
+         60% { opacity: 1; top: 20px; }
+         100% { opacity: 0; top: 35px; }
       }
 
-      /* Botón estilo terror */
+      /* Botón */
       button {
          margin-top: 30px;
          padding: 15px 40px;
-         font-size: 1.5rem;
+         font-size: clamp(1rem, 4vw, 1.5rem);
          background: linear-gradient(to bottom, #8b0000, #4d0000);
          border: 2px solid red;
          color: white;
          cursor: pointer;
-         border-radius: 10px;
+         border-radius: 12px;
          text-transform: uppercase;
          letter-spacing: 3px;
          filter: drop-shadow(0 0 10px red);
-         position: relative;
-         overflow: hidden;
-         transition: 0.3s;
+         transition: transform 0.3s, filter 0.3s;
+         -webkit-tap-highlight-color: transparent;
       }
 
       button:hover {
-         transform: scale(1.1);
+         transform: scale(1.08);
          filter: drop-shadow(0 0 20px red);
       }
 
@@ -108,8 +100,8 @@
          position: absolute;
          top: -10px;
          left: 50%;
-         width: 8px;
-         height: 18px;
+         width: 6px;
+         height: 14px;
          background: red;
          border-radius: 50%;
          transform: translateX(-50%);
@@ -117,34 +109,41 @@
       }
 
       @keyframes dripBtn {
-         0% {
-            opacity: 0;
-            top: -10px;
+         0% { opacity: 0; top: -10px; }
+         20% { opacity: 1; }
+         80% { opacity: 1; top: 25px; }
+         100% { opacity: 0; top: 40px; }
+      }
+
+      /* 📱 CELULARES */
+      @media (max-width: 600px) {
+         .jigsaw-img {
+            max-width: 90%;
          }
 
-         20% {
-            opacity: 1;
+         button {
+            width: 90%;
+            padding: 15px;
          }
+      }
 
-         80% {
-            opacity: 1;
-            top: 30px;
-         }
-
-         100% {
-            opacity: 0;
-            top: 45px;
+      /* 📲 TABLETS */
+      @media (min-width: 601px) and (max-width: 1024px) {
+         .jigsaw-img {
+            max-width: 600px;
          }
       }
    </style>
 </head>
 
 <body>
+
    <img class="jigsaw-img" src="./saw.jpg" alt="Jigsaw Puppet" />
 
    <h1 id="title"></h1>
 
    <button id="playBtn">Jugar</button>
+
    <script>
       const text = "¿Quieres jugar\nun juego?";
       const title = document.getElementById("title");
@@ -152,29 +151,25 @@
       title.innerHTML = "";
 
       text.split("").forEach((char) => {
-
          if (char === "\n") {
             title.appendChild(document.createElement("br"));
-         }
-         else if (char === " ") {
+         } else if (char === " ") {
             const space = document.createElement("span");
             space.innerHTML = "&nbsp;";
             title.appendChild(space);
-         }
-         else {
+         } else {
             const span = document.createElement("span");
             span.textContent = char;
             span.classList.add("letter");
             span.style.setProperty("--delay", Math.random() * 2 + "s");
             title.appendChild(span);
          }
-
       });
 
       document.getElementById("playBtn").addEventListener("click", () => {
          window.location.href = "./safe.html";
       });
    </script>
-</body>
 
+</body>
 </html>
