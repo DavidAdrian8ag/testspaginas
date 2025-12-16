@@ -10,172 +10,45 @@
 
    <link rel="icon" href="regalo.ico" type="image/x-icon">
    <style>
-      @import url("https://fonts.googleapis.com/css?family=Kaushan+Script");
+      /* ============================= */
+      /* 🔧 FIX CRÍTICO DE VISIBILIDAD */
+      /* ============================= */
 
-      /* ================= BASE ================= */
-      html,
-      body {
-         width: 100%;
-         height: 100%;
-         margin: 0;
-         font-family: "Kaushan Script", cursive;
-         overflow: hidden;
-      }
-
-      body {
-         background-image: radial-gradient(circle at center bottom,
-               #e9b64b,
-               #c76075 15%,
-               #0d0d4b 75%,
-               #190e14 90%);
-      }
-
-      /* ================= ESCENA ================= */
-      canvas#canvas,
-      #beach {
-         position: absolute;
-         inset: 0;
-         width: 100%;
-         height: 100%;
-      }
-
-      canvas#canvas {
-         width: 100vw;
-         height: 100vh;
-      }
-
-      #beach {
-         background: url("https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png") bottom right / 1700px no-repeat;
-      }
-
-      #sea {
-         position: absolute;
-         bottom: 0;
-         width: 100%;
-         height: 85px;
-         background: radial-gradient(circle at center top, #23485a, #0d0246);
-      }
-
-      #people {
-         position: absolute;
-         bottom: 65px;
-         left: 40px;
-         width: 140px;
-      }
-
-      /* ================= LUNA ================= */
-      .moon {
-         position: absolute;
-         top: 10%;
-         right: 200px;
-         width: 100px;
-         height: 100px;
-         border-radius: 50%;
-         background: #ddd;
-      }
-
-      /* ================= REGALO ================= */
       .merrywrap {
-         position: absolute;
+         position: fixed;
          inset: 0;
-         background-color: #d44;
-         transition: background-color 0.5s ease;
+         overflow: hidden;
       }
 
       .giftbox {
          position: absolute;
-         width: 300px;
-         height: 200px;
          left: 50%;
          top: 50%;
-         transform: translate(-50%, -50%);
+         transform: translate(-50%, -50%) scale(1);
          z-index: 10;
-         transform-origin: center bottom;
+         visibility: visible;
+         opacity: 1;
       }
 
-      .giftbox>div {
-         background: #34495e;
-         position: absolute;
+      /* Evita que algún media query la oculte */
+      .step-1 .giftbox,
+      .step-2 .giftbox {
+         opacity: 1;
       }
 
-      .giftbox:after {
-         content: "¡Ábreme!";
-         position: absolute;
-         bottom: 0;
-         width: 100%;
-         color: #fff;
-         font-size: 64px;
-         text-align: center;
-         transform: rotate(-20deg);
-      }
+      /* ============================= */
+      /* 📱 RESPONSIVE MÓVIL */
+      /* ============================= */
 
-      .cover {
-         width: 100%;
-         height: 25%;
-         top: 0;
-         z-index: 2;
-      }
-
-      .box {
-         height: 80%;
-         bottom: 0;
-      }
-
-      /* ================= TEXTO ================= */
-      .icons {
-         position: absolute;
-         left: 80px;
-         transform: rotate(-20deg);
-      }
-
-      .icons .row span {
-         font-size: 80px;
-         display: inline-block;
-         opacity: 0;
-         transition: transform 0.5s ease-in, opacity 0.7s;
-      }
-
-      /* ================= BILLBOARD ================= */
-      #billboard {
-         position: absolute;
-         right: 243px;
-         bottom: 200px;
-         width: 255px;
-         height: 155px;
-         background: white;
-         border: 2px solid black;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         opacity: 0;
-         transition: opacity 1s ease-in-out;
-      }
-
-      #video {
-         width: 100%;
-         height: 100%;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-      }
-
-      /* ================= BOTÓN ================= */
-      #continueButton {
-         background-color: #e74c3c;
-         color: white;
-         padding: 15px 30px;
-         font-size: 24px;
-         border-radius: 10px;
-         border: none;
-         cursor: pointer;
-      }
-
-      /* ================= RESPONSIVE ================= */
-
-      /* TABLET */
       @media (max-width: 768px) {
          .giftbox {
-            transform: translate(-50%, -50%) scale(0.7);
+            width: 220px;
+            height: 150px;
+            transform: translate(-50%, -50%) scale(1);
+         }
+
+         .giftbox:after {
+            font-size: 40px;
          }
 
          .icons {
@@ -187,28 +60,38 @@
             font-size: 42px;
          }
 
+         #people {
+            width: 100px;
+            left: 10px;
+            bottom: 60px;
+         }
+
          #billboard {
+            width: 220px;
+            height: 140px;
             right: 50%;
             transform: translateX(50%);
-            bottom: 120px;
-            width: 240px;
-            height: 150px;
+            bottom: 160px;
          }
 
-         #people {
-            width: 110px;
-            left: 10px;
-         }
-
-         #beach {
-            background-size: 1200px;
+         #continueButton {
+            font-size: 18px;
+            padding: 10px 20px;
          }
       }
 
-      /* MÓVIL */
-      @media (max-width: 480px) {
+      /* ============================= */
+      /* 📱 iPhone SE / muy pequeños */
+      /* ============================= */
+
+      @media (max-width: 420px) {
          .giftbox {
-            transform: translate(-50%, -50%) scale(0.55);
+            width: 180px;
+            height: 130px;
+         }
+
+         .giftbox:after {
+            font-size: 32px;
          }
 
          .icons .row span {
@@ -216,14 +99,9 @@
          }
 
          #billboard {
-            width: 200px;
-            height: 130px;
-            bottom: 100px;
-         }
-
-         #continueButton {
-            font-size: 18px;
-            padding: 12px 20px;
+            width: 190px;
+            height: 120px;
+            bottom: 140px;
          }
       }
    </style>
