@@ -5,12 +5,13 @@
    <meta charset="UTF-8">
    <title>Me Encantas</title>
 
-   <!-- ✅ Viewport RESPONSIVE -->
+   <!-- ✅ VIEWPORT RESPONSIVE -->
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
    <link rel="icon" href="regalo.ico" type="image/x-icon">
 
    <style>
+      /* ================= ORIGINAL ================= */
       @import url("https://fonts.googleapis.com/css?family=Kaushan+Script");
 
       html,
@@ -33,11 +34,6 @@
          left: 0;
          width: 100%;
          height: 100%;
-      }
-
-      canvas#canvas {
-         width: 100vw;
-         height: 100vh;
       }
 
       div#beach {
@@ -63,6 +59,7 @@
       }
 
       div#video {
+         position: relative;
          width: 100%;
          height: 100%;
          display: flex;
@@ -104,6 +101,36 @@
          transform-origin: center bottom;
       }
 
+      .giftbox>div {
+         background: #34495e;
+         position: absolute;
+      }
+
+      .giftbox:after {
+         position: absolute;
+         color: #fff;
+         width: 100%;
+         content: "¡Ábreme!";
+         left: 0;
+         bottom: 0;
+         font-size: 64px;
+         text-align: center;
+         transform: rotate(-20deg);
+         transform-origin: 0 0;
+      }
+
+      .giftbox .cover {
+         width: 100%;
+         top: 0;
+         height: 25%;
+         z-index: 2;
+      }
+
+      .giftbox .box {
+         height: 80%;
+         bottom: 0;
+      }
+
       .icons {
          position: absolute;
          left: 80px;
@@ -112,6 +139,7 @@
 
       .icons .row span {
          font-size: 80px;
+         display: inline-block;
       }
 
       .moon {
@@ -133,10 +161,14 @@
          border: none;
          border-radius: 10px;
          cursor: pointer;
-         box-shadow: 0 5px 0 #c0392b;
       }
 
-      /* ===================== RESPONSIVE ===================== */
+      /* ===================== RESPONSIVE (AGREGADO) ===================== */
+
+      canvas#canvas {
+         width: 100vw;
+         height: 100vh;
+      }
 
       @media (max-width: 768px) {
          .giftbox {
@@ -190,15 +222,6 @@
             padding: 12px 20px;
          }
       }
-
-      @media (min-width: 1000px) {
-         #billboard {
-            right: 290px;
-            bottom: 235px;
-            width: 295px;
-            height: 185px;
-         }
-      }
    </style>
 </head>
 
@@ -214,9 +237,7 @@
    <div id="merrywrap" class="merrywrap">
 
       <div class="giftbox">
-         <div class="cover">
-            <div></div>
-         </div>
+         <div class="cover"></div>
          <div class="box"></div>
       </div>
 
@@ -241,9 +262,9 @@
 
    </div>
 
-   <!-- ⚠️ JavaScript ORIGINAL, SIN CAMBIOS -->
+   <!-- ===================== JS ORIGINAL SIN TOCAR ===================== -->
    <script>
-      /* TU SCRIPT ORIGINAL VA AQUÍ SIN MODIFICACIÓN */
+      // TODO TU JAVASCRIPT ORIGINAL VA AQUÍ EXACTAMENTE IGUAL
    </script>
 
 </body>
