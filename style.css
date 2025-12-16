@@ -1,0 +1,126 @@
+* {
+   box-sizing: border-box;
+}
+
+body {
+   margin: 0;
+   padding: 0 10px;
+   background: #000;
+   color: #fff;
+   font-family: Arial, sans-serif;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   flex-direction: column;
+   text-align: center;
+   overflow-x: hidden;
+   -webkit-text-size-adjust: 100%;
+}
+
+/* Imagen */
+.jigsaw-img {
+   width: 100%;
+   max-width: 760px;
+   height: auto;
+   margin-bottom: 20px;
+}
+
+/* Título */
+h1 {
+   font-size: clamp(1.8rem, 5vw, 3rem);
+   font-weight: bold;
+   line-height: 1.2;
+   margin: 10px 0;
+}
+
+/* Letras */
+.letter {
+   position: relative;
+   display: inline-block;
+}
+
+.letter::after {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 50%;
+   width: 4px;
+   height: 8px;
+   background: red;
+   border-radius: 50%;
+   transform: translateX(-50%);
+   opacity: 0;
+   animation: drip 2s infinite;
+   animation-delay: var(--delay);
+}
+
+@keyframes drip {
+   0% { opacity: 0; top: 0; }
+   10% { opacity: 1; }
+   60% { opacity: 1; top: 20px; }
+   100% { opacity: 0; top: 35px; }
+}
+
+/* Botón */
+button {
+   margin-top: 30px;
+   padding: 15px 40px;
+   font-size: clamp(1rem, 4vw, 1.5rem);
+   background: linear-gradient(to bottom, #8b0000, #4d0000);
+   border: 2px solid red;
+   color: white;
+   cursor: pointer;
+   border-radius: 12px;
+   text-transform: uppercase;
+   letter-spacing: 3px;
+   filter: drop-shadow(0 0 10px red);
+   transition: transform 0.3s, filter 0.3s;
+   -webkit-tap-highlight-color: transparent;
+   position: relative;
+   overflow: hidden;
+}
+
+button:hover {
+   transform: scale(1.08);
+   filter: drop-shadow(0 0 20px red);
+}
+
+button::after {
+   content: "";
+   position: absolute;
+   top: -10px;
+   left: 50%;
+   width: 6px;
+   height: 14px;
+   background: red;
+   border-radius: 50%;
+   transform: translateX(-50%);
+   animation: dripBtn 1.5s infinite;
+}
+
+@keyframes dripBtn {
+   0% { opacity: 0; top: -10px; }
+   20% { opacity: 1; }
+   80% { opacity: 1; top: 25px; }
+   100% { opacity: 0; top: 40px; }
+}
+
+/* 📱 Móviles */
+@media (max-width: 600px) {
+   .jigsaw-img {
+      max-width: 90%;
+   }
+
+   button {
+      width: 90%;
+      padding: 15px;
+   }
+}
+
+/* 📲 Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+   .jigsaw-img {
+      max-width: 600px;
+   }
+}
