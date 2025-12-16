@@ -509,7 +509,7 @@ div#sea {
 /* Estilos para el botón de Continuar */
 #continueButton {
    background-color: #ffffff;
-   color: rgb(247, 5, 5);
+   color: #11a8ff);
    padding: 15px 30px;
    font-size: 40px;
    font-family: "Kaushan Script", cursive;
@@ -520,7 +520,7 @@ div#sea {
 }
 
 #continueButton:hover {
-   background-color: #11a8ff;
+   background-color: #0a5204;
    color: #ffffff;
 }
 
