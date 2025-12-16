@@ -179,8 +179,8 @@
       const title = document.getElementById("title");
 
       title.innerHTML = "";
-
-      text.split("").forEach(char => {
+      
+       text.split("").forEach(char => {
          if (char === "\n") {
             title.appendChild(document.createElement("br"));
          } else if (char === " ") {
