@@ -1,155 +1,153 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
    <meta charset="UTF-8">
-   <title>Me Encantas ❤️</title>
+   <title>Me Encantas</title>
 
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+   <link rel="icon" href="regalo.ico" type="image/x-icon">
+
    <style>
-      /* =========================
-   RESET + BASE
-========================= */
-      * {
-         box-sizing: border-box;
-      }
+      @import url("https://fonts.googleapis.com/css?family=Kaushan+Script");
 
       html,
       body {
-         margin: 0;
          width: 100%;
          height: 100%;
-         overflow: hidden;
-         font-family: Arial, Helvetica, sans-serif;
-         background: #d44;
+         margin: 0;
+         overflow-x: hidden;
+         font-family: "Kaushan Script", cursive;
       }
 
-      /* =========================
-   CONTENEDOR GENERAL
-========================= */
+      body {
+         background-image:
+            radial-gradient(circle at center bottom,
+               #e9b64b,
+               #c76075 15%,
+               #0d0d4b 75%,
+               #190e14 90%);
+      }
+
+      /* ================= BASE ================= */
+      #beach,
+      #canvas {
+         position: absolute;
+         inset: 0;
+         width: 100%;
+         height: 100%;
+      }
+
+      #beach {
+         background: url(https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png) no-repeat bottom right;
+         background-size: 1700px;
+      }
+
+      #sea {
+         position: absolute;
+         bottom: 0;
+         height: 85px;
+         width: 100%;
+         background-image: radial-gradient(circle at center top, #23485a, #0d0246);
+      }
+
+      /* ================= GIFT ================= */
       .merrywrap {
          position: fixed;
          inset: 0;
-         background: #d44;
+         background-color: #d44;
          overflow: hidden;
       }
 
-      /* =========================
-   🎁 GIFTBOX
-========================= */
       .giftbox {
          position: absolute;
-         left: 50%;
-         top: 50%;
          width: 300px;
          height: 200px;
-         transform: translate(-50%, -50%);
-         cursor: pointer;
-      }
-
-      /* Caja base */
-      .giftbox .box {
-         position: absolute;
-         bottom: 0;
-         width: 100%;
-         height: 70%;
-         background: #8e44ad;
-         border-radius: 0 0 10px 10px;
-      }
-
-      /* Tapa */
-      .giftbox .cover {
-         position: absolute;
-         top: 0;
-         width: 100%;
-         height: 40%;
-         background: #9b59b6;
-         border-radius: 10px 10px 0 0;
-         transform-origin: bottom center;
-         transition: transform 0.8s ease;
-      }
-
-      /* Moño */
-      .giftbox .cover::before,
-      .giftbox .cover::after {
-         content: "";
-         position: absolute;
-         width: 20px;
-         height: 100%;
-         background: #f1c40f;
          left: 50%;
-         transform: translateX(-50%);
-      }
-
-      .giftbox .cover::after {
-         width: 100%;
-         height: 20px;
          top: 50%;
-         left: 0;
-         transform: translateY(-50%);
+         transform: translate(-50%, -50%);
+         z-index: 10;
       }
 
-      /* Abierta */
-      .giftbox.open .cover {
-         transform: rotateX(150deg);
+      /* ⚠️ FIX VISIBILIDAD */
+      .step-1 .giftbox,
+      .step-2 .giftbox {
+         opacity: 1;
+         visibility: visible;
       }
 
-      /* =========================
-   💌 TEXTO
-========================= */
+      /* ================= ICONOS ================= */
       .icons {
          position: absolute;
-         top: 10%;
-         left: 50%;
-         transform: translateX(-50%);
-         text-align: center;
+         left: 80px;
+         transform: rotate(-20deg);
+      }
+
+      .icons .row span {
+         font-size: 80px;
+         opacity: 0;
+         color: #e5e5e5;
+         text-shadow: 4px 4px 0 rgba(96, 125, 139, .4);
+         display: inline-block;
+         transition: transform .5s ease-in, opacity .7s;
+      }
+
+      /* ================= BILLBOARD ================= */
+      #billboard {
+         position: absolute;
+         right: 243px;
+         bottom: 200px;
+         width: 255px;
+         height: 155px;
+         background: white;
+         border: 2px solid black;
          opacity: 0;
          transition: opacity 1s ease;
       }
 
-      .merrywrap.show-text .icons {
-         opacity: 1;
-      }
-
-      .icons .row {
-         font-size: 42px;
-         color: white;
-         font-weight: bold;
-         line-height: 1.2;
-      }
-
-      /* =========================
-   🎆 CANVAS
-========================= */
-      canvas {
-         position: fixed;
-         inset: 0;
-         pointer-events: none;
-      }
-
-      /* =========================
-   📱 RESPONSIVE
-========================= */
+      /* ================= RESPONSIVE ================= */
       @media (max-width: 768px) {
          .giftbox {
-            width: 220px;
-            height: 150px;
+            transform: translate(-50%, -50%) scale(0.75);
          }
 
-         .icons .row {
-            font-size: 28px;
+         .icons {
+            left: 50%;
+            transform: translateX(-50%) rotate(-15deg);
+         }
+
+         .icons .row span {
+            font-size: 42px;
+         }
+
+         #billboard {
+            left: 50%;
+            right: auto;
+            bottom: 140px;
+            transform: translateX(-50%);
+            width: 220px;
+            height: 140px;
+         }
+
+         #beach {
+            background-size: 1200px;
          }
       }
 
       @media (max-width: 420px) {
          .giftbox {
-            width: 180px;
-            height: 130px;
+            transform: translate(-50%, -50%) scale(0.6);
          }
 
-         .icons .row {
-            font-size: 22px;
+         .icons .row span {
+            font-size: 32px;
+         }
+
+         #billboard {
+            width: 190px;
+            height: 120px;
+            bottom: 120px;
          }
       }
    </style>
@@ -158,86 +156,43 @@
 <body>
 
    <canvas id="canvas"></canvas>
+   <div id="sea"></div>
+   <div id="beach"></div>
 
-   <div class="merrywrap" id="merrywrap">
+   <img src="https://dl.dropbox.com/s/2k0mtrxc2dqurmh/jumping.png" id="people">
 
-      <div class="giftbox" id="giftbox">
-         <div class="cover"></div>
+   <div id="merrywrap" class="merrywrap">
+      <div class="giftbox">
+         <div class="cover">
+            <div></div>
+         </div>
          <div class="box"></div>
       </div>
 
       <div class="icons">
-         <div class="row">Te Amo</div>
-         <div class="row">Elenita</div>
-         <div class="row">Quiero ver</div>
-         <div class="row">Mil películas</div>
-         <div class="row">Contigo ❤️</div>
+         <div class="row"><span>T</span><span>e</span></div>
+         <div class="row"><span>A</span><span>m</span><span>u</span></div>
+         <div class="row">
+            <span>E</span><span>l</span><span>e</span><span>n</span><span>i</span><span>t</span><span>a</span></div>
+         <div class="row">
+            <span>C</span><span>o</span><span>n</span><span>t</span><span>i</span><span>g</span><span>o</span></div>
       </div>
 
+      <div id="billboard">
+         <div id="video"></div>
+      </div>
    </div>
 
    <script>
-      /* =========================
-         🎁 CLICK CAJA
-      ========================= */
-      const giftbox = document.getElementById("giftbox");
-      const wrap = document.getElementById("merrywrap");
-
-      giftbox.addEventListener("click", () => {
-         giftbox.classList.add("open");
-         wrap.classList.add("show-text");
-      });
-
-      /* =========================
-         🎆 FUEGOS ARTIFICIALES
-      ========================= */
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
 
-      let cw = canvas.width = window.innerWidth;
-      let ch = canvas.height = window.innerHeight;
-
-      window.addEventListener("resize", () => {
-         cw = canvas.width = window.innerWidth;
-         ch = canvas.height = window.innerHeight;
-      });
-
-      function random(min, max) {
-         return Math.random() * (max - min) + min;
+      function resizeCanvas() {
+         canvas.width = window.innerWidth;
+         canvas.height = window.innerHeight;
       }
-
-      let particles = [];
-
-      function createFirework() {
-         for (let i = 0; i < 80; i++) {
-            particles.push({
-               x: cw / 2,
-               y: ch / 2,
-               r: random(2, 4),
-               dx: random(-5, 5),
-               dy: random(-5, 5),
-               life: 100
-            });
-         }
-      }
-
-      function animate() {
-         ctx.clearRect(0, 0, cw, ch);
-         particles.forEach((p, i) => {
-            p.x += p.dx;
-            p.y += p.dy;
-            p.life--;
-            ctx.fillStyle = `rgba(255,255,255,${p.life / 100})`;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fill();
-            if (p.life <= 0) particles.splice(i, 1);
-         });
-         requestAnimationFrame(animate);
-      }
-
-      setInterval(createFirework, 2000);
-      animate();
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
    </script>
 
 </body>
