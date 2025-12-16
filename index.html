@@ -4,8 +4,8 @@
 <head>
    <meta charset="UTF-8">
    <title>Te Amo</title>
-   <!-- <link rel="stylesheet" href="./corazon.css"> -->
    <link rel="icon" href="corazon.ico" type="image/x-icon">
+
    <style>
       @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
@@ -39,14 +39,15 @@
          padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
       }
 
-      /* CONTENEDOR PRINCIPAL */
+      /* ===================== */
+      /* CONTENEDOR PRINCIPAL  */
+      /* (NO TOCAR GEOMETRÍA)  */
+      /* ===================== */
       .wrapper {
          width: 90vmin;
          height: 90vmin;
-         max-width: 600px;
-         max-height: 600px;
          position: relative;
-         margin: auto;
+         margin: 5vmin auto;
       }
 
       .throb {
@@ -75,7 +76,6 @@
          cursor: pointer;
       }
 
-      /* POSICIÓN */
       #ck1+label,
       #ck2+label {
          border-radius: 50%;
@@ -97,18 +97,19 @@
          background-color: white;
       }
 
-      /* CHECKED */
       #ck1:checked+label,
       #ck2:checked+label,
       #ck3:checked+label {
          background: #c32a2a;
          font-size: 0;
+         transition: all 1s ease;
       }
 
       #ck1:checked+label,
       #ck2:checked+label {
          width: 54vmin;
          height: 54vmin;
+         border-radius: 50%;
          line-height: 54vmin;
       }
 
@@ -125,7 +126,9 @@
          line-height: 4.86vmin;
       }
 
-      /* BOTÓN CONTINUAR */
+      /* ===================== */
+      /* BOTÓN CONTINUAR       */
+      /* ===================== */
       #continuar {
          display: none;
          margin-top: 5vh;
@@ -152,17 +155,13 @@
          background-color: #a32020;
       }
 
-      /* ========================= */
-      /* 📱 MOBILE (iPhone, Android) */
-      /* ========================= */
+      /* ===================== */
+      /* 📱 RESPONSIVE MÓVIL   */
+      /* ===================== */
       @media (max-width: 768px) {
          .wrapper {
             width: 95vmin;
             height: 95vmin;
-         }
-
-         input[type="checkbox"]+label {
-            font-size: 28vmin;
          }
 
          #continuar a {
@@ -171,9 +170,9 @@
          }
       }
 
-      /* ========================= */
-      /* 📱 iPhone SE / pantallas muy pequeñas */
-      /* ========================= */
+      /* ===================== */
+      /* 📱 iPhone pequeño     */
+      /* ===================== */
       @media (max-width: 390px) {
          #continuar a {
             font-size: 8vmin;
@@ -181,10 +180,10 @@
          }
       }
    </style>
-
 </head>
 
 <body>
+
    <form>
       <div class="wrapper">
          <input type="checkbox" id="ck1" onclick="check()">
@@ -197,13 +196,11 @@
          <label for="ck3">Mil</label>
       </div>
 
-      <!-- Botón de continuar -->
       <div id="continuar">
          <a href="ruleta.html" target="_self">Continuar 💖</a>
       </div>
    </form>
 
-   </script>
    <!-- <script src="./corazon.js"></script> -->
    <script>
       function check() {
