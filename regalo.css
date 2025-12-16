@@ -9,11 +9,9 @@ body,
 }
 
 body {
-   background: #e74;
+   background: rgb(0, 0, 0);
    overflow: hidden;
-   /* Gradientes del cielo */
-   background-image: linear-gradient(to bottom, #190e14, #0d0d4b 30%, #c76075 80%, #e9b64b 95%);
-   background-image: radial-gradient(circle at center bottom, #e9b64b, #c76075 15%, #0d0d4b 75%, #190e14 90%);
+
 }
 
 div#beach,
@@ -26,68 +24,81 @@ canvas#canvas {
 }
 
 div#beach {
-   background-image: url(https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png);
-   /* CORRECCIÓN: Fondo adaptable (cover) y centrado */
-   background-position: bottom center;
+   background-image: url(tv.jpg);
+   background-position: center;
    background-size: cover;
+   /* 📌 Esto hará que la imagen llene toda la pantalla */
    background-repeat: no-repeat;
-   z-index: 1;
 }
 
-/* CORRECCIÓN: Video/Cuadro Blanco Centrado y Responsivo */
+
+/* 🚀 MODIFICACIÓN CLAVE EN CSS: Ocultar al inicio */
+/* #billboard {
+         position: absolute;
+         right: 243px;
+         bottom: 200px;
+         width: 255px;
+         height: 155px;
+         background-color: white;
+         border: 2px solid black;
+         box-sizing: border-box;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         /* Ocultar inicialmente y añadir transición para un efecto suave 
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      } */
+
 #billboard {
    position: absolute;
-   /* Centrado perfecto */
    top: 50%;
    left: 50%;
-   transform: translate(-50%, -50%);
-
-   /* Tamaño adaptable */
-   width: 85%;
-   max-width: 400px;
-   /* Máximo tamaño en PC */
-   height: auto;
-   min-height: 200px;
-
-   background-color: white;
-   border: 2px solid black;
-   box-sizing: border-box;
+   width: 255px;
+   height: 155px;
+   background-color: transparent;
+   /* Blanco pasa a transparente */
    display: flex;
    justify-content: center;
    align-items: center;
-
    opacity: 0;
-   /* Oculto al inicio */
    transition: opacity 1s ease-in-out;
-   z-index: 20;
-   /* Encima de todo */
+   transform: translate(-60%, 60%);
+   border-radius: 20px;
+   /* Bordes redondeados para el contorno */
 }
 
-div#video {
-   position: relative;
+
+/* 
+      div#video {
+         position: relative;
+         width: 100%;
+         height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      } */
+
+#video {
    width: 100%;
    height: 100%;
+   background-color: rgb(255, 255, 255);
+   /* Cubre todo el cuadro */
+   border-radius: 20px;
+   /* Bordes redondeados iguales */
    display: flex;
    justify-content: center;
    align-items: center;
-   padding: 20px;
 }
 
 /* -------------------------------------------------------------------------- */
 
-/* CORRECCIÓN: Personas centradas y adaptables */
+
 #people {
    position: absolute;
-   bottom: 0;
-   /* Pegados al suelo */
-   left: 50%;
-   transform: translateX(-50%);
-   /* Centrado horizontal */
-   width: 90%;
-   max-width: 500px;
-   /* No se harán gigantes en PC */
-   height: auto;
-   z-index: 2;
+   bottom: 65px;
+   left: 40px;
+   width: 140px;
 }
 
 #car {
@@ -101,39 +112,24 @@ div#sea {
    background-color: blue;
    height: 85px;
    position: absolute;
-   bottom: 0;
+   b ottom: 0;
    left: 0;
    width: 100%;
    background-image: radial-gradient(circle at center top, #23485a, #0d0246);
 }
 
-/* CORRECCIÓN: Tu imagen de fondo y la lógica de desaparición */
 .merrywrap {
    position: absolute;
    right: 0px;
    left: 0px;
    bottom: 0px;
    top: 0px;
-   background-color: #d44;
-
-   /* Aquí está tu imagen solicitada */
-   background-image: url(./100);
+   background-image: url("100.jpg");
    background-size: cover;
    background-position: center;
-
-   transition: background-color 0.5s ease;
-   z-index: 10;
-   /* Asegura que cubra la pantalla al inicio */
+   transition: opacity 0.5s ease;
 }
 
-/* --- LÓGICA PARA QUITAR FONDO AL ABRIR --- */
-/* Cuando pasa al paso 2 (abrir) o siguientes, quitamos la imagen */
-.merrywrap.step-2,
-.merrywrap.step-3,
-.merrywrap.step-4 {
-   background-image: none !important;
-   background-color: transparent !important;
-}
 
 .giftbox {
    position: absolute;
@@ -141,17 +137,9 @@ div#sea {
    height: 200px;
    left: 50%;
    top: 50%;
-   transform: translate(-50%, -50%) scale(1.5);
-   /* Escala ajustada */
+   transform: translate(-50%, -50%) scale(2);
    z-index: 10;
    transform-origin: center bottom;
-}
-
-/* Ajuste para móviles muy pequeños */
-@media (max-width: 500px) {
-   .giftbox {
-      transform: translate(-50%, -50%) scale(1);
-   }
 }
 
 .giftbox>div {
@@ -249,15 +237,9 @@ div#sea {
 
 .icons {
    position: absolute;
-   left: 50%;
-   /* Centrado */
-   top: 50%;
-   /* Centrado */
+   left: 80px;
    height: auto;
-   /* Ajustamos la transformación para centrarlo visualmente */
-   transform: translate(-50%, -60%) rotate(-10deg);
-   width: 90%;
-   max-width: 800px;
+   transform: translateY(10px) rotate(-20deg);
 }
 
 .icons .row {
@@ -268,14 +250,12 @@ div#sea {
 .icons .row span {
    color: #e5e5e5;
    text-shadow: 4px 4px 0 rgba(96, 125, 139, 0.4);
-   font-size: 40px;
-   /* Tamaño base adaptable */
+   font-size: 80px;
    display: inline-block;
    opacity: 0;
    transition: transform 0.5s ease-in, opacity 0.7s;
 }
 
-/* Animaciones */
 .step-1 .giftbox {
    animation: wobble 0.5s linear infinite forwards;
 }
@@ -347,7 +327,6 @@ div#sea {
    opacity: 0;
 }
 
-/* Animaciones de letras dispersas (sin cambios, funcionan bien) */
 .step-1 .icons .row span:first-child {
    transform: translateY(700%) translateX(600%);
 }
@@ -400,52 +379,63 @@ div#sea {
    transform: translateY(700%) translateX(-600%);
 }
 
-/* Retrasos de animación de letras */
 .step-2 .icons .row span:nth-child(2) {
+   -webkit-transition-delay: 0.1s;
    transition-delay: 0.1s;
 }
 
 .step-2 .icons .row span:nth-child(3) {
+   -webkit-transition-delay: 0.15s;
    transition-delay: 0.15s;
 }
 
 .step-2 .icons .row span:nth-child(4) {
+   -webkit-transition-delay: 0.2s;
    transition-delay: 0.2s;
 }
 
 .step-2 .icons .row span:nth-child(5) {
+   -webkit-transition-delay: 0.25s;
    transition-delay: 0.25s;
 }
 
 .step-2 .icons .row span:nth-child(6) {
+   -webkit-transition-delay: 0.3s;
    transition-delay: 0.3s;
 }
 
 .step-2 .icons .row span:nth-child(7) {
+   -webkit-transition-delay: 0.35s;
    transition-delay: 0.35s;
 }
 
 .step-2 .icons .row span:nth-child(8) {
+   -webkit-transition-delay: 0.4s;
    transition-delay: 0.4s;
 }
 
 .step-2 .icons .row span:nth-child(9) {
+   -webkit-transition-delay: 0.45s;
    transition-delay: 0.45s;
 }
 
 .step-2 .icons .row span:nth-child(10) {
+   -webkit-transition-delay: 0.5s;
    transition-delay: 0.5s;
 }
 
 .step-2 .icons .row span:nth-child(11) {
+   -webkit-transition-delay: 0.55s;
    transition-delay: 0.55s;
 }
 
 .step-2 .icons .row span:nth-child(12) {
+   -webkit-transition-delay: 0.6s;
    transition-delay: 0.6s;
 }
 
 .step-2 .icons .row span:nth-child(13) {
+   -webkit-transition-delay: 0.65s;
    transition-delay: 0.65s;
 }
 
@@ -464,19 +454,18 @@ div#sea {
 
 @keyframes neon {
    from {
-      text-shadow: 0 0 6px rgba(202, 228, 225, 0.92), 0 0 30px rgba(202, 228, 225, 0.34);
+      text-shadow: 0 0 6px rgba(202, 228, 225, 0.92), 0 0 30px rgba(202, 228, 225, 0.34), 0 0 12px rgba(30, 132, 242, 0.52), 0 0 21px rgba(30, 132, 242, 0.92), 0 0 34px rgba(30, 132, 242, 0.78), 0 0 54px rgba(30, 132, 242, 0.92);
    }
 
    to {
-      text-shadow: 0 0 6px rgba(202, 228, 225, 0.98), 0 0 30px rgba(202, 228, 225, 0.42);
+      text-shadow: 0 0 6px rgba(202, 228, 225, 0.98), 0 0 30px rgba(202, 228, 225, 0.42), 0 0 12px rgba(30, 132, 242, 0.58), 0 0 22px rgba(30, 132, 242, 0.84), 0 0 38px rgba(30, 132, 242, 0.88), 0 0 60px #1e84f2;
    }
 }
 
 .moon {
    position: absolute;
    top: 10%;
-   right: 15%;
-   /* Porcentaje para adaptarse */
+   right: 200px;
    width: 100px;
    height: 100px;
    border-radius: 50%;
@@ -517,40 +506,57 @@ div#sea {
    right: 25px;
 }
 
-/* Estilos botón */
+/* Estilos para el botón de Continuar */
 #continueButton {
-   background-color: #e74c3c;
-   color: white;
+   background-color: #ffffff;
+   color: rgb(247, 5, 5);
    padding: 15px 30px;
-   font-size: 20px;
+   font-size: 40px;
    font-family: "Kaushan Script", cursive;
    border: none;
    border-radius: 10px;
    cursor: pointer;
-   box-shadow: 0 5px 0 #c0392b;
    transition: background-color 0.1s, box-shadow 0.1s, transform 0.1s;
-   max-width: 100%;
 }
 
 #continueButton:hover {
-   background-color: #c0392b;
+   background-color: #11a8ff;
+   color: #ffffff;
 }
 
 #continueButton:active {
-   box-shadow: 0 2px 0 #922b21;
+   box-shadow: 0 2px 0 #11a8ff;
    transform: translateY(3px);
+   color: #ffffff;
 }
 
-/* MEDIA QUERIES PARA PANTALLAS GRANDES */
 @media (min-width: 1000px) {
+   .icons {
+      left: 30px;
+   }
 
-   /* Solo aumentamos el tamaño de fuente, no cambiamos posiciones para evitar errores */
    .icons .row span {
       font-size: 56px;
    }
 
-   /* Aseguramos que el billboard no se haga demasiado grande */
+   #people {
+      left: 80px;
+      bottom: 70px;
+      width: 160px;
+   }
+
+   div#beach {
+      background-size: 2000px;
+   }
+
    #billboard {
-      max-width: 450px;
+      right: 290px;
+      bottom: 235px;
+      width: 295px;
+      height: 185px;
+   }
+
+   .moon {
+      right: 230px;
    }
 }
