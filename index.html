@@ -9,62 +9,51 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
    <link rel="icon" href="regalo.ico" type="image/x-icon">
-
    <style>
-      /* ================= ORIGINAL ================= */
       @import url("https://fonts.googleapis.com/css?family=Kaushan+Script");
 
+      /* ================= BASE ================= */
       html,
-      body,
-      .container {
+      body {
+         width: 100%;
          height: 100%;
-         font-family: "Kaushan Script", "Sail", cursive;
+         margin: 0;
+         font-family: "Kaushan Script", cursive;
+         overflow: hidden;
       }
 
       body {
-         background: #e74;
-         overflow: hidden;
-         background-image: radial-gradient(circle at center bottom, #e9b64b, #c76075 15%, #0d0d4b 75%, #190e14 90%);
+         background-image: radial-gradient(circle at center bottom,
+               #e9b64b,
+               #c76075 15%,
+               #0d0d4b 75%,
+               #190e14 90%);
       }
 
-      div#beach,
+      /* ================= ESCENA ================= */
+      canvas#canvas,
+      #beach {
+         position: absolute;
+         inset: 0;
+         width: 100%;
+         height: 100%;
+      }
+
       canvas#canvas {
+         width: 100vw;
+         height: 100vh;
+      }
+
+      #beach {
+         background: url("https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png") bottom right / 1700px no-repeat;
+      }
+
+      #sea {
          position: absolute;
-         top: 0;
-         left: 0;
+         bottom: 0;
          width: 100%;
-         height: 100%;
-      }
-
-      div#beach {
-         background-image: url(https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png);
-         background-position: bottom right;
-         background-size: 1700px;
-         background-repeat: no-repeat;
-      }
-
-      #billboard {
-         position: absolute;
-         right: 243px;
-         bottom: 200px;
-         width: 255px;
-         height: 155px;
-         background-color: white;
-         border: 2px solid black;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         opacity: 0;
-         transition: opacity 1s ease-in-out;
-      }
-
-      div#video {
-         position: relative;
-         width: 100%;
-         height: 100%;
-         display: flex;
-         justify-content: center;
-         align-items: center;
+         height: 85px;
+         background: radial-gradient(circle at center top, #23485a, #0d0246);
       }
 
       #people {
@@ -74,15 +63,18 @@
          width: 140px;
       }
 
-      div#sea {
-         height: 85px;
+      /* ================= LUNA ================= */
+      .moon {
          position: absolute;
-         bottom: 0;
-         left: 0;
-         width: 100%;
-         background-image: radial-gradient(circle at center top, #23485a, #0d0246);
+         top: 10%;
+         right: 200px;
+         width: 100px;
+         height: 100px;
+         border-radius: 50%;
+         background: #ddd;
       }
 
+      /* ================= REGALO ================= */
       .merrywrap {
          position: absolute;
          inset: 0;
@@ -96,7 +88,7 @@
          height: 200px;
          left: 50%;
          top: 50%;
-         transform: translate(-50%, -50%) scale(1);
+         transform: translate(-50%, -50%);
          z-index: 10;
          transform-origin: center bottom;
       }
@@ -107,30 +99,29 @@
       }
 
       .giftbox:after {
-         position: absolute;
-         color: #fff;
-         width: 100%;
          content: "¡Ábreme!";
-         left: 0;
+         position: absolute;
          bottom: 0;
+         width: 100%;
+         color: #fff;
          font-size: 64px;
          text-align: center;
          transform: rotate(-20deg);
-         transform-origin: 0 0;
       }
 
-      .giftbox .cover {
+      .cover {
          width: 100%;
-         top: 0;
          height: 25%;
+         top: 0;
          z-index: 2;
       }
 
-      .giftbox .box {
+      .box {
          height: 80%;
          bottom: 0;
       }
 
+      /* ================= TEXTO ================= */
       .icons {
          position: absolute;
          left: 80px;
@@ -140,36 +131,48 @@
       .icons .row span {
          font-size: 80px;
          display: inline-block;
+         opacity: 0;
+         transition: transform 0.5s ease-in, opacity 0.7s;
       }
 
-      .moon {
+      /* ================= BILLBOARD ================= */
+      #billboard {
          position: absolute;
-         top: 10%;
-         right: 200px;
-         width: 100px;
-         height: 100px;
-         border-radius: 50%;
-         background: #ddd;
+         right: 243px;
+         bottom: 200px;
+         width: 255px;
+         height: 155px;
+         background: white;
+         border: 2px solid black;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         opacity: 0;
+         transition: opacity 1s ease-in-out;
       }
 
+      #video {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+
+      /* ================= BOTÓN ================= */
       #continueButton {
          background-color: #e74c3c;
          color: white;
          padding: 15px 30px;
          font-size: 24px;
-         font-family: "Kaushan Script", cursive;
-         border: none;
          border-radius: 10px;
+         border: none;
          cursor: pointer;
       }
 
-      /* ===================== RESPONSIVE (AGREGADO) ===================== */
+      /* ================= RESPONSIVE ================= */
 
-      canvas#canvas {
-         width: 100vw;
-         height: 100vh;
-      }
-
+      /* TABLET */
       @media (max-width: 768px) {
          .giftbox {
             transform: translate(-50%, -50%) scale(0.7);
@@ -186,8 +189,8 @@
 
          #billboard {
             right: 50%;
-            bottom: 120px;
             transform: translateX(50%);
+            bottom: 120px;
             width: 240px;
             height: 150px;
          }
@@ -197,11 +200,12 @@
             left: 10px;
          }
 
-         div#beach {
+         #beach {
             background-size: 1200px;
          }
       }
 
+      /* MÓVIL */
       @media (max-width: 480px) {
          .giftbox {
             transform: translate(-50%, -50%) scale(0.55);
@@ -264,19 +268,20 @@
 
    </div>
 
-   <!-- ===================== JS ORIGINAL SIN TOCAR ===================== -->
    <script>
-      window.requestAnimFrame = function () {
-         return window.requestAnimationFrame ||
+      window.requestAnimFrame = (function () {
+         return (
+            window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame ||
             function (callback) {
                window.setTimeout(callback, 1000 / 60);
-            };
-      }();
+            }
+         );
+      })();
 
-      var canvas = document.getElementById('canvas'),
-         ctx = canvas.getContext('2d'),
+      var canvas = document.getElementById("canvas"),
+         ctx = canvas.getContext("2d"),
          cw = window.innerWidth,
          ch = window.innerHeight,
          fireworks = [],
@@ -300,9 +305,10 @@
       function calculateDistance(p1x, p1y, p2x, p2y) {
          var xDistance = p1x - p2x,
             yDistance = p1y - p2y;
-         return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+         return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
       }
 
+      /* ===== FIREWORKS ===== */
       function Firework(sx, sy, tx, ty) {
          this.x = sx;
          this.y = sy;
@@ -328,20 +334,19 @@
          this.coordinates.pop();
          this.coordinates.unshift([this.x, this.y]);
 
-         if (this.targetRadius < 8) {
-            this.targetRadius += 0.3;
-         } else {
-            this.targetRadius = 1;
-         }
-
          this.speed *= this.acceleration;
 
          var vx = Math.cos(this.angle) * this.speed,
             vy = Math.sin(this.angle) * this.speed;
-         this.distanceTraveled = calculateDistance(this.sx, this.sy, this.x + vx, this.y + vy);
+
+         this.distanceTraveled = calculateDistance(
+            this.sx,
+            this.sy,
+            this.x + vx,
+            this.y + vy
+         );
 
          if (this.distanceTraveled >= this.distanceToTarget) {
-            createParticles(this.tx, this.ty);
             fireworks.splice(index, 1);
          } else {
             this.x += vx;
@@ -351,147 +356,43 @@
 
       Firework.prototype.draw = function () {
          ctx.beginPath();
-         ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+         ctx.moveTo(
+            this.coordinates[this.coordinates.length - 1][0],
+            this.coordinates[this.coordinates.length - 1][1]
+         );
          ctx.lineTo(this.x, this.y);
-         ctx.strokeStyle = 'hsl(' + hue + ', 100%, ' + this.brightness + '%)';
-         ctx.stroke();
-
-         ctx.beginPath();
-         ctx.arc(this.tx, this.ty, this.targetRadius, 0, Math.PI * 2);
+         ctx.strokeStyle = "hsl(" + hue + ",100%," + this.brightness + "%)";
          ctx.stroke();
       };
 
-      function Particle(x, y) {
-         this.x = x;
-         this.y = y;
-         this.coordinates = [];
-         this.coordinateCount = 5;
-         while (this.coordinateCount--) {
-            this.coordinates.push([this.x, this.y]);
-         }
-         this.angle = random(0, Math.PI * 2);
-         this.speed = random(1, 10);
-         this.friction = 0.95;
-         this.gravity = 1;
-         this.hue = random(hue - 20, hue + 20);
-         this.brightness = random(50, 80);
-         this.alpha = 1;
-         this.decay = random(0.015, 0.03);
-      }
-
-      Particle.prototype.update = function (index) {
-         this.coordinates.pop();
-         this.coordinates.unshift([this.x, this.y]);
-         this.speed *= this.friction;
-         this.x += Math.cos(this.angle) * this.speed;
-         this.y += Math.sin(this.angle) * this.speed + this.gravity;
-         this.alpha -= this.decay;
-
-         if (this.alpha <= this.decay) {
-            particles.splice(index, 1);
-         }
-      };
-
-      Particle.prototype.draw = function () {
-         ctx.beginPath();
-         ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
-         ctx.lineTo(this.x, this.y);
-         ctx.strokeStyle = 'hsla(' + this.hue + ', 100%, ' + this.brightness + '%, ' + this.alpha + ')';
-         ctx.stroke();
-      };
-
-      function createParticles(x, y) {
-         var particleCount = 30;
-         while (particleCount--) {
-            particles.push(new Particle(x, y));
-         }
-      }
-
+      /* ===== LOOP ===== */
       function loop() {
          requestAnimFrame(loop);
-         hue += 0.5;
-         ctx.globalCompositeOperation = 'destination-out';
-         ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+         ctx.globalCompositeOperation = "destination-out";
+         ctx.fillStyle = "rgba(0,0,0,0.5)";
          ctx.fillRect(0, 0, cw, ch);
-         ctx.globalCompositeOperation = 'lighter';
+         ctx.globalCompositeOperation = "lighter";
 
-         var i = fireworks.length;
-         while (i--) {
+         for (var i = fireworks.length - 1; i >= 0; i--) {
             fireworks[i].draw();
             fireworks[i].update(i);
          }
 
-         var i = particles.length;
-         while (i--) {
-            particles[i].draw();
-            particles[i].update(i);
-         }
-
          if (timerTick >= timerTotal) {
-            if (!mousedown) {
-               fireworks.push(new Firework(cw / 2, ch, random(0, cw), random(0, ch / 2)));
-               timerTick = 0;
-            }
+            fireworks.push(
+               new Firework(cw / 2, ch, random(0, cw), random(0, ch / 2))
+            );
+            timerTick = 0;
          } else {
             timerTick++;
-         }
-
-         if (limiterTick >= limiterTotal) {
-            if (mousedown) {
-               fireworks.push(new Firework(cw / 2, ch, mx, my));
-               limiterTick = 0;
-            }
-         } else {
-            limiterTick++;
          }
       }
 
       window.onload = function () {
-         var merrywrap = document.getElementById("merrywrap");
-         var box = merrywrap.getElementsByClassName("giftbox")[0];
-         var step = 1;
-         var stepMinutes = [2000, 2000, 1000, 1000];
-         function init() {
-            box.addEventListener("click", openBox, false);
-         }
-         function stepClass(step) {
-            merrywrap.className = 'merrywrap';
-            merrywrap.className = 'merrywrap step-' + step;
-         }
-         function openBox() {
-            if (step === 1) {
-               box.removeEventListener("click", openBox, false);
-            }
-            stepClass(step);
-            if (step === 3) { }
-            if (step === 4) {
-               reveal();
-               return;
-            }
-            setTimeout(openBox, stepMinutes[step - 1]);
-            step++;
-         }
-
-         init();
+         loop();
       };
 
-      function reveal() {
-         document.querySelector('.merrywrap').style.backgroundColor = 'transparent';
-         loop();
-
-         // 🚀 MODIFICACIÓN CLAVE EN JS: Mostrar el cuadro blanco
-         document.getElementById('billboard').style.opacity = 1;
-
-         var btn = document.createElement("button");
-         btn.setAttribute("id", "continueButton");
-         btn.innerHTML = "¿Quiéres ver aún más? ❤️";
-         btn.onclick = function () {
-            window.location.href = "corazon.html";
-         };
-
-         // Agrega el botón al div#video, que ahora está dentro de #billboard
-         document.querySelector('#video').appendChild(btn);
-      }   </script>
+   </script>
 
 </body>
 
