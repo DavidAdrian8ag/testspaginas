@@ -1,96 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
    <meta charset="UTF-8">
-   <title>Me Encantas</title>
-   <link rel="icon" href="regalo.ico" type="image/x-icon">
-   <link rel="stylesheet" href="regalo.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+   <title>Suertudota</title>
+
+   <!-- Normalizador -->
+   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+
+   <!-- Iconos y fuentes -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,700">
+
+   <!-- CSS propio -->
+   <link rel="stylesheet" href="ruleta.css">
+
+   <link rel="icon" href="ruleta.ico" type="image/x-icon">
 </head>
 
 <body>
-   <div class='moon'>
-      <div class='crater1'></div>
-      <div class='crater2'></div>
-      <div class='crater3'></div>
+
+   <h1 class="wish">- Toma tu Premio -</h1>
+
+   <div class="container">
+      <div class="arrow"></div>
+
+      <div class="wheel">
+         <div class="inner-wheel" id="wheel">
+            <div class="section"><span class="fa fa-money"></span></div>
+            <div class="section"><span class="fa fa-cutlery"></span></div>
+            <div class="section"><span class="fa fa-heart"></span></div>
+            <div class="section"><span class="fa fa-plane"></span></div>
+            <div class="section"><span class="fa fa-gift"></span></div>
+            <div class="section"><span class="fa fa-sun-o"></span></div>
+         </div>
+         <div class="spin-button"></div>
+      </div>
+
+      <div class="winner-box" id="winnerBox">
+         <h2 id="winnerText"></h2>
+         <a id="winnerLink" href="./regalo.html" target="_self" style="display:none;">Ganaste</a>
+      </div>
    </div>
-   <canvas id="canvas"></canvas>
-   <div id="sea"></div>
-   <div id="beach"></div>
-   <div id="merrywrap" class="merrywrap">
-      <div class="giftbox">
-         <div class="cover">
-            <div></div>
-         </div>
-         <div class="box"></div>
-      </div>
-      <div class="icons">
-         <div class="row">
-            <span>T</span>
-            <span>e</span>
-         </div>
-         <div class="row">
-            <span>A</span>
-            <span>m</span>
-            <span>u</span>
-         </div>
-         <div class="row">
-            <span>E</span>
-            <span>l</span>
-            <span>e</span>
-            <span>n</span>
-            <span>i</span>
-            <span>t</span>
-            <span>a</span>
-         </div>
-         <div class="row">
-            <span>Q</span>
-            <span>u</span>
-            <span>i</span>
-            <span>e</span>
-            <span>r</span>
-            <span>o</span>
-         </div>
-         <div class="row">
-            <span>V</span>
-            <span>e</span>
-            <span>r</span>
-            <span> </span>
-            <span> </span>
-            <span>M</span>
-            <span>i</span>
-            <span>l</span>
-         </div>
-         <div class="row">
-            <span>P</span>
-            <span>e</span>
-            <span>l</span>
-            <span>í</span>
-            <span>c</span>
-            <span>u</span>
-            <span>l</span>
-            <span>a</span>
-            <span>s</span>
-         </div>
-         <div class="row">
-            <span>C</span>
-            <span>o</span>
-            <span>n</span>
-            <span>t</span>
-            <span>i</span>
-            <span>g</span>
-            <span>o</span>
-         </div>
-      </div>
 
-      <div id="billboard">
-         <div id="video">
-         </div>
-      </div>
-
-      <!-- partial -->
-      <script src="regalo.js"></script>
+   <!-- JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script src="ruleta.js"></script>
 
 </body>
-
 </html>
