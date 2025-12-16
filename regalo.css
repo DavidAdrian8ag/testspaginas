@@ -9,9 +9,10 @@ body,
 }
 
 body {
-   background: rgb(0, 0, 0);
+   background: #e74;
    overflow: hidden;
-
+   background-image: linear-gradient(to bottom, #190e14, #0d0d4b 30%, #c76075 80%, #e9b64b 95%);
+   background-image: radial-gradient(circle at center bottom, #e9b64b, #c76075 15%, #0d0d4b 75%, #190e14 90%);
 }
 
 div#beach,
@@ -24,68 +25,34 @@ canvas#canvas {
 }
 
 div#beach {
-   background-image: url(tv.jpg);
-   background-position: center;
-   background-size: cover;
-   /* 📌 Esto hará que la imagen llene toda la pantalla */
+   background-image: url(https://dl.dropbox.com/s/oe0oce2udq44bj5/beachsil2.png);
+   background-position: bottom right;
+   background-size: 1700px;
    background-repeat: no-repeat;
 }
 
-
 /* 🚀 MODIFICACIÓN CLAVE EN CSS: Ocultar al inicio */
-/* #billboard {
-         position: absolute;
-         right: 243px;
-         bottom: 200px;
-         width: 255px;
-         height: 155px;
-         background-color: white;
-         border: 2px solid black;
-         box-sizing: border-box;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         /* Ocultar inicialmente y añadir transición para un efecto suave 
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      } */
-
 #billboard {
    position: absolute;
-   top: 50%;
-   left: 50%;
+   right: 243px;
+   bottom: 200px;
    width: 255px;
    height: 155px;
-   background-color: transparent;
-   /* Blanco pasa a transparente */
+   background-color: white;
+   border: 2px solid black;
+   box-sizing: border-box;
    display: flex;
    justify-content: center;
    align-items: center;
+   /* Ocultar inicialmente y añadir transición para un efecto suave */
    opacity: 0;
    transition: opacity 1s ease-in-out;
-   transform: translate(-60%, 60%);
-   border-radius: 20px;
-   /* Bordes redondeados para el contorno */
 }
 
-
-/* 
-      div#video {
-         position: relative;
-         width: 100%;
-         height: 100%;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-      } */
-
-#video {
+div#video {
+   position: relative;
    width: 100%;
    height: 100%;
-   background-color: rgb(255, 255, 255);
-   /* Cubre todo el cuadro */
-   border-radius: 20px;
-   /* Bordes redondeados iguales */
    display: flex;
    justify-content: center;
    align-items: center;
@@ -112,7 +79,7 @@ div#sea {
    background-color: blue;
    height: 85px;
    position: absolute;
-   b ottom: 0;
+   bottom: 0;
    left: 0;
    width: 100%;
    background-image: radial-gradient(circle at center top, #23485a, #0d0246);
@@ -124,12 +91,9 @@ div#sea {
    left: 0px;
    bottom: 0px;
    top: 0px;
-   background-image: url("100.jpg");
-   background-size: cover;
-   background-position: center;
-   transition: opacity 0.5s ease;
+   background-color: #d44;
+   transition: background-color 0.5s ease;
 }
-
 
 .giftbox {
    position: absolute;
@@ -508,26 +472,25 @@ div#sea {
 
 /* Estilos para el botón de Continuar */
 #continueButton {
-   background-color: #ffffff;
-   color: rgb(247, 5, 5);
+   background-color: #e74c3c;
+   color: white;
    padding: 15px 30px;
-   font-size: 40px;
+   font-size: 24px;
    font-family: "Kaushan Script", cursive;
    border: none;
    border-radius: 10px;
    cursor: pointer;
+   box-shadow: 0 5px 0 #c0392b;
    transition: background-color 0.1s, box-shadow 0.1s, transform 0.1s;
 }
 
 #continueButton:hover {
-   background-color: #11a8ff;
-   color: #ffffff;
+   background-color: #c0392b;
 }
 
 #continueButton:active {
-   box-shadow: 0 2px 0 #11a8ff;
+   box-shadow: 0 2px 0 #922b21;
    transform: translateY(3px);
-   color: #ffffff;
 }
 
 @media (min-width: 1000px) {
