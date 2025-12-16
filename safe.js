@@ -1,6 +1,5 @@
 const innerDial = document.querySelector(".innerdial");
 
-// Crear las marcas
 for (let i = 0; i < 16; i++) {
    const mark = document.createElement("div");
    mark.classList.add("mark");
@@ -50,7 +49,6 @@ function handleValue(safePos) {
    if (cracked && !win) {
       win = true;
       setTimeout(() => {
-         document.body.style.zoom = "1";
          celebration.style.display = "flex";
       }, 300);
    }
@@ -70,7 +68,6 @@ posInput.addEventListener("input", () => {
    if (!isNaN(safePos)) handleValue(safePos);
 });
 
-// Botón continuar
 document.getElementById("continueBtn").addEventListener("click", () => {
    window.location.href = "papeles.html";
 });
