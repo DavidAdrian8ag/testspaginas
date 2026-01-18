@@ -1,3 +1,31 @@
+// ==========================================
+// Generador de Runas SOLO para Pantalla Final
+// ==========================================
+const celebrationContainer = document.getElementById('celebrationRunes');
+const runeChars = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟᛠᛡᛢᛣᛤᛥᛦᛧᛨᛩᛪ᛫᛬᛭";
+const numberOfRunes = 150;
+
+for (let i = 0; i < numberOfRunes; i++) {
+   const runeSpan = document.createElement('span');
+   runeSpan.classList.add('dynamic-rune');
+   runeSpan.innerText = runeChars.charAt(Math.floor(Math.random() * runeChars.length));
+
+   runeSpan.style.left = Math.random() * 100 + '%';
+   runeSpan.style.top = Math.random() * 100 + '%';
+
+   const size = (Math.random() * 3 + 0.5) + 'em';
+   runeSpan.style.fontSize = size;
+
+   const duration = (Math.random() * 6 + 3) + 's';
+   const delay = -(Math.random() * 10) + 's';
+
+   runeSpan.style.animationDuration = duration;
+   runeSpan.style.animationDelay = delay;
+
+   celebrationContainer.appendChild(runeSpan);
+}
+
+// --- JS ORIGINAL DEL JUEGO ---
 const innerDial = document.querySelector(".innerdial");
 
 for (let i = 0; i < 16; i++) {
