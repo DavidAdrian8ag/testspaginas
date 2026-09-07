@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Las gemas del infinito amor</title>
+<style>
+  :root {
+    --bg-deep: #1C0E15;
+    --bg-mid: #2C1420;
+    --surface: #34141F;
+    --surface-line: #5A2C3D;
+    --ink: #F6E4EA;
+    --ink-soft: #C99AAC;
+    --deep: #F2B6C9;
+
+    --gem-1: #E58CB0; /* rosa */
+    --gem-2: #B383D6; /* violeta */
+    --gem-3: #F2C15C; /* dorado */
+    --gem-4: #7FD9C4; /* verde agua */
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh; /* alto real en Safari iOS, sin saltos por la barra de UI */
+    background: radial-gradient(ellipse at 50% -10%, var(--bg-mid), var(--bg-deep) 65%);
+    color: var(--ink);
+    font-family: -apple-system, "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    padding-top: max(48px, env(safe-area-inset-top));
+    padding-bottom: max(48px, env(safe-area-inset-bottom));
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+    position: relative;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (max-width: 430px) {
+    body { padding: 32px 16px; padding-top: max(32px, env(safe-area-inset-top)); padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+  }
+
+  /* estrellas de fondo */
+  .stars {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 44px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.9s ease-out 0.1s forwards;
+  }
+
+  .infinity-mark {
+    font-size: 1.6rem;
+    color: var(--gem-1);
+    letter-spacing: 6px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  h1 {
+    font-family: Iowan Old Style, "Palatino Linotype", Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: 0.2px;
+    margin: 0 0 16px;
+    background: linear-gradient(120deg, var(--deep), var(--gem-2) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  header p {
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .snap-btn {
+    margin-top: 22px;
+    background: transparent;
+    border: 1px solid var(--surface-line);
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  }
+
+  .snap-btn:hover,
+  .snap-btn:focus-visible {
+    border-color: var(--gem-1);
+    color: var(--ink);
+  }
+
+  .snap-btn:active {
+    transform: scale(0.97);
+  }
+
+  .snap-btn[disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .gems {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.9s ease-out 0.35s forwards;
+  }
+
+  @media (max-width: 560px) {
+    .gems { grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  /* rango específico iPhone 16e (390) – iPhone 17 (402) y similares */
+  @media (max-width: 430px) {
+    .infinity-mark { font-size: 1.3rem; letter-spacing: 4px; }
+    header { margin-bottom: 32px; }
+    header p { font-size: 0.95rem; padding: 0 8px; }
+    .gem-card { padding: 22px 18px; border-radius: 16px; }
+    .gem-name { font-size: 1.05rem; }
+    .gem-desc { font-size: 0.87rem; }
+    .snap-btn { padding: 11px 20px; font-size: 0.85rem; min-height: 44px; }
+  }
+
+  @media (max-width: 360px) {
+    h1 { font-size: 1.9rem; }
+    .gem-card { padding: 18px 16px; }
+  }
+
+  /* los efectos :hover solo cuando hay puntero real; evita que queden "pegados" al tocar */
+  @media (hover: hover) and (pointer: fine) {
+    .gem-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gem-color, var(--deep));
+      box-shadow: 0 0 0 1px var(--gem-color, var(--deep)) inset,
+                  0 16px 32px -14px color-mix(in srgb, var(--gem-color, var(--deep)) 60%, transparent);
+    }
+    .snap-btn:hover { border-color: var(--gem-1); color: var(--ink); }
+  }
+
+  /* en táctil, feedback inmediato al presionar en vez de hover */
+  @media (hover: none) {
+    .gem-card:active {
+      transform: scale(0.98);
+      border-color: var(--gem-color, var(--deep));
+    }
+    .snap-btn:active { border-color: var(--gem-1); color: var(--ink); }
+  }
+
+  .gem-card {
+    background: linear-gradient(160deg, var(--surface), var(--bg-mid));
+    border: 1px solid var(--surface-line);
+    border-radius: 18px;
+    padding: 28px 22px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .gem-card:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--gem-color, var(--deep));
+    box-shadow: 0 0 0 1px var(--gem-color, var(--deep)) inset,
+                0 16px 32px -14px color-mix(in srgb, var(--gem-color, var(--deep)) 60%, transparent);
+    outline: 2px solid var(--gem-color, var(--deep));
+    outline-offset: 3px;
+  }
+
+  .gem-icon-wrap {
+    width: 42px;
+    height: 42px;
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--gem-color) 65%, transparent));
+  }
+
+  .gem-name {
+    font-family: Iowan Old Style, "Palatino Linotype", Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .gem-service {
+    font-size: 0.78rem;
+    color: var(--gem-color);
+    margin: -8px 0 0;
+    letter-spacing: 0.3px;
+  }
+
+  .gem-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  /* animación de chasquido: disolver en partículas */
+  .gem-card.dissolving {
+    animation: dissolve 1.1s ease-in forwards;
+    pointer-events: none;
+  }
+
+  .gem-card.reforming {
+    animation: reform 0.9s ease-out forwards;
+  }
+
+  @keyframes dissolve {
+    0%   { opacity: 1; filter: blur(0px); transform: scale(1); }
+    60%  { opacity: 0.4; filter: blur(2px); transform: scale(1.02) translateY(-6px); }
+    100% { opacity: 0; filter: blur(6px); transform: scale(0.9) translateY(-18px); }
+  }
+
+  @keyframes reform {
+    0%   { opacity: 0; filter: blur(6px); transform: scale(0.9) translateY(-18px); }
+    100% { opacity: 1; filter: blur(0px); transform: scale(1) translateY(0); }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 44px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    opacity: 0;
+    animation: rise 0.9s ease-out 0.55s forwards;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    header, .gems, footer {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .gem-card { transition: none; }
+    .gem-card.dissolving, .gem-card.reforming { animation: none !important; opacity: 1 !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas class="stars" id="stars"></canvas>
+
+<div class="wrap">
+  <header>
+    <span class="infinity-mark">∞</span>
+    <h1>Las gemas del infinito amor</h1>
+    <p>Cuatro gemas, cuatro caminos. Reúnelas todas y el equilibrio será perfecto.</p>
+    <button class="snap-btn" id="snapBtn" type="button">Chasquear ✌</button>
+  </header>
+
+  <nav class="gems" id="gemsGrid" aria-label="Enlaces a las cuatro gemas">
+    <a class="gem-card" style="--gem-color: var(--gem-1);" href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-1)" stroke="#fff" stroke-opacity="0.25"/>
+        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
+      </svg>
+      <p class="gem-name">Gema de la búsqueda infinita</p>
+      <p class="gem-service">GOOGLE</p>
+      <p class="gem-desc">Para cuando quieras encontrar cualquier cosa bajo el sol.</p>
+    </a>
+
+    <a class="gem-card" style="--gem-color: var(--gem-2);" href="https://github.com" target="_blank" rel="noopener noreferrer">
+      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-2)" stroke="#fff" stroke-opacity="0.25"/>
+        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
+      </svg>
+      <p class="gem-name">Gema del código eterno</p>
+      <p class="gem-service">GITHUB</p>
+      <p class="gem-desc">Donde se guardan las ideas hechas de líneas y lógica.</p>
+    </a>
+
+    <a class="gem-card" style="--gem-color: var(--gem-3);" href="https://www.thunderbird.net" target="_blank" rel="noopener noreferrer">
+      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-3)" stroke="#fff" stroke-opacity="0.25"/>
+        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
+      </svg>
+      <p class="gem-name">Gema del mensaje sincero</p>
+      <p class="gem-service">THUNDERBIRD</p>
+      <p class="gem-desc">Para las palabras que merecen llegar bien guardadas.</p>
+    </a>
+
+    <a class="gem-card" style="--gem-color: var(--gem-4);" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-4)" stroke="#fff" stroke-opacity="0.25"/>
+        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
+      </svg>
+      <p class="gem-name">Gema del vínculo eterno</p>
+      <p class="gem-service">FACEBOOK</p>
+      <p class="gem-desc">El hilo que sostiene a la gente, sin importar la distancia.</p>
+    </a>
+  </nav>
+
+  <footer>
+    Ni todo el poder del universo cambia lo hecho a mano.
+  </footer>
+</div>
+
+<script>
+  // estrellas de fondo, dibujadas una sola vez
+  (function () {
+    var canvas = document.getElementById('stars');
+    var ctx = canvas.getContext('2d');
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      draw();
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var count = Math.floor((canvas.width * canvas.height) / 9000);
+      for (var i = 0; i < count; i++) {
+        var x = Math.random() * canvas.width;
+        var y = Math.random() * canvas.height;
+        var r = Math.random() * 1.1 + 0.2;
+        var a = Math.random() * 0.5 + 0.15;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(246, 228, 234,' + a + ')';
+        ctx.fill();
+      }
+    }
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+
+  // chasquido: disuelve las gemas y las vuelve a traer
+  (function () {
+    var btn = document.getElementById('snapBtn');
+    var grid = document.getElementById('gemsGrid');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    btn.addEventListener('click', function () {
+      if (reduceMotion) return;
+      var cards = grid.querySelectorAll('.gem-card');
+      btn.disabled = true;
+      btn.textContent = 'Reordenando el universo…';
+
+      cards.forEach(function (card, i) {
+        setTimeout(function () {
+          card.classList.add('dissolving');
+        }, i * 90);
+      });
+
+      setTimeout(function () {
+        cards.forEach(function (card) {
+          card.classList.remove('dissolving');
+          card.classList.add('reforming');
+        });
+        btn.textContent = 'Chasquear ✌';
+        btn.disabled = false;
+      }, 1500);
+
+      setTimeout(function () {
+        cards.forEach(function (card) {
+          card.classList.remove('reforming');
+        });
+      }, 2500);
+    });
+  })();
+</script>
+
+</body>
+</html>
