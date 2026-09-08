@@ -11,7 +11,7 @@
    <link rel="preconnect" href="https://fonts.googleapis.com" />
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@400;500;600&family=Tangerine:wght@400;700&display=swap"
       rel="stylesheet" />
 
    <style>
@@ -76,38 +76,51 @@
       }
 
       .seal span {
-         width: 46px;
-         height: 46px;
+         width: 72px;
+         height: 72px;
          border-radius: 50%;
          border: 1px solid var(--line);
          display: flex;
          align-items: center;
          justify-content: center;
          font-family: 'Cinzel', serif;
-         font-size: 13px;
+         font-size: 18px;
          color: var(--rose-700);
          letter-spacing: .04em;
       }
 
       h1 {
          text-align: center;
-         font-weight: 500;
-         font-size: clamp(34px, 8.5vw, 54px);
-         line-height: 1.08;
-         margin: 0 0 10px;
+         font-family: 'Tangerine', cursive;
+         font-weight: 700;
+         font-size: clamp(56px, 14vw, 96px);
+         line-height: 1;
+         margin: 0 0 6px;
          color: var(--rose-800);
          opacity: 0;
          animation: rise 1s ease .25s forwards;
       }
 
-      p.lede {
+      p.subname {
          text-align: center;
          font-style: italic;
-         color: var(--muted);
-         font-size: clamp(16px, 3.6vw, 19px);
-         margin: 0 0 44px;
+         color: var(--rose-700);
+         font-size: clamp(22px, 5vw, 30px);
+         font-weight: 500;
+         margin: 0 0 8px;
          opacity: 0;
-         animation: rise 1s ease .4s forwards;
+         animation: rise 1s ease .35s forwards;
+      }
+
+      p.tagline {
+         text-align: center;
+         font-family: 'Tangerine', cursive;
+         font-weight: 700;
+         color: var(--muted);
+         font-size: clamp(28px, 6.5vw, 38px);
+         margin: 0 0 40px;
+         opacity: 0;
+         animation: rise 1s ease .45s forwards;
       }
 
       @keyframes rise {
@@ -419,7 +432,8 @@
 
          .seal,
          h1,
-         p.lede,
+         p.subname,
+         p.tagline,
          .gem-card,
          .divider,
          .locked-row,
@@ -447,12 +461,12 @@
       <div class="seal"><span>D ♥ E</span></div>
 
       <h1>Las Gemas del<br />Amor Infinito</h1>
-      <p class="lede">David &amp; Elenita</p>
-      <p class="lede">Una colección que sigue creciendo</p>
+      <p class="subname">David &amp; Elenita</p>
+      <p class="tagline">Una colección que sigue creciendo</p>
 
       <ul class="gems">
          <li data-gem="espacio">
-            <a class="gem-card" href="viaje.html" target="_blank" rel="noopener"
+            <a class="gem-card" href="https://teampreciososeuropa2026.netlify.app/" target="_blank" rel="noopener"
                aria-label="Gema del Espacio: abrir el itinerario del viaje">
                <span class="gem-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -463,14 +477,14 @@
                <span class="gem-text">
                   <span class="gem-name">Gema del Espacio</span>
                   <span class="gem-title">El primer viaje</span>
-                  <span class="gem-blurb">22 días, un océano y medio continente — el mapa completo de nuestra luna
+                  <span class="gem-blurb"><br />22 días, un océano y medio continente — el mapa completo de nuestra luna
                      de miel, de París a Madrid.</span>
-                  <span class="gem-cta"><br/>Explorar el itinerario</span>
+                  <span class="gem-cta"><br />Explorar el itinerario</span>
                </span>
             </a>
          </li>
          <li data-gem="alma">
-            <a class="gem-card" href="propuesta.html" target="_blank" rel="noopener"
+            <a class="gem-card" href="https://elenissmarriage.netlify.app/" target="_blank" rel="noopener"
                aria-label="Gema del Alma: comenzar el juego de la propuesta">
                <span class="gem-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -482,14 +496,14 @@
                <span class="gem-text">
                   <span class="gem-name">Gema del Alma</span>
                   <span class="gem-title">La propuesta</span>
-                  <span class="gem-blurb">¿Quieres jugar un juego? <br/>Al final del camino, una pregunta espera
+                  <span class="gem-blurb"><br />¿Quieres jugar un juego? <br />Al final del camino, una pregunta espera
                      sellar dos almas en una sola.</span>
-                  <span class="gem-cta"><br/>Aceptar el juego</span>
+                  <span class="gem-cta"><br />Aceptar el juego</span>
                </span>
             </a>
          </li>
          <li data-gem="tiempo">
-            <a class="gem-card" href="votos.html" target="_blank" rel="noopener"
+            <a class="gem-card" href="https://teamoelenita.netlify.app/" target="_blank" rel="noopener"
                aria-label="Gema del Tiempo: leer la carta de los votos">
                <span class="gem-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -499,10 +513,10 @@
                </span>
                <span class="gem-text">
                   <span class="gem-name">Gema del Tiempo</span>
-                  <span class="gem-title">Los votos<br/></span>
+                  <span class="gem-title">Los votos<br /></span>
                   <span class="gem-blurb">Hoy, mañana y siempre — la carta donde prometimos toda una vida
                      juntos.</span>
-                  <span class="gem-cta"><br/>Leer la carta</span>
+                  <span class="gem-cta"><br />Leer la carta</span>
                </span>
             </a>
          </li>
