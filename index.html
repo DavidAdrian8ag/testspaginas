@@ -36,6 +36,7 @@
 
          --gem-mind: #f0c419;
          --gem-reality: #e0261c;
+         --gem-reality-d: #a01812;
          --gem-power: #7b2d8e;
       }
 
@@ -163,6 +164,10 @@
          animation-delay: .89s;
       }
 
+      .gems li:nth-child(4) .gem-card {
+         animation-delay: 1.06s;
+      }
+
       .gem-card {
          --gc: var(--gem-space);
          --gc-d: var(--gem-space-d);
@@ -195,6 +200,11 @@
       li[data-gem="tiempo"] .gem-card {
          --gc: var(--gem-time);
          --gc-d: var(--gem-time-d);
+      }
+
+      li[data-gem="realidad"] .gem-card {
+         --gc: var(--gem-reality);
+         --gc-d: var(--gem-reality-d);
       }
 
       .gem-icon {
@@ -232,6 +242,10 @@
 
       .gems li:nth-child(3) .gem-icon {
          animation-delay: .9s;
+      }
+
+      .gems li:nth-child(4) .gem-icon {
+         animation-delay: 1.3s;
       }
 
       @keyframes pulse-glow {
@@ -308,8 +322,11 @@
          margin: 0 0 48px;
          padding: 0;
          display: grid;
-         grid-template-columns: repeat(3, 1fr);
+         grid-template-columns: repeat(2, 1fr);
          gap: 12px;
+         max-width: 320px;
+         margin-left: auto;
+         margin-right: auto;
          opacity: 0;
          animation: rise .9s ease 1.2s forwards;
       }
@@ -351,10 +368,6 @@
          stroke: rgba(255, 255, 255, .9);
          fill: none;
          stroke-width: 1.6;
-      }
-
-      li[data-gem="realidad"] .locked-icon {
-         --lc: var(--gem-reality);
       }
 
       li[data-gem="poder"] .locked-icon {
@@ -404,7 +417,7 @@
 
          .gems {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 18px;
          }
 
@@ -421,7 +434,7 @@
          }
 
          .locked-row {
-            max-width: 560px;
+            max-width: 380px;
             margin-left: auto;
             margin-right: auto;
          }
@@ -465,24 +478,6 @@
       <p class="tagline">Una colección que sigue creciendo</p>
 
       <ul class="gems">
-         <li data-gem="espacio">
-            <a class="gem-card" href="https://teampreciososeuropa2026.netlify.app/" target="_blank" rel="noopener"
-               aria-label="Gema del Espacio: abrir el itinerario del viaje">
-               <span class="gem-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                     <circle cx="12" cy="12" r="9" />
-                     <path d="M15.2 8.8 13 13l-4.2 2.2L11 11z" />
-                  </svg>
-               </span>
-               <span class="gem-text">
-                  <span class="gem-name">Gema del Espacio</span>
-                  <span class="gem-title">El primer viaje</span>
-                  <span class="gem-blurb"><br />22 días, un océano y medio continente — el mapa completo de nuestra luna
-                     de miel, de París a Madrid.</span>
-                  <span class="gem-cta"><br />Explorar el itinerario</span>
-               </span>
-            </a>
-         </li>
          <li data-gem="alma">
             <a class="gem-card" href="https://elenissmarriage.netlify.app/" target="_blank" rel="noopener"
                aria-label="Gema del Alma: comenzar el juego de la propuesta">
@@ -520,6 +515,42 @@
                </span>
             </a>
          </li>
+         <li data-gem="espacio">
+            <a class="gem-card" href="https://teampreciososeuropa2026.netlify.app/" target="_blank" rel="noopener"
+               aria-label="Gema del Espacio: abrir el itinerario del viaje">
+               <span class="gem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                     <circle cx="12" cy="12" r="9" />
+                     <path d="M15.2 8.8 13 13l-4.2 2.2L11 11z" />
+                  </svg>
+               </span>
+               <span class="gem-text">
+                  <span class="gem-name">Gema del Espacio</span>
+                  <span class="gem-title">El primer viaje</span>
+                  <span class="gem-blurb"><br />22 días, un océano y medio continente — el mapa completo de nuestra luna
+                     de miel, de París a Madrid.</span>
+                  <span class="gem-cta"><br />Explorar el itinerario</span>
+               </span>
+            </a>
+         </li>
+         <li data-gem="realidad">
+            <a class="gem-card" href="https://teamoelenita.netlify.app/" target="_blank" rel="noopener"
+               aria-label="Gema de la Realidad: entrar a nuestra realidad en constante cambio">
+               <span class="gem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                     <path d="M4 12a8 8 0 0 1 14-5.3M20 5v5h-5" />
+                     <path d="M20 12a8 8 0 0 1-14 5.3M4 19v-5h5" />
+                  </svg>
+               </span>
+               <span class="gem-text">
+                  <span class="gem-name">Gema de la Realidad</span>
+                  <span class="gem-title">Nuestra realidad</span>
+                  <span class="gem-blurb"><br />Esta gema no tiene una sola forma: cambia, se mueve y se renueva.
+                     Mensajes nuevos, sorpresas nuevas — nunca la misma realidad dos veces.</span>
+                  <span class="gem-cta"><br />Entrar a nuestra realidad</span>
+               </span>
+            </a>
+         </li>
       </ul>
 
       <p class="divider">Aún quedan gemas por reunir</p>
@@ -532,16 +563,6 @@
                      <path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3" />
                   </svg></span>
                <span class="locked-name">Gema de la Mente</span>
-               <span class="locked-note">Próximamente</span>
-            </div>
-         </li>
-         <li data-gem="realidad">
-            <div class="locked-card" tabindex="0" title="Próximamente">
-               <span class="locked-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
-                     <rect x="6" y="11" width="12" height="9" rx="1.5" />
-                     <path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3" />
-                  </svg></span>
-               <span class="locked-name">Gema de la Realidad</span>
                <span class="locked-note">Próximamente</span>
             </div>
          </li>
