@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+   <meta charset="utf-8" />
+   <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport" />
+   <meta content="#0c2340" name="theme-color" />
+   <title>Europa 2026 Luna de Miel</title>
+   <!-- Favicon apuntando al archivo local  -->
+   <link href="icono.ico" rel="icon" type="image/x-icon" />
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800;900&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@600;800&display=swap');
+
+      :root {
+         /* Colores optimizados para legibilidad bajo sol intenso (Alto Contraste WCAG AAA) */
+         --ink: #0f171e;
+         --paper: #f4f6f8;
+         --card: #ffffff;
+         --line: #8c9ba5;
+         --navy: #0c2340;
+         --terracotta: #8c2409;
+         --green: #115228;
+         --muted: #404a52;
+         --bold-text: #000000;
+         --row-stripe: #f4f6f8;
+         --tfoot-bg: #eef2f5;
+         --thead-text: #ffffff;
+         --timeline-border: #e0e6ed;
+         --code-bg: #ffffff;
+         --code-text: #000000;
+         --freeline-bg: #eaf5ed;
+         --ticket-bg: #fdf2f0;
+         --ticket-detail-text: #611603;
+         --shadow: rgba(0, 0, 0, 0.05);
+         --color-scheme: light;
+      }
+
+      /* ---------- MODO NOCTURNO (alto contraste AAA para poca luz) ---------- */
+      html[data-theme="dark"] {
+         --ink: #e7ecf0;
+         --paper: #10161c;
+         --card: #171f27;
+         --line: #445261;
+         --navy: #8ec1ff;
+         --terracotta: #ff8a5c;
+         --green: #57cc8a;
+         --muted: #a6b1bb;
+         --bold-text: #ffffff;
+         --row-stripe: #1b232c;
+         --tfoot-bg: #1f2833;
+         --thead-text: #0c1319;
+         --timeline-border: #2a333d;
+         --code-bg: #0c1319;
+         --code-text: #e7ecf0;
+         --freeline-bg: #132018;
+         --ticket-bg: #241512;
+         --ticket-detail-text: #ffb199;
+         --shadow: rgba(0, 0, 0, 0.4);
+         --color-scheme: dark;
+      }
+
+      html[data-theme="dark"] header.top .route,
+      html[data-theme="dark"] nav.toc,
+      html[data-theme="dark"] .ticketline code {
+         background: var(--card);
+      }
+
+      html[data-theme="dark"] table.tickets thead th {
+         background: var(--navy);
+      }
+
+      html {
+         color-scheme: var(--color-scheme);
+      }
+
+      body {
+         transition: background-color .25s ease, color .25s ease;
+      }
+
+      * {
+         box-sizing: border-box;
+      }
+
+      html {
+         -webkit-text-size-adjust: 100%;
+         text-size-adjust: 100%;
+      }
+
+      body {
+         margin: 0;
+         background: var(--paper);
+         color: var(--ink);
+         font-family: 'Inter', sans-serif;
+         font-size: 15px;
+         line-height: 1.5;
+         overflow-x: hidden;
+      }
+
+      .sheet {
+         max-width: 760px;
+         margin: 0 auto;
+         padding: 36px 26px 60px;
+         padding-left: max(26px, env(safe-area-inset-left));
+         padding-right: max(26px, env(safe-area-inset-right));
+      }
+
+      img,
+      svg {
+         max-width: 100%;
+      }
+
+      /* ---------- HEADER ---------- */
+      header.top {
+         border-bottom: 4px solid var(--navy);
+         padding-bottom: 16px;
+         margin-bottom: 20px;
+      }
+
+      header.top h1 {
+         font-family: 'Fraunces', serif;
+         font-weight: 900;
+         font-size: 36px;
+         margin: 0;
+         letter-spacing: .2px;
+         color: var(--navy);
+      }
+
+      header.top p.sub {
+         margin: 4px 0 12px;
+         color: var(--muted);
+         font-size: 13.5px;
+         font-weight: 700;
+         letter-spacing: .5px;
+         text-transform: uppercase;
+      }
+
+      header.top .route {
+         font-family: 'JetBrains Mono', monospace;
+         font-size: 13px;
+         color: var(--ink);
+         background: var(--card);
+         border: 2px solid var(--line);
+         border-radius: 6px;
+         padding: 10px 14px;
+         font-weight: 600;
+      }
+
+      header.top .route b {
+         color: var(--terracotta);
+      }
+
+      header.top .dates {
+         font-weight: 800;
+         color: var(--navy);
+      }
+
+      .legend {
+         display: flex;
+         gap: 20px;
+         flex-wrap: wrap;
+         margin: 16px 0 28px;
+         font-size: 13px;
+         color: var(--ink);
+         font-weight: 600;
+      }
+
+      .legend span {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+      }
+
+      .dot {
+         width: 14px;
+         height: 14px;
+         border-radius: 3px;
+         display: inline-block;
+      }
+
+      .dot.free {
+         background: var(--green);
+      }
+
+      .dot.ticket {
+         background: var(--terracotta);
+      }
+
+      /* ---------- TOC ---------- */
+      nav.toc {
+         background: var(--card);
+         border: 2px solid var(--line);
+         border-radius: 6px;
+         padding: 16px 18px;
+         margin-bottom: 32px;
+      }
+
+      nav.toc h3 {
+         margin: 0 0 10px;
+         font-family: 'Fraunces', serif;
+         font-size: 16px;
+         color: var(--navy);
+         font-weight: 800;
+      }
+
+      nav.toc ul {
+         margin: 0;
+         padding: 0;
+         list-style: none;
+         columns: 3;
+         column-gap: 12px;
+         font-size: 12.5px;
+      }
+
+      nav.toc li {
+         break-inside: avoid;
+         margin-bottom: 5px;
+      }
+
+      nav.toc a {
+         color: var(--ink);
+         text-decoration: none;
+         font-weight: 600;
+      }
+
+      nav.toc a:hover {
+         color: var(--terracotta);
+         text-decoration: underline;
+      }
+
+      nav.toc .toc-ticket a::after {
+         content: " 🎟";
+      }
+
+      /* ---------- DAY BLOCK ---------- */
+      .day {
+         background: var(--card);
+         border: 2px solid var(--line);
+         border-left: 8px solid var(--navy);
+         border-radius: 6px;
+         padding: 16px 20px 18px;
+         margin-bottom: 18px;
+         box-shadow: 0 2px 4px var(--shadow);
+      }
+
+      .day.free-day {
+         border-left-color: var(--green);
+      }
+
+      .day.has-ticket {
+         border-left-color: var(--terracotta);
+      }
+
+      .day .dhead {
+         display: flex;
+         justify-content: space-between;
+         align-items: baseline;
+         flex-wrap: wrap;
+         gap: 6px;
+         border-bottom: 2px solid var(--line);
+         padding-bottom: 8px;
+         margin-bottom: 12px;
+      }
+
+      .day .dnum {
+         font-family: 'Fraunces', serif;
+         font-weight: 900;
+         color: var(--navy);
+         font-size: 22px;
+         margin-right: 8px;
+      }
+
+      .day .droute {
+         font-weight: 800;
+         font-size: 16.5px;
+         color: var(--ink);
+      }
+
+      .day .ddate {
+         font-size: 12.5px;
+         color: var(--muted);
+         text-transform: uppercase;
+         letter-spacing: .5px;
+         font-weight: 700;
+      }
+
+      .timeline {
+         list-style: none;
+         margin: 0;
+         padding: 0;
+      }
+
+      .timeline li {
+         display: flex;
+         gap: 12px;
+         padding: 7px 0;
+         border-bottom: 1px solid var(--timeline-border);
+         align-items: baseline;
+      }
+
+      .timeline li:last-child {
+         border-bottom: none;
+      }
+
+      .timeline .time {
+         font-family: 'JetBrains Mono', monospace;
+         font-weight: 800;
+         color: var(--navy);
+         min-width: 64px;
+         flex-shrink: 0;
+         font-size: 13.5px;
+      }
+
+      .timeline .desc {
+         color: var(--ink);
+         font-size: 14px;
+      }
+
+      .timeline .desc b {
+         color: var(--bold-text);
+         font-weight: 700;
+      }
+
+      .freeline {
+         display: flex;
+         gap: 12px;
+         padding: 9px 12px;
+         margin: 8px 0;
+         background: var(--freeline-bg);
+         border: 2px dashed var(--green);
+         border-radius: 5px;
+         align-items: baseline;
+      }
+
+      .freeline .time {
+         font-family: 'JetBrains Mono', monospace;
+         font-weight: 800;
+         color: var(--green);
+         min-width: 64px;
+         flex-shrink: 0;
+         font-size: 13.5px;
+      }
+
+      .freeline .desc {
+         color: var(--green);
+         font-size: 14px;
+         font-weight: 600;
+      }
+
+      .freeline .desc b {
+         color: var(--green);
+         font-weight: 800;
+      }
+
+      .ticketline {
+         padding: 10px 14px;
+         margin: 8px 0;
+         background: var(--ticket-bg);
+         border: 2px solid var(--terracotta);
+         border-radius: 5px;
+      }
+
+      .ticketline .tt-head {
+         display: flex;
+         justify-content: space-between;
+         align-items: baseline;
+         flex-wrap: wrap;
+         gap: 6px;
+      }
+
+      .ticketline .tt-title {
+         font-weight: 800;
+         color: var(--terracotta);
+         font-size: 14px;
+      }
+
+      .ticketline .tt-time {
+         font-family: 'JetBrains Mono', monospace;
+         font-weight: 800;
+         color: var(--terracotta);
+         font-size: 13.5px;
+      }
+
+      .ticketline .tt-detail {
+         color: var(--ticket-detail-text);
+         font-size: 13px;
+         margin-top: 4px;
+         font-weight: 600;
+      }
+
+      .ticketline code {
+         font-family: 'JetBrains Mono', monospace;
+         font-size: 12px;
+         background: var(--code-bg);
+         padding: 2px 6px;
+         border-radius: 3px;
+         border: 1px solid var(--terracotta);
+         color: var(--code-text);
+         font-weight: 800;
+      }
+
+      /* ---------- TICKETS SUMMARY TABLE ---------- */
+      .tickets-section {
+         margin-top: 40px;
+      }
+
+      .tickets-section h2 {
+         font-family: 'Fraunces', serif;
+         font-size: 24px;
+         color: var(--navy);
+         border-bottom: 3px solid var(--navy);
+         padding-bottom: 8px;
+         margin: 0 0 14px;
+         font-weight: 900;
+      }
+
+      table.tickets {
+         width: 100%;
+         border-collapse: collapse;
+         font-size: 13.5px;
+         background: var(--card);
+         border: 2px solid var(--line);
+      }
+
+      table.tickets thead th {
+         text-align: left;
+         background: var(--navy);
+         color: var(--thead-text);
+         padding: 10px 12px;
+         font-weight: 700;
+         text-transform: uppercase;
+         font-size: 12px;
+         letter-spacing: .4px;
+      }
+
+      table.tickets tbody td {
+         padding: 10px 12px;
+         border-bottom: 1px solid var(--line);
+         vertical-align: top;
+         color: var(--ink);
+      }
+
+      table.tickets tbody tr:nth-child(even) {
+         background: var(--row-stripe);
+      }
+
+      table.tickets td.code {
+         font-family: 'JetBrains Mono', monospace;
+         font-size: 12px;
+         color: var(--terracotta);
+         font-weight: 800;
+      }
+
+      table.tickets td.price {
+         font-weight: 800;
+         white-space: nowrap;
+         color: var(--navy);
+      }
+
+      table.tickets tfoot td {
+         font-weight: 800;
+         border-top: 3px solid var(--navy);
+         padding-top: 12px;
+         background: var(--tfoot-bg);
+      }
+
+      footer.note {
+         margin-top: 20px;
+         font-size: 12.5px;
+         color: var(--muted);
+         border-top: 2px solid var(--line);
+         padding-top: 12px;
+         font-weight: 600;
+      }
+
+      a.back-top {
+         display: inline-block;
+         margin-top: 8px;
+         font-size: 12px;
+         color: var(--muted);
+         text-decoration: none;
+         font-weight: 700;
+      }
+
+      a.back-top:hover {
+         color: var(--terracotta);
+         text-decoration: underline;
+      }
+
+      /* ---------- RESPONSIVE ---------- */
+      @media (max-width:700px) {
+         .sheet {
+            padding: 24px 16px 48px;
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
+         }
+
+         header.top h1 {
+            font-size: 28px;
+         }
+
+         nav.toc ul {
+            columns: 2;
+         }
+      }
+
+      @media (max-width:480px) {
+         body {
+            font-size: 14.5px;
+         }
+
+         .sheet {
+            padding: 18px 14px 40px;
+            padding-left: max(14px, env(safe-area-inset-left));
+            padding-right: max(14px, env(safe-area-inset-right));
+         }
+
+         header.top {
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+         }
+
+         header.top h1 {
+            font-size: 24px;
+            line-height: 1.15;
+         }
+
+         header.top p.sub {
+            font-size: 11.5px;
+         }
+
+         header.top .route {
+            font-size: 12px;
+            padding: 8px 10px;
+            line-height: 1.5;
+         }
+
+         .legend {
+            gap: 12px;
+            margin: 12px 0 20px;
+            font-size: 12px;
+         }
+
+         nav.toc {
+            padding: 12px 14px;
+            margin-bottom: 22px;
+         }
+
+         nav.toc ul {
+            columns: 1;
+            font-size: 13px;
+         }
+
+         nav.toc li {
+            margin-bottom: 6px;
+         }
+
+         .day {
+            padding: 14px 14px 16px;
+            margin-bottom: 14px;
+         }
+
+         .day .dhead {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+         }
+
+         .day .dnum {
+            font-size: 18px;
+         }
+
+         .day .droute {
+            font-size: 15px;
+         }
+
+         .day .ddate {
+            font-size: 11.5px;
+         }
+
+         .timeline li {
+            flex-direction: column;
+            gap: 2px;
+            padding: 7px 0;
+         }
+
+         .timeline .time {
+            min-width: 0;
+         }
+
+         .timeline .desc {
+            font-size: 13.5px;
+         }
+
+         .freeline {
+            flex-direction: column;
+            gap: 2px;
+            padding: 9px 10px;
+         }
+
+         .freeline .time {
+            min-width: 0;
+         }
+
+         .ticketline {
+            padding: 10px;
+         }
+
+         .ticketline .tt-head {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+         }
+
+         .ticketline .tt-detail {
+            font-size: 12.5px;
+         }
+
+         .tickets-section {
+            margin-top: 28px;
+         }
+
+         .tickets-section h2 {
+            font-size: 20px;
+         }
+
+         .table-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -14px;
+            padding: 0 14px;
+         }
+
+         table.tickets {
+            min-width: 640px;
+            font-size: 12.5px;
+         }
+      }
+
+      @media (max-width:360px) {
+         header.top h1 {
+            font-size: 21px;
+         }
+
+         .day .dnum {
+            font-size: 16px;
+         }
+      }
+
+      @media print {
+         html[data-theme="dark"] {
+            --ink: #0f171e;
+            --paper: #ffffff;
+            --card: #ffffff;
+            --line: #8c9ba5;
+            --navy: #0c2340;
+            --terracotta: #8c2409;
+            --green: #115228;
+            --muted: #404a52;
+            --bold-text: #000000;
+            --row-stripe: #f4f6f8;
+            --tfoot-bg: #eef2f5;
+            --thead-text: #ffffff;
+            --timeline-border: #e0e6ed;
+            --code-bg: #ffffff;
+            --code-text: #000000;
+            --freeline-bg: #eaf5ed;
+            --ticket-bg: #fdf2f0;
+            --ticket-detail-text: #611603;
+         }
+
+         .lang-switch,
+         .theme-switch {
+            display: none !important;
+         }
+
+         body {
+            font-size: 11px;
+            background: #fff;
+         }
+
+         .sheet {
+            padding: 8mm 10mm;
+            max-width: 100%;
+         }
+
+         @page {
+            size: A4;
+            margin: 8mm;
+         }
+
+         .day {
+            page-break-inside: avoid;
+            border-width: 1px;
+         }
+
+         nav.toc {
+            display: none;
+         }
+
+         a.back-top {
+            display: none;
+         }
+
+         .tickets-section {
+            page-break-before: always;
+         }
+      }
+
+      /* ---------- LANGUAGE SWITCHER ---------- */
+      .lang-switch,
+      .theme-switch {
+         display: flex;
+      }
+
+      .top-controls {
+         position: fixed;
+         top: calc(14px + env(safe-area-inset-top));
+         right: calc(14px + env(safe-area-inset-right));
+         z-index: 50;
+         display: flex;
+         gap: 8px;
+      }
+
+      .top-controls .lang-switch,
+      .top-controls .theme-switch {
+         position: static;
+      }
+
+      .lang-switch button.lang-toggle,
+      .theme-switch button.theme-toggle {
+         display: flex;
+         align-items: center;
+         gap: 6px;
+         background: var(--card);
+         border: 2px solid var(--navy);
+         border-radius: 20px;
+         padding: 7px 14px 7px 10px;
+         font-family: 'Inter', sans-serif;
+         font-size: 13px;
+         font-weight: 700;
+         color: var(--navy);
+         cursor: pointer;
+         box-shadow: 0 2px 6px var(--shadow);
+      }
+
+      .theme-switch button.theme-toggle {
+         padding: 7px 12px;
+      }
+
+      .lang-switch button.lang-toggle:hover,
+      .theme-switch button.theme-toggle:hover {
+         background: var(--tfoot-bg);
+      }
+
+      .theme-switch .theme-icon {
+         width: 16px;
+         height: 16px;
+         flex-shrink: 0;
+      }
+
+      .theme-switch .theme-label {
+         font-size: 11px;
+         font-weight: 700;
+         letter-spacing: .3px;
+         text-transform: uppercase;
+         color: var(--muted);
+      }
+
+      .lang-switch .globe {
+         width: 16px;
+         height: 16px;
+         flex-shrink: 0;
+      }
+
+      .lang-switch .caret {
+         font-size: 9px;
+         margin-left: 1px;
+      }
+
+      .lang-switch {
+         position: relative;
+      }
+
+      .lang-switch .lang-menu {
+         display: none;
+         position: absolute;
+         top: calc(100% + 6px);
+         right: 0;
+         background: var(--card);
+         border: 2px solid var(--line);
+         border-radius: 8px;
+         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+         min-width: 150px;
+         overflow: hidden;
+      }
+
+      .lang-switch.open .lang-menu {
+         display: block;
+      }
+
+      .lang-switch .lang-menu button {
+         display: block;
+         width: 100%;
+         text-align: left;
+         padding: 10px 14px;
+         border: none;
+         background: var(--card);
+         font-family: 'Inter', sans-serif;
+         font-size: 13.5px;
+         font-weight: 600;
+         color: var(--ink);
+         cursor: pointer;
+      }
+
+      .lang-switch .lang-menu button:hover {
+         background: var(--tfoot-bg);
+      }
+
+      .lang-switch .lang-menu button.active {
+         background: var(--navy);
+         color: var(--thead-text);
+         font-weight: 800;
+      }
+
+      @media (max-width:480px) {
+         .top-controls {
+            top: 10px;
+            right: 10px;
+            gap: 6px;
+         }
+
+         .lang-switch button.lang-toggle,
+         .theme-switch button.theme-toggle {
+            padding: 6px 10px 6px 8px;
+            font-size: 12px;
+         }
+
+         .theme-switch .theme-label {
+            display: none;
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <div class="top-controls">
+      <div class="theme-switch" id="themeSwitch">
+         <button class="theme-toggle" id="themeToggleBtn" type="button" title="Cambiar tema / Change theme">
+            <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+            <span class="theme-label" id="themeLabel">Auto</span>
+         </button>
+      </div>
+      <div class="lang-switch" id="langSwitch">
+         <button class="lang-toggle" id="langToggleBtn" aria-haspopup="true" aria-expanded="false">
+            <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="12" cy="12" r="10"></circle>
+               <line x1="2" y1="12" x2="22" y2="12"></line>
+               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+               </path>
+            </svg>
+            <span id="langCurrentLabel">Español</span>
+            <span class="caret">▼</span>
+         </button>
+         <div class="lang-menu" role="menu">
+            <button type="button" data-lang="es" role="menuitem">Español</button>
+            <button type="button" data-lang="en" role="menuitem">English</button>
+         </div>
+      </div>
+   </div>
+   <div class="sheet">
+      <header class="top">
+         <h1 data-i18n="hdr-title">Europa 2026 Luna de Miel</h1>
+         <p class="sub" data-i18n="hdr-sub">Itinerario 22 días - David & Elenita</p>
+         <div class="route" data-i18n="hdr-route">
+            <span class="dates">15 ago – 5 sep 2026</span><br />
+            <b>MEX</b> → París → Londres → Bruselas / Ámsterdam → Ginebra → Italia (Venecia · Roma · Florencia) → Costa
+            Azul → Barcelona → <b>Madrid</b> → MEX
+         </div>
+      </header>
+      <div class="legend">
+         <span><i class="dot free"></i><span data-i18n="legend-0">Tiempo libre (con horario)</span></span>
+         <span><i class="dot ticket"></i><span data-i18n="legend-1">Boleto ya comprado</span></span>
+      </div>
+      <nav class="toc">
+         <h3 data-i18n="toc-title">Ir directo a un día</h3>
+         <ul>
+            <li><a data-i18n="toc-d1" href="#d1">Día 1 · Sáb 15 ago · México</a></li>
+            <li><a data-i18n="toc-d2" href="#d2">Día 2 · Dom 16 ago · París</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d3" href="#d3">Día 3 · Lun 17 ago · París</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d4" href="#d4">Día 4 · Mar 18 ago · París</a></li>
+            <li><a data-i18n="toc-d5" href="#d5">Día 5 · Mié 19 ago · Londres</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d6" href="#d6">Día 6 · Jue 20 ago · Londres</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d7" href="#d7">Día 7 · Vie 21 ago · Londres</a></li>
+            <li><a data-i18n="toc-d8" href="#d8">Día 8 · Sáb 22 ago · Gante</a></li>
+            <li><a data-i18n="toc-d9" href="#d9">Día 9 · Dom 23 ago · Ámsterdam</a></li>
+            <li><a data-i18n="toc-d10" href="#d10">Día 10 · Lun 24 ago · Ámsterdam</a></li>
+            <li><a data-i18n="toc-d11" href="#d11">Día 11 · Mar 25 ago · París</a></li>
+            <li><a data-i18n="toc-d12" href="#d12">Día 12 · Mié 26 ago · Aosta</a></li>
+            <li><a data-i18n="toc-d13" href="#d13">Día 13 · Jue 27 ago · Venecia</a></li>
+            <li><a data-i18n="toc-d14" href="#d14">Día 14 · Vie 28 ago · Roma</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d15" href="#d15">Día 15 · Sáb 29 ago · Roma</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d16" href="#d16">Día 16 · Dom 30 ago · Florencia</a></li>
+            <li><a data-i18n="toc-d17" href="#d17">Día 17 · Lun 31 ago · Florencia</a></li>
+            <li><a data-i18n="toc-d18" href="#d18">Día 18 · Mar 1 sep · Costa Azul</a></li>
+            <li><a data-i18n="toc-d19" href="#d19">Día 19 · Mié 2 sep · Barcelona</a></li>
+            <li><a data-i18n="toc-d20" href="#d20">Día 20 · Jue 3 sep · Madrid</a></li>
+            <li class="toc-ticket"><a data-i18n="toc-d21" href="#d21">Día 21 · Vie 4 sep · Madrid</a></li>
+            <li><a data-i18n="toc-d22" href="#d22">Día 22 · Sáb 5 sep · México</a></li>
+            <li><a data-i18n="toc-resumen" href="#resumen">📋 Resumen de boletos</a></li>
+         </ul>
+      </nav>
+      <!-- ============ DÍA 1 ============ -->
+      <section class="day" id="d1">
+         <div class="dhead">
+            <div><span class="dnum">D1</span><span class="droute" data-i18n="d1-droute">Salida México → París</span>
+            </div>
+            <span class="ddate" data-i18n="d1-ddate">Sáb 15 ago · México</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d1-t0-time">13:10*</span><span class="desc" data-i18n="d1-t0-desc">Cita en
+                  el aeropuerto (4 horas antes del vuelo)
+                  <b>MEX Terminal 2</b>.</span></li>
+            <li><span class="time" data-i18n="d1-t1-time">17:10</span><span class="desc" data-i18n="d1-t1-desc">Salida
+                  vuelo Aeroméxico <b>AM005</b> con destino a
+                  París.</span></li>
+         </ul>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 2 ============ -->
+      <section class="day free-day" id="d2">
+         <div class="dhead">
+            <div><span class="dnum">D2</span><span class="droute" data-i18n="d2-droute">Llegada a París</span></div>
+            <span class="ddate" data-i18n="d2-ddate">Dom 16 ago · París</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d2-t0-time">12:10</span><span class="desc" data-i18n="d2-t0-desc">Llegada
+                  estimada al aeropuerto <b>Charles de Gaulle
+                     (CDG)</b>. Bienvenida y traslado al hotel.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d2-free0-time">Libre</span><span class="desc"
+               data-i18n="d2-free0-desc"><b>Desde la llegada</b> hasta el inicio
+               de actividades al día siguiente. Cartel informativo en recepción del hotel con indicaciones.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 3 ============ -->
+      <section class="day has-ticket" id="d3">
+         <div class="dhead">
+            <div><span class="dnum">D3</span><span class="droute" data-i18n="d3-droute">Visita panorámica +
+                  Montmartre</span></div>
+            <span class="ddate" data-i18n="d3-ddate">Lun 17 ago · París</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d3-t0-time">08:00</span><span class="desc" data-i18n="d3-t0-desc">Inicia
+                  visita panorámica de París con guía local (2h30
+                  aprox.): Arco de Triunfo, Campos Elíseos, Plaza de la Concordia, Museo del Louvre, Notre Dame, Barrio
+                  Latino, Torre Eiffel.</span></li>
+            <li><span class="time" data-i18n="d3-t1-time">~10:30</span><span class="desc"
+                  data-i18n="d3-t1-desc">Traslado al barrio de Montmartre. Tiempo para pasear
+                  y almorzar en el barrio bohemio.</span></li>
+            <li><span class="time" data-i18n="d3-t2-time">14:00</span><span class="desc" data-i18n="d3-t2-desc">Tras el
+                  almuerzo, regreso al hotel con parada junto al
+                  Museo del Louvre.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d3-free0-time">Libre</span><span class="desc"
+               data-i18n="d3-free0-desc">Desde <b>~14:00 hrs</b>, tarde y noche
+               completas (cabaret / Molino Rojo opcional por la noche).</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d3-tk0-title">🎟 Museo del Louvre</span><span
+                  class="tt-time" data-i18n="d3-tk0-time">16:00 hrs</span>
+            </div>
+            <div class="tt-detail" data-i18n="d3-tk0-detail">2 entradas (David Ochoa / Maria Valerio) · Acceso por
+               Pirámide · Nº venta
+               <code>V260781743919</code> · 32 € c/u
+            </div>
+         </div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d3-tk1-title">🎟 París Iluminado</span><span
+                  class="tt-time" data-i18n="d3-tk1-time">Noche · 3 hrs</span>
+            </div>
+            <div class="tt-detail" data-i18n="d3-tk1-detail">Excursión nocturna (David / Elena) · París · Duración 3 hrs
+               · 40 € c/u · Pagado</div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 4 ============ -->
+      <section class="day has-ticket" id="d4">
+         <div class="dhead">
+            <div><span class="dnum">D4</span><span class="droute" data-i18n="d4-droute">Versalles</span></div>
+            <span class="ddate" data-i18n="d4-ddate">Mar 18 ago · París</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d4-t0-time">08:00</span><span class="desc" data-i18n="d4-t0-desc">Salida
+                  del hotel hacia Versalles. Entrada al
+                  palacio/jardines no incluida.</span></li>
+            <li><span class="time" data-i18n="d4-t1-time">~11:00</span><span class="desc" data-i18n="d4-t1-desc">Regreso
+                  al centro de París para el almuerzo. Guía
+                  ofrece opcionalmente crucero por el río Sena y paseo por el Barrio Latino.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d4-free0-time">Libre</span><span class="desc"
+               data-i18n="d4-free0-desc"><b>2h30</b> en Versalles desde la
+               llegada, más tarde/noche en París.</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d4-tk0-title">🎟 Barrio Latino y Crucero por el
+                  Sena</span><span class="tt-time" data-i18n="d4-tk0-time">Duración 5 hrs</span>
+            </div>
+            <div class="tt-detail" data-i18n="d4-tk0-detail">Excursión (David / Elena) · París · Duración 5 hrs · 50 €
+               c/u · Pagado</div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 5 ============ -->
+      <section class="day free-day" id="d5">
+         <div class="dhead">
+            <div><span class="dnum">D5</span><span class="droute" data-i18n="d5-droute">París → Canterbury →
+                  Londres</span></div>
+            <span class="ddate" data-i18n="d5-ddate">Mié 19 ago · Cruce a Reino Unido</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d5-t0-time">07:30</span><span class="desc" data-i18n="d5-t0-desc">Salida
+                  de París.</span></li>
+            <li><span class="time" data-i18n="d5-t1-time">~11:45</span><span class="desc" data-i18n="d5-t1-desc">Llegada
+                  al puerto de Calais. Trámites de aduana y
+                  frontera (lleve pasaporte a mano).</span></li>
+            <li><span class="time" data-i18n="d5-t2-time">13:00</span><span class="desc" data-i18n="d5-t2-desc">Salida
+                  del ferry hacia Dover. Travesía de 1h30.</span>
+            </li>
+            <li><span class="time" data-i18n="d5-t3-time">14:30</span><span class="desc" data-i18n="d5-t3-desc"><i>(hora
+                     local, adelante su reloj -1h)</i> Llegada a
+                  Canterbury. Tiempo libre para conocer la ciudad medieval.</span></li>
+            <li><span class="time" data-i18n="d5-t4-time">17:00</span><span class="desc" data-i18n="d5-t4-desc">Salida
+                  de Canterbury.</span></li>
+            <li><span class="time" data-i18n="d5-t5-time">18:30</span><span class="desc" data-i18n="d5-t5-desc">Llegada
+                  a Londres.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d5-free0-time">Libre</span><span class="desc"
+               data-i18n="d5-free0-desc">Canterbury <b>14:30–17:00</b> y noche
+               en Londres desde <b>18:30</b>.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 6 ============ -->
+      <section class="day has-ticket" id="d6">
+         <div class="dhead">
+            <div><span class="dnum">D6</span><span class="droute" data-i18n="d6-droute">Visita panorámica + Soho</span>
+            </div>
+            <span class="ddate" data-i18n="d6-ddate">Jue 20 ago · Londres</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d6-t0-time">Mañana</span><span class="desc" data-i18n="d6-t0-desc">Visita
+                  panorámica: Hyde Park, Oxford St, St Paul's,
+                  Torre de Londres, Támesis, Piccadilly Circus, Parlamento, Abadía de Westminster, Buckingham Palace
+                  (cambio de guardia).</span></li>
+            <li><span class="time" data-i18n="d6-t1-time">18:00</span><span class="desc" data-i18n="d6-t1-desc">Punto de
+                  encuentro en Piccadilly Circus. Paseo a pie
+                  por Leicester Square, China Town y el Soho.</span></li>
+            <li><span class="time" data-i18n="d6-t2-time">20:30</span><span class="desc" data-i18n="d6-t2-desc">Traslado
+                  de regreso al hotel.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d6-free0-time">Libre</span><span class="desc"
+               data-i18n="d6-free0-desc">Tarde, desde el final de la panorámica
+               hasta <b>18:00</b> (excursión opcional a Windsor).</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d6-tk0-title">🎟 Torre de Londres</span><span
+                  class="tt-time" data-i18n="d6-tk0-time">Todo el
+                  día</span></div>
+            <div class="tt-detail" data-i18n="d6-tk0-detail">2 entradas adulto · Total £74.00 · Ref.
+               <code>DVO8MPADXCN8D</code>
+            </div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 7 ============ -->
+      <section class="day has-ticket" id="d7">
+         <div class="dhead">
+            <div><span class="dnum">D7</span><span class="droute" data-i18n="d7-droute">Día libre en Londres</span>
+            </div>
+            <span class="ddate" data-i18n="d7-ddate">Vie 21 ago · Londres</span>
+         </div>
+         <div class="freeline"><span class="time" data-i18n="d7-free0-time">Libre</span><span class="desc"
+               data-i18n="d7-free0-desc">Todo el día — sin actividades de
+               circuito programadas.</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d7-tk0-title">🎟 Museo de Historia
+                  Natural</span><span class="tt-time" data-i18n="d7-tk0-time">11:15</span></div>
+            <div class="tt-detail" data-i18n="d7-tk0-detail">2 entradas gratuitas · South Kensington · Ref.
+               <code>20260806-S17285237</code>
+            </div>
+         </div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d7-tk1-title">🎟 Science Museum</span><span
+                  class="tt-time" data-i18n="d7-tk1-time">15:00 y
+                  16:00</span></div>
+            <div class="tt-detail" data-i18n="d7-tk1-detail">2 entradas por turno (4 en total) gratuitas · Orden
+               <code>17579470</code>
+            </div>
+         </div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d7-tk2-title">🎟 London Eye</span><span
+                  class="tt-time" data-i18n="d7-tk2-time">19:30</span></div>
+            <div class="tt-detail" data-i18n="d7-tk2-detail">2 entradas adulto · £30.63 c/u · Orden
+               <code>120225492</code>
+            </div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 8 ============ -->
+      <section class="day free-day" id="d8">
+         <div class="dhead">
+            <div><span class="dnum">D8</span><span class="droute" data-i18n="d8-droute">Londres → Calais → Brujas →
+                  Gante</span></div>
+            <span class="ddate" data-i18n="d8-ddate">Sáb 22 ago · Ferry + Bélgica</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d8-t0-time">07:30</span><span class="desc" data-i18n="d8-t0-desc">Salida
+                  de Londres.</span></li>
+            <li><span class="time" data-i18n="d8-t1-time">09:30</span><span class="desc" data-i18n="d8-t1-desc">Llegada
+                  a Dover, embarque en ferry (salida ~11:30
+                  hrs). Travesía de 1h15.</span></li>
+            <li><span class="time" data-i18n="d8-t2-time">~13:00</span><span class="desc" data-i18n="d8-t2-desc">Paso
+                  por Calais (posible parada técnica).
+                  Continuación hacia Bélgica.</span></li>
+            <li><span class="time" data-i18n="d8-t3-time">16:30</span><span class="desc" data-i18n="d8-t3-desc">Llegada
+                  a Brujas. Tiempo libre en la ciudad medieval
+                  (Torre Belfort, canales).</span></li>
+            <li><span class="time" data-i18n="d8-t4-time">20:00</span><span class="desc" data-i18n="d8-t4-desc">Salida
+                  de Brujas.</span></li>
+            <li><span class="time" data-i18n="d8-t5-time">21:00</span><span class="desc" data-i18n="d8-t5-desc">Llegada
+                  a Gante y alojamiento.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d8-free0-time">Libre</span><span class="desc"
+               data-i18n="d8-free0-desc">Brujas <b>16:30–20:00 hrs</b>.</span>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 9 ============ -->
+      <section class="day free-day" id="d9">
+         <div class="dhead">
+            <div><span class="dnum">D9</span><span class="droute" data-i18n="d9-droute">Gante → La Haya →
+                  Ámsterdam</span></div>
+            <span class="ddate" data-i18n="d9-ddate">Dom 23 ago</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d9-t0-time">08:00</span><span class="desc" data-i18n="d9-t0-desc">Traslado
+                  al centro de Gante. Tiempo libre en la ciudad
+                  universitaria.</span></li>
+            <li><span class="time" data-i18n="d9-t1-time">11:00</span><span class="desc" data-i18n="d9-t1-desc">Salida
+                  de Gante hacia Holanda.</span></li>
+            <li><span class="time" data-i18n="d9-t2-time">13:45</span><span class="desc" data-i18n="d9-t2-desc">Llegada
+                  a La Haya. Recorrido por el Palacio de la Paz
+                  y Parlamento. Tiempo para pasear y almorzar, con parada en la playa de Scheveningen.</span></li>
+            <li><span class="time" data-i18n="d9-t3-time">18:00</span><span class="desc" data-i18n="d9-t3-desc">Salida
+                  de La Haya.</span></li>
+            <li><span class="time" data-i18n="d9-t4-time">19:00</span><span class="desc" data-i18n="d9-t4-desc">Llegada
+                  a Ámsterdam.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d9-free0-time">Libre</span><span class="desc"
+               data-i18n="d9-free0-desc">Gante <b>08:00–11:00</b> y La Haya
+               <b>13:45–18:00</b>.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 10 ============ -->
+      <section class="day free-day" id="d10">
+         <div class="dhead">
+            <div><span class="dnum">D10</span><span class="droute" data-i18n="d10-droute">Visita guiada + tarde
+                  libre</span></div>
+            <span class="ddate" data-i18n="d10-ddate">Lun 24 ago · Ámsterdam</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d10-t0-time">08:30</span><span class="desc" data-i18n="d10-t0-desc">Visita
+                  de Ámsterdam con guía local (2h aprox.): molino
+                  de Rembrandt, barrio judío, museo del diamante, museo marítimo. Termina en la estación central.</span>
+            </li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d10-free0-time">Libre</span><span class="desc"
+               data-i18n="d10-free0-desc">Tarde, desde <b>~10:30 hrs</b> (paseo
+               en barco por los canales opcional, y pueblos próximos sugeridos por el guía). Si el hotel está en zona de
+               aeropuerto, traslado de regreso ~20:00 hrs.</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d10-tk0-title">🎟 Museo Van Gogh</span><span
+                  class="tt-time" data-i18n="d10-tk0-time">14:15 hrs</span>
+            </div>
+            <div class="tt-detail" data-i18n="d10-tk0-detail">2 entradas adulto (David Ochoa) · Museumplein 6, Ámsterdam
+               · Nº ticket
+               <code>772656477214201421</code> / <code>773428232642275322</code> · 25 € c/u
+            </div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 11 ============ -->
+      <section class="day free-day" id="d11">
+         <div class="dhead">
+            <div><span class="dnum">D11</span><span class="droute" data-i18n="d11-droute">Ámsterdam → Delft → Bruselas →
+                  París</span></div>
+            <span class="ddate" data-i18n="d11-ddate">Mar 25 ago</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d11-t0-time">08:00</span><span class="desc" data-i18n="d11-t0-desc">Salida
+                  de Ámsterdam.</span></li>
+            <li><span class="time" data-i18n="d11-t1-time">09:15</span><span class="desc"
+                  data-i18n="d11-t1-desc">Llegada a Delft, población conocida por su cerámica
+                  azul y blanca.</span></li>
+            <li><span class="time" data-i18n="d11-t2-time">10:30</span><span class="desc" data-i18n="d11-t2-desc">Salida
+                  de Delft hacia Bélgica.</span></li>
+            <li><span class="time" data-i18n="d11-t3-time">13:00</span><span class="desc"
+                  data-i18n="d11-t3-desc">Llegada a Bruselas. Tiempo libre para almorzar,
+                  después visita panorámica c/guía (1h30): Laaken, Palacio Real, Grand Place.</span></li>
+            <li><span class="time" data-i18n="d11-t4-time">16:00</span><span class="desc" data-i18n="d11-t4-desc">Salida
+                  de Bruselas hacia Francia.</span></li>
+            <li><span class="time" data-i18n="d11-t5-time">20:15</span><span class="desc"
+                  data-i18n="d11-t5-desc">Llegada a París.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d11-free0-time">Libre</span><span class="desc"
+               data-i18n="d11-free0-desc">Bruselas <b>13:00–14:30</b> aprox.,
+               antes de la visita panorámica.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 12 ============ -->
+      <section class="day free-day" id="d12">
+         <div class="dhead">
+            <div><span class="dnum">D12</span><span class="droute" data-i18n="d12-droute">París → Ginebra → Aosta</span>
+            </div>
+            <span class="ddate" data-i18n="d12-ddate">Mié 26 ago · Cruce de los Alpes</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d12-t0-time">07:30</span><span class="desc" data-i18n="d12-t0-desc">Salida
+                  de París hacia Suiza.</span></li>
+            <li><span class="time" data-i18n="d12-t1-time">14:30</span><span class="desc"
+                  data-i18n="d12-t1-desc">Llegada a Ginebra. Tiempo para almorzar y pasear a
+                  orillas del lago Leman.</span></li>
+            <li><span class="time" data-i18n="d12-t2-time">17:30</span><span class="desc" data-i18n="d12-t2-desc">Salida
+                  de Ginebra. Paso por Chamonix y el túnel del
+                  Mont Blanc hacia Italia.</span></li>
+            <li><span class="time" data-i18n="d12-t3-time">20:00</span><span class="desc"
+                  data-i18n="d12-t3-desc">Llegada a la región de Aosta. Alojamiento (posible en
+                  Aosta, St. Cristophe o Ivrea).</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d12-free0-time">Libre</span><span class="desc"
+               data-i18n="d12-free0-desc">Ginebra <b>14:30–17:30 hrs</b>.</span>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 13 ============ -->
+      <section class="day free-day" id="d13">
+         <div class="dhead">
+            <div><span class="dnum">D13</span><span class="droute" data-i18n="d13-droute">Aosta → Venecia</span></div>
+            <span class="ddate" data-i18n="d13-ddate">Jue 27 ago</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d13-t0-time">07:30</span><span class="desc" data-i18n="d13-t0-desc">Salida
+                  de Aosta, viaje por la llanura del Po, parada
+                  en la periferia de Milán.</span></li>
+            <li><span class="time" data-i18n="d13-t1-time">13:15</span><span class="desc"
+                  data-i18n="d13-t1-desc">Llegada a la terminal del Tronchetto (Venecia); barco
+                  privado al centro histórico. Tras el almuerzo, visita guiada de Venecia: Plaza San Marcos, Basílica,
+                  Campanile, fábrica de cristal de Murano.</span></li>
+            <li><span class="time" data-i18n="d13-t2-time">20:00</span><span class="desc"
+                  data-i18n="d13-t2-desc">Traslado al hotel (área metropolitana: Mestre,
+                  Marghera o alrededores).</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d13-free0-time">Libre</span><span class="desc"
+               data-i18n="d13-free0-desc">Tarde, tras la visita guiada (paseo en
+               góndola sugerido por el guía).</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 14 ============ -->
+      <section class="day free-day" id="d14">
+         <div class="dhead">
+            <div><span class="dnum">D14</span><span class="droute" data-i18n="d14-droute">Venecia → Rávena → Asís →
+                  Roma</span></div>
+            <span class="ddate" data-i18n="d14-ddate">Vie 28 ago</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d14-t0-time">07:30</span><span class="desc" data-i18n="d14-t0-desc">Salida
+                  de Venecia, bordeando la laguna hasta
+                  Rávena.</span></li>
+            <li><span class="time" data-i18n="d14-t1-time">10:00</span><span class="desc"
+                  data-i18n="d14-t1-desc">Llegada a Rávena. Orientación sobre las basílicas
+                  principales. Visita libre.</span></li>
+            <li><span class="time" data-i18n="d14-t2-time">11:30</span><span class="desc" data-i18n="d14-t2-desc">Salida
+                  de Rávena, cruzando los Apeninos.</span></li>
+            <li><span class="time" data-i18n="d14-t3-time">14:00</span><span class="desc"
+                  data-i18n="d14-t3-desc">Llegada a Asís. Tiempo libre para almorzar y visitar
+                  la ciudad (vestir con decoro en la basílica de San Francisco).</span></li>
+            <li><span class="time" data-i18n="d14-t4-time">17:30</span><span class="desc" data-i18n="d14-t4-desc">Salida
+                  de Asís.</span></li>
+            <li><span class="time" data-i18n="d14-t5-time">20:30</span><span class="desc"
+                  data-i18n="d14-t5-desc">Llegada a Roma.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d14-free0-time">Libre</span><span class="desc"
+               data-i18n="d14-free0-desc">Rávena <b>10:00–11:30</b> y Asís
+               <b>14:00–17:30</b> (almuerzo + visita).</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 15 ============ -->
+      <section class="day has-ticket" id="d15">
+         <div class="dhead">
+            <div><span class="dnum">D15</span><span class="droute" data-i18n="d15-droute">Ciudad Eterna +
+                  Vaticano</span></div>
+            <span class="ddate" data-i18n="d15-ddate">Sáb 29 ago · Roma</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d15-t0-time">Mañana</span><span class="desc"
+                  data-i18n="d15-t0-desc">Visita guiada (3h): Roma Imperial a pie y en autobús
+                  — Arco de Constantino, Coliseo (exterior), Foros Imperiales, Circo Máximo, Termas de Caracalla,
+                  Castillo de San Ángel.</span></li>
+            <li><span class="time" data-i18n="d15-t1-time">~11:00</span><span class="desc" data-i18n="d15-t1-desc">Fin
+                  del tour en la Ciudad del Vaticano.</span></li>
+            <li><span class="time" data-i18n="d15-t2-time">18:00</span><span class="desc"
+                  data-i18n="d15-t2-desc">Traslado al barrio de Trastévere.</span></li>
+            <li><span class="time" data-i18n="d15-t3-time">~20:30</span><span class="desc"
+                  data-i18n="d15-t3-desc">Regreso al hotel.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d15-free0-time">Libre</span><span class="desc"
+               data-i18n="d15-free0-desc">Tarde, tras la visita opcional a los
+               Museos Vaticanos.</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d15-tk0-title">🎟 Museos Vaticanos y Capilla
+                  Sixtina</span><span class="tt-time" data-i18n="d15-tk0-time">Duración 2h30</span></div>
+            <div class="tt-detail" data-i18n="d15-tk0-detail">Excursión guiada · 70 €/persona (2 personas) · Roma</div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 16 ============ -->
+      <section class="day has-ticket" id="d16">
+         <div class="dhead">
+            <div><span class="dnum">D16</span><span class="droute" data-i18n="d16-droute">Día libre — excursión propia a
+                  Florencia</span></div>
+            <span class="ddate" data-i18n="d16-ddate">Dom 30 ago · Roma</span>
+         </div>
+         <div class="freeline"><span class="time" data-i18n="d16-free0-time">Libre</span><span class="desc"
+               data-i18n="d16-free0-desc">Día completo (excursión oficial
+               opcional a Capri o Nápoles/Pompeya no tomada).</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d16-tk0-title">🎟 Tren Italo Roma →
+                  Florencia</span><span class="tt-time" data-i18n="d16-tk0-time">09:20
+                  → 11:17</span></div>
+            <div class="tt-detail" data-i18n="d16-tk0-detail">Tren 9920 · Coche 8, asientos 6-7 · Pasajeros David Ochoa
+               / Elena Valerio · Ref.
+               <code>IH4PPD</code> · 29,90 € c/u
+            </div>
+         </div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d16-tk1-title">🎟 Galería Uffizi</span><span
+                  class="tt-time" data-i18n="d16-tk1-time">13:00</span></div>
+            <div class="tt-detail" data-i18n="d16-tk1-detail">2 entradas · PNR <code>P44DVYZ9</code> · 29 € c/u</div>
+         </div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d16-tk2-title">🎟 Tren Italo Florencia →
+                  Roma</span><span class="tt-time" data-i18n="d16-tk2-time">18:28
+                  → 20:10</span></div>
+            <div class="tt-detail" data-i18n="d16-tk2-detail">Tren 8923 · Coche 6, asientos 19-20 · Ref.
+               <code>SH3KGT</code> · 23,90 € c/u
+            </div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 17 ============ -->
+      <section class="day free-day" id="d17">
+         <div class="dhead">
+            <div><span class="dnum">D17</span><span class="droute" data-i18n="d17-droute">Roma → Florencia</span></div>
+            <span class="ddate" data-i18n="d17-ddate">Lun 31 ago</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d17-t0-time">08:00</span><span class="desc" data-i18n="d17-t0-desc">Salida
+                  de Roma.</span></li>
+            <li><span class="time" data-i18n="d17-t1-time">12:15</span><span class="desc"
+                  data-i18n="d17-t1-desc">Llegada a Florencia. Visita opcional con guía local:
+                  Duomo, Ponte Vecchio, Plaza de la Signoria.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d17-free0-time">Libre</span><span class="desc"
+               data-i18n="d17-free0-desc">Desde <b>12:15 hrs</b> en
+               Florencia.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 18 ============ -->
+      <section class="day free-day" id="d18">
+         <div class="dhead">
+            <div><span class="dnum">D18</span><span class="droute" data-i18n="d18-droute">Florencia → Pisa → Sestri
+                  Levante → Montecarlo →
+                  Costa Azul</span></div>
+            <span class="ddate" data-i18n="d18-ddate">Mar 1 sep</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d18-t0-time">08:00</span><span class="desc" data-i18n="d18-t0-desc">Salida
+                  de Florencia.</span></li>
+            <li><span class="time" data-i18n="d18-t1-time">09:15</span><span class="desc"
+                  data-i18n="d18-t1-desc">Llegada a Pisa. Recinto monumental (puede requerir
+                  autobús urbano o caminata).</span></li>
+            <li><span class="time" data-i18n="d18-t2-time">11:00</span><span class="desc" data-i18n="d18-t2-desc">Salida
+                  de Pisa, siguiendo el Mediterráneo por la
+                  Riviera Ligur.</span></li>
+            <li><span class="time" data-i18n="d18-t3-time">12:30</span><span class="desc"
+                  data-i18n="d18-t3-desc">Llegada a Sestri Levante. Tiempo para almorzar y
+                  pasear.</span></li>
+            <li><span class="time" data-i18n="d18-t4-time">14:45</span><span class="desc" data-i18n="d18-t4-desc">Salida
+                  de Sestri Levante.</span></li>
+            <li><span class="time" data-i18n="d18-t5-time">18:00</span><span class="desc"
+                  data-i18n="d18-t5-desc">Llegada a Montecarlo. Tiempo para pasear (casino
+                  opcional, lleve pasaporte).</span></li>
+            <li><span class="time" data-i18n="d18-t6-time">19:15</span><span class="desc" data-i18n="d18-t6-desc">Salida
+                  de Montecarlo hacia la Costa Azul.</span></li>
+            <li><span class="time" data-i18n="d18-t7-time">20:00</span><span class="desc"
+                  data-i18n="d18-t7-desc">Llegada a la Costa Azul.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d18-free0-time">Libre</span><span class="desc"
+               data-i18n="d18-free0-desc">Sestri Levante <b>12:30–14:45</b> y
+               Montecarlo <b>18:00–19:15</b>.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 19 ============ -->
+      <section class="day free-day" id="d19">
+         <div class="dhead">
+            <div><span class="dnum">D19</span><span class="droute" data-i18n="d19-droute">Costa Azul → Arles →
+                  Barcelona</span></div>
+            <span class="ddate" data-i18n="d19-ddate">Mié 2 sep</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d19-t0-time">Mañana</span><span class="desc"
+                  data-i18n="d19-t0-desc">Visita breve de Niza: Paseo de los Ingleses, Plaza
+                  Massena, puerto antiguo.</span></li>
+            <li><span class="time" data-i18n="d19-t1-time">12:00</span><span class="desc"
+                  data-i18n="d19-t1-desc">Llegada a Arles. Paseo por el centro monumental que
+                  inspiró a Van Gogh.</span></li>
+            <li><span class="time" data-i18n="d19-t2-time">14:30</span><span class="desc" data-i18n="d19-t2-desc">Salida
+                  de Arles hacia el sur de Francia.</span></li>
+            <li><span class="time" data-i18n="d19-t3-time">20:00</span><span class="desc"
+                  data-i18n="d19-t3-desc">Llegada a Barcelona y alojamiento.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d19-free0-time">Libre</span><span class="desc"
+               data-i18n="d19-free0-desc">Arles <b>12:00–14:30 hrs</b>.</span>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 20 ============ -->
+      <section class="day free-day" id="d20">
+         <div class="dhead">
+            <div><span class="dnum">D20</span><span class="droute" data-i18n="d20-droute">Barcelona → Madrid</span>
+            </div>
+            <span class="ddate" data-i18n="d20-ddate">Jue 3 sep</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d20-t0-time">08:00</span><span class="desc" data-i18n="d20-t0-desc">Inicia
+                  visita guiada (2h): monumento a Colón, Plaza de
+                  Cataluña, Paseo de Gracia, Sagrada Familia, Montjuïc. Finaliza en zona de Ramblas/barrio
+                  gótico.</span></li>
+            <li><span class="time" data-i18n="d20-t1-time">13:00</span><span class="desc" data-i18n="d20-t1-desc">Salida
+                  de Barcelona hacia Aragón y Castilla. Parada en
+                  área de servicio para almorzar.</span></li>
+            <li><span class="time" data-i18n="d20-t2-time">21:00</span><span class="desc"
+                  data-i18n="d20-t2-desc">Llegada a Madrid.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d20-free0-time">Libre</span><span class="desc"
+               data-i18n="d20-free0-desc">~10:00–13:00 hrs en el barrio gótico de
+               Barcelona.</span></div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 21 ============ -->
+      <section class="day has-ticket" id="d21">
+         <div class="dhead">
+            <div><span class="dnum">D21</span><span class="droute" data-i18n="d21-droute">Panorámica + tarde
+                  libre</span></div>
+            <span class="ddate" data-i18n="d21-ddate">Vie 4 sep · Madrid</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d21-t0-time">Mañana</span><span class="desc"
+                  data-i18n="d21-t0-desc">Visita panorámica de Madrid (2h30): Cibeles, Puerta
+                  de Alcalá, Retiro, Calle Serrano, Plaza Colón, Paseo del Prado, Palacio Real.</span></li>
+         </ul>
+         <div class="freeline"><span class="time" data-i18n="d21-free0-time">Libre</span><span class="desc"
+               data-i18n="d21-free0-desc">Resto del día, desde <b>~11:30 hrs</b>
+               (Toledo opcional).</span></div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d21-tk0-title">🎟 Tour Bernabéu</span><span
+                  class="tt-time" data-i18n="d21-tk0-time">12:00</span></div>
+            <div class="tt-detail" data-i18n="d21-tk0-detail">2 entradas adulto · 39 € c/u</div>
+         </div>
+         <div class="ticketline">
+            <div class="tt-head"><span class="tt-title" data-i18n="d21-tk1-title">🎟 Museo del Prado</span><span
+                  class="tt-time" data-i18n="d21-tk1-time">16:00</span>
+            </div>
+            <div class="tt-detail" data-i18n="d21-tk1-detail">2 entradas generales · Localizador <code>M362371F</code> ·
+               15 € c/u</div>
+         </div>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ DÍA 22 ============ -->
+      <section class="day" id="d22">
+         <div class="dhead">
+            <div><span class="dnum">D22</span><span class="droute" data-i18n="d22-droute">Regreso a México</span></div>
+            <span class="ddate" data-i18n="d22-ddate">Sáb 5 sep · Madrid → México</span>
+         </div>
+         <ul class="timeline">
+            <li><span class="time" data-i18n="d22-t0-time">10:00</span><span class="desc"
+                  data-i18n="d22-t0-desc">Check-out del hotel (posible dejar equipaje en
+                  recepción).</span></li>
+            <li><span class="time" data-i18n="d22-t1-time">~05:00</span><span class="desc"
+                  data-i18n="d22-t1-desc">Traslado por cuenta propia rumbo al aeropuerto
+                  <b>Adolfo Suárez Madrid-Barajas (MAD)</b>.</span></li>
+            <li><span class="time" data-i18n="d22-t2-time">09:00</span><span class="desc" data-i18n="d22-t2-desc">Salida
+                  vuelo Aeroméxico <b>AM020</b> con destino
+                  Ciudad de México.</span></li>
+            <li><span class="time" data-i18n="d22-t3-time">12:45</span><span class="desc"
+                  data-i18n="d22-t3-desc">Llegada estimada al Aeropuerto Internacional de Ciudad
+                  de México (MEX). Fin de los servicios.</span></li>
+         </ul>
+         <a class="back-top" data-i18n="back-top" href="#">↑ volver arriba</a>
+      </section>
+      <!-- ============ RESUMEN DE BOLETOS ============ -->
+      <div class="tickets-section" id="resumen">
+         <h2 data-i18n="resumen-title">Resumen de boletos comprados</h2>
+         <div class="table-scroll">
+            <table class="tickets">
+               <thead>
+                  <tr>
+                     <th data-i18n="th-0">Fecha / hora</th>
+                     <th data-i18n="th-1">Actividad</th>
+                     <th data-i18n="th-2">Ciudad</th>
+                     <th data-i18n="th-3">Detalle</th>
+                     <th data-i18n="th-4">Código / Ref.</th>
+                     <th data-i18n="th-5">Precio</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td data-i18n="row0-c0">17 ago · 16:00</td>
+                     <td data-i18n="row0-c1">Museo del Louvre</td>
+                     <td data-i18n="row0-c2">París</td>
+                     <td data-i18n="row0-c3">2 entradas, acceso Pirámide</td>
+                     <td class="code">V260781743919</td>
+                     <td class="price">64,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row0b-c0">17 ago · noche</td>
+                     <td data-i18n="row0b-c1">París Iluminado</td>
+                     <td data-i18n="row0b-c2">París</td>
+                     <td data-i18n="row0b-c3">Excursión, 3 hrs, David y Elena</td>
+                     <td class="code">—</td>
+                     <td class="price">80,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row0c-c0">18 ago · tarde</td>
+                     <td data-i18n="row0c-c1">Barrio Latino y Crucero por el Sena</td>
+                     <td data-i18n="row0c-c2">París</td>
+                     <td data-i18n="row0c-c3">Excursión, 5 hrs, David y Elena</td>
+                     <td class="code">—</td>
+                     <td class="price">100,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row1-c0">20 ago · todo el día</td>
+                     <td data-i18n="row1-c1">Torre de Londres</td>
+                     <td data-i18n="row1-c2">Londres</td>
+                     <td data-i18n="row1-c3">2 entradas adulto</td>
+                     <td class="code">DVO8MPADXCN8D</td>
+                     <td class="price">£74.00</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row1b-c0">24 ago · 14:15</td>
+                     <td data-i18n="row1b-c1">Museo Van Gogh</td>
+                     <td data-i18n="row1b-c2">Ámsterdam</td>
+                     <td data-i18n="row1b-c3">2 entradas adulto</td>
+                     <td class="code">—</td>
+                     <td class="price">50,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row2-c0">21 ago · 11:15</td>
+                     <td data-i18n="row2-c1">Museo de Historia Natural</td>
+                     <td data-i18n="row2-c2">Londres</td>
+                     <td data-i18n="row2-c3">2 entradas (gratis)</td>
+                     <td class="code">S17285237</td>
+                     <td class="price">£0.00</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row3-c0">21 ago · 15:00 y 16:00</td>
+                     <td data-i18n="row3-c1">Science Museum</td>
+                     <td data-i18n="row3-c2">Londres</td>
+                     <td data-i18n="row3-c3">2 entradas por turno (4 total, gratis)</td>
+                     <td class="code">17579470</td>
+                     <td class="price">£0.00</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row4-c0">21 ago · 19:30</td>
+                     <td data-i18n="row4-c1">London Eye</td>
+                     <td data-i18n="row4-c2">Londres</td>
+                     <td data-i18n="row4-c3">2 entradas adulto</td>
+                     <td class="code">120225492</td>
+                     <td class="price">£61.26</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row5-c0">29 ago</td>
+                     <td data-i18n="row5-c1">Museos Vaticanos y Capilla Sixtina</td>
+                     <td data-i18n="row5-c2">Roma</td>
+                     <td data-i18n="row5-c3">Excursión guiada, 2h30 min, 70€/persona</td>
+                     <td class="code">—</td>
+                     <td class="price">140,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row6-c0">30 ago · 09:20→11:17</td>
+                     <td data-i18n="row6-c1">Tren Italo Roma→Florencia</td>
+                     <td data-i18n="row6-c2">Roma/Florencia</td>
+                     <td data-i18n="row6-c3">Tren 9920, coche 8, asientos 6-7</td>
+                     <td class="code">IH4PPD</td>
+                     <td class="price">59,80 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row7-c0">30 ago · 13:00</td>
+                     <td data-i18n="row7-c1">Galería Uffizi</td>
+                     <td data-i18n="row7-c2">Florencia</td>
+                     <td data-i18n="row7-c3">2 entradas</td>
+                     <td class="code">P44DVYZ9</td>
+                     <td class="price">58,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row8-c0">30 ago · 18:28→20:10</td>
+                     <td data-i18n="row8-c1">Tren Italo Florencia→Roma</td>
+                     <td data-i18n="row8-c2">Florencia/Roma</td>
+                     <td data-i18n="row8-c3">Tren 8923, coche 6, asientos 19-20</td>
+                     <td class="code">SH3KGT</td>
+                     <td class="price">47,80 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row9-c0">4 sep · 12:00</td>
+                     <td data-i18n="row9-c1">Tour Bernabéu</td>
+                     <td data-i18n="row9-c2">Madrid</td>
+                     <td data-i18n="row9-c3">2 entradas adulto</td>
+                     <td class="code">—</td>
+                     <td class="price">78,00 €</td>
+                  </tr>
+                  <tr>
+                     <td data-i18n="row10-c0">4 sep · 16:00</td>
+                     <td data-i18n="row10-c1">Museo del Prado</td>
+                     <td data-i18n="row10-c2">Madrid</td>
+                     <td data-i18n="row10-c3">2 entradas generales</td>
+                     <td class="code">M362371F</td>
+                     <td class="price">30,00 €</td>
+                  </tr>
+               </tbody>
+               <tfoot>
+                  <tr>
+                     <td colspan="5" data-i18n="tfoot-0">Total en euros</td>
+                     <td class="price">707,60 €</td>
+                  </tr>
+                  <tr>
+                     <td colspan="5" data-i18n="tfoot-1">Total en libras</td>
+                     <td class="price">£135.26</td>
+                  </tr>
+               </tfoot>
+            </table>
+         </div>
+         <footer class="note" data-i18n="footer-note">
+            Todos los horarios del itinerario son orientativos (Europamundo puede ajustarlos). Boletos con entrada
+            nominativa deben coincidir con el nombre del titular. Recuerde llevar pasaporte a mano en los cruces
+            Francia–Reino Unido, Reino Unido–Bélgica y Francia–Suiza.
+         </footer>
+      </div>
+   </div>
+   <script>
+      (function () {
+         var DICT = {
+            es: { "hdr-title": "Europa 2026 Luna de Miel", "hdr-sub": "Itinerario 22 días - David & Elenita", "hdr-route": "\n<span class=\"dates\">15 ago – 5 sep 2026</span><br/>\n<b>MEX</b> → París → Londres → Bruselas / Ámsterdam → Ginebra → Italia (Venecia · Roma · Florencia) → Costa\n            Azul → Barcelona → <b>Madrid</b> → MEX\n         ", "legend-0": "Tiempo libre (con horario)", "legend-1": "Boleto ya comprado", "toc-title": "Ir directo a un día", "toc-d1": "Día 1 · Sáb 15 ago · México", "toc-d2": "Día 2 · Dom 16 ago · París", "toc-d3": "Día 3 · Lun 17 ago · París", "toc-d4": "Día 4 · Mar 18 ago · París", "toc-d5": "Día 5 · Mié 19 ago · Londres", "toc-d6": "Día 6 · Jue 20 ago · Londres", "toc-d7": "Día 7 · Vie 21 ago · Londres", "toc-d8": "Día 8 · Sáb 22 ago · Gante", "toc-d9": "Día 9 · Dom 23 ago · Ámsterdam", "toc-d10": "Día 10 · Lun 24 ago · Ámsterdam", "toc-d11": "Día 11 · Mar 25 ago · París", "toc-d12": "Día 12 · Mié 26 ago · Aosta", "toc-d13": "Día 13 · Jue 27 ago · Venecia", "toc-d14": "Día 14 · Vie 28 ago · Roma", "toc-d15": "Día 15 · Sáb 29 ago · Roma", "toc-d16": "Día 16 · Dom 30 ago · Florencia", "toc-d17": "Día 17 · Lun 31 ago · Florencia", "toc-d18": "Día 18 · Mar 1 sep · Costa Azul", "toc-d19": "Día 19 · Mié 2 sep · Barcelona", "toc-d20": "Día 20 · Jue 3 sep · Madrid", "toc-d21": "Día 21 · Vie 4 sep · Madrid", "toc-d22": "Día 22 · Sáb 5 sep · México", "toc-resumen": "📋 Resumen de boletos", "d1-droute": "Salida México → París", "d1-ddate": "Sáb 15 ago · México", "d1-t0-time": "13:10*", "d1-t0-desc": "Cita en el aeropuerto (4 horas antes del vuelo)\n                  <b>MEX Terminal 2</b>.", "d1-t1-time": "17:10", "d1-t1-desc": "Salida vuelo Aeroméxico <b>AM005</b> con destino a\n                  París.", "d2-droute": "Llegada a París", "d2-ddate": "Dom 16 ago · París", "d2-t0-time": "12:10", "d2-t0-desc": "Llegada estimada al aeropuerto <b>Charles de Gaulle\n                     (CDG)</b>. Bienvenida y traslado al hotel.", "d2-free0-time": "Libre", "d2-free0-desc": "<b>Desde la llegada</b> hasta el inicio\n               de actividades al día siguiente. Cartel informativo en recepción del hotel con indicaciones.", "d3-droute": "Visita panorámica + Montmartre", "d3-ddate": "Lun 17 ago · París", "d3-t0-time": "08:00", "d3-t0-desc": "Inicia visita panorámica de París con guía local (2h30\n                  aprox.): Arco de Triunfo, Campos Elíseos, Plaza de la Concordia, Museo del Louvre, Notre Dame, Barrio\n                  Latino, Torre Eiffel.", "d3-t1-time": "~10:30", "d3-t1-desc": "Traslado al barrio de Montmartre. Tiempo para pasear\n                  y almorzar en el barrio bohemio.", "d3-t2-time": "14:00", "d3-t2-desc": "Tras el almuerzo, regreso al hotel con parada junto al\n                  Museo del Louvre.", "d3-free0-time": "Libre", "d3-free0-desc": "Desde <b>~14:00 hrs</b>, tarde y noche\n               completas (cabaret / Molino Rojo opcional por la noche).", "d3-tk0-title": "🎟 Museo del Louvre", "d3-tk0-time": "16:00 hrs", "d3-tk0-detail": "2 entradas (David Ochoa / Maria Valerio) · Acceso por Pirámide · Nº venta\n               <code>V260781743919</code> · 32 € c/u\n            ", "d3-tk1-title": "🎟 París Iluminado", "d3-tk1-time": "Noche · 3 hrs", "d3-tk1-detail": "Excursión nocturna (David / Elena) · París · Duración 3 hrs · 40 € c/u · Pagado", "d4-droute": "Versalles", "d4-ddate": "Mar 18 ago · París", "d4-t0-time": "08:00", "d4-t0-desc": "Salida del hotel hacia Versalles. Entrada al\n                  palacio/jardines no incluida.", "d4-t1-time": "~11:00", "d4-t1-desc": "Regreso al centro de París para el almuerzo. Guía\n                  ofrece opcionalmente crucero por el río Sena y paseo por el Barrio Latino.", "d4-free0-time": "Libre", "d4-free0-desc": "<b>2h30</b> en Versalles desde la\n               llegada, más tarde/noche en París.", "d4-tk0-title": "🎟 Barrio Latino y Crucero por el Sena", "d4-tk0-time": "Duración 5 hrs", "d4-tk0-detail": "Excursión (David / Elena) · París · Duración 5 hrs · 50 € c/u · Pagado", "d5-droute": "París → Canterbury → Londres", "d5-ddate": "Mié 19 ago · Cruce a Reino Unido", "d5-t0-time": "07:30", "d5-t0-desc": "Salida de París.", "d5-t1-time": "~11:45", "d5-t1-desc": "Llegada al puerto de Calais. Trámites de aduana y\n                  frontera (lleve pasaporte a mano).", "d5-t2-time": "13:00", "d5-t2-desc": "Salida del ferry hacia Dover. Travesía de 1h30.", "d5-t3-time": "14:30", "d5-t3-desc": "<i>(hora local, adelante su reloj -1h)</i> Llegada a\n                  Canterbury. Tiempo libre para conocer la ciudad medieval.", "d5-t4-time": "17:00", "d5-t4-desc": "Salida de Canterbury.", "d5-t5-time": "18:30", "d5-t5-desc": "Llegada a Londres.", "d5-free0-time": "Libre", "d5-free0-desc": "Canterbury <b>14:30–17:00</b> y noche\n               en Londres desde <b>18:30</b>.", "d6-droute": "Visita panorámica + Soho", "d6-ddate": "Jue 20 ago · Londres", "d6-t0-time": "Mañana", "d6-t0-desc": "Visita panorámica: Hyde Park, Oxford St, St Paul's,\n                  Torre de Londres, Támesis, Piccadilly Circus, Parlamento, Abadía de Westminster, Buckingham Palace\n                  (cambio de guardia).", "d6-t1-time": "18:00", "d6-t1-desc": "Punto de encuentro en Piccadilly Circus. Paseo a pie\n                  por Leicester Square, China Town y el Soho.", "d6-t2-time": "20:30", "d6-t2-desc": "Traslado de regreso al hotel.", "d6-free0-time": "Libre", "d6-free0-desc": "Tarde, desde el final de la panorámica\n               hasta <b>18:00</b> (excursión opcional a Windsor).", "d6-tk0-title": "🎟 Torre de Londres", "d6-tk0-time": "Todo el\n                  día", "d6-tk0-detail": "2 entradas adulto · Total £74.00 · Ref. <code>DVO8MPADXCN8D</code>", "d7-droute": "Día libre en Londres", "d7-ddate": "Vie 21 ago · Londres", "d7-free0-time": "Libre", "d7-free0-desc": "Todo el día — sin actividades de\n               circuito programadas.", "d7-tk0-title": "🎟 Museo de Historia Natural", "d7-tk0-time": "11:15", "d7-tk0-detail": "2 entradas gratuitas · South Kensington · Ref. <code>20260806-S17285237</code>", "d7-tk1-title": "🎟 Science Museum", "d7-tk1-time": "15:00 y\n                  16:00", "d7-tk1-detail": "2 entradas por turno (4 en total) gratuitas · Orden <code>17579470</code>", "d7-tk2-title": "🎟 London Eye", "d7-tk2-time": "19:30", "d7-tk2-detail": "2 entradas adulto · £30.63 c/u · Orden <code>120225492</code>", "d8-droute": "Londres → Calais → Brujas → Gante", "d8-ddate": "Sáb 22 ago · Ferry + Bélgica", "d8-t0-time": "07:30", "d8-t0-desc": "Salida de Londres.", "d8-t1-time": "09:30", "d8-t1-desc": "Llegada a Dover, embarque en ferry (salida ~11:30\n                  hrs). Travesía de 1h15.", "d8-t2-time": "~13:00", "d8-t2-desc": "Paso por Calais (posible parada técnica).\n                  Continuación hacia Bélgica.", "d8-t3-time": "16:30", "d8-t3-desc": "Llegada a Brujas. Tiempo libre en la ciudad medieval\n                  (Torre Belfort, canales).", "d8-t4-time": "20:00", "d8-t4-desc": "Salida de Brujas.", "d8-t5-time": "21:00", "d8-t5-desc": "Llegada a Gante y alojamiento.", "d8-free0-time": "Libre", "d8-free0-desc": "Brujas <b>16:30–20:00 hrs</b>.", "d9-droute": "Gante → La Haya → Ámsterdam", "d9-ddate": "Dom 23 ago", "d9-t0-time": "08:00", "d9-t0-desc": "Traslado al centro de Gante. Tiempo libre en la ciudad\n                  universitaria.", "d9-t1-time": "11:00", "d9-t1-desc": "Salida de Gante hacia Holanda.", "d9-t2-time": "13:45", "d9-t2-desc": "Llegada a La Haya. Recorrido por el Palacio de la Paz\n                  y Parlamento. Tiempo para pasear y almorzar, con parada en la playa de Scheveningen.", "d9-t3-time": "18:00", "d9-t3-desc": "Salida de La Haya.", "d9-t4-time": "19:00", "d9-t4-desc": "Llegada a Ámsterdam.", "d9-free0-time": "Libre", "d9-free0-desc": "Gante <b>08:00–11:00</b> y La Haya\n               <b>13:45–18:00</b>.", "d10-droute": "Visita guiada + tarde libre", "d10-ddate": "Lun 24 ago · Ámsterdam", "d10-t0-time": "08:30", "d10-t0-desc": "Visita de Ámsterdam con guía local (2h aprox.): molino\n                  de Rembrandt, barrio judío, museo del diamante, museo marítimo. Termina en la estación central.", "d10-free0-time": "Libre", "d10-free0-desc": "Tarde, desde <b>~10:30 hrs</b> (paseo\n               en barco por los canales opcional, y pueblos próximos sugeridos por el guía). Si el hotel está en zona de\n               aeropuerto, traslado de regreso ~20:00 hrs.", "d10-tk0-title": "🎟 Museo Van Gogh", "d10-tk0-time": "14:15 hrs", "d10-tk0-detail": "2 entradas adulto (David Ochoa) · Museumplein 6, Ámsterdam · Nº ticket <code>772656477214201421</code> / <code>773428232642275322</code> · 25 € c/u", "d11-droute": "Ámsterdam → Delft → Bruselas → París", "d11-ddate": "Mar 25 ago", "d11-t0-time": "08:00", "d11-t0-desc": "Salida de Ámsterdam.", "d11-t1-time": "09:15", "d11-t1-desc": "Llegada a Delft, población conocida por su cerámica\n                  azul y blanca.", "d11-t2-time": "10:30", "d11-t2-desc": "Salida de Delft hacia Bélgica.", "d11-t3-time": "13:00", "d11-t3-desc": "Llegada a Bruselas. Tiempo libre para almorzar,\n                  después visita panorámica c/guía (1h30): Laaken, Palacio Real, Grand Place.", "d11-t4-time": "16:00", "d11-t4-desc": "Salida de Bruselas hacia Francia.", "d11-t5-time": "20:15", "d11-t5-desc": "Llegada a París.", "d11-free0-time": "Libre", "d11-free0-desc": "Bruselas <b>13:00–14:30</b> aprox.,\n               antes de la visita panorámica.", "d12-droute": "París → Ginebra → Aosta", "d12-ddate": "Mié 26 ago · Cruce de los Alpes", "d12-t0-time": "07:30", "d12-t0-desc": "Salida de París hacia Suiza.", "d12-t1-time": "14:30", "d12-t1-desc": "Llegada a Ginebra. Tiempo para almorzar y pasear a\n                  orillas del lago Leman.", "d12-t2-time": "17:30", "d12-t2-desc": "Salida de Ginebra. Paso por Chamonix y el túnel del\n                  Mont Blanc hacia Italia.", "d12-t3-time": "20:00", "d12-t3-desc": "Llegada a la región de Aosta. Alojamiento (posible en\n                  Aosta, St. Cristophe o Ivrea).", "d12-free0-time": "Libre", "d12-free0-desc": "Ginebra <b>14:30–17:30 hrs</b>.", "d13-droute": "Aosta → Venecia", "d13-ddate": "Jue 27 ago", "d13-t0-time": "07:30", "d13-t0-desc": "Salida de Aosta, viaje por la llanura del Po, parada\n                  en la periferia de Milán.", "d13-t1-time": "13:15", "d13-t1-desc": "Llegada a la terminal del Tronchetto (Venecia); barco\n                  privado al centro histórico. Tras el almuerzo, visita guiada de Venecia: Plaza San Marcos, Basílica,\n                  Campanile, fábrica de cristal de Murano.", "d13-t2-time": "20:00", "d13-t2-desc": "Traslado al hotel (área metropolitana: Mestre,\n                  Marghera o alrededores).", "d13-free0-time": "Libre", "d13-free0-desc": "Tarde, tras la visita guiada (paseo en\n               góndola sugerido por el guía).", "d14-droute": "Venecia → Rávena → Asís → Roma", "d14-ddate": "Vie 28 ago", "d14-t0-time": "07:30", "d14-t0-desc": "Salida de Venecia, bordeando la laguna hasta\n                  Rávena.", "d14-t1-time": "10:00", "d14-t1-desc": "Llegada a Rávena. Orientación sobre las basílicas\n                  principales. Visita libre.", "d14-t2-time": "11:30", "d14-t2-desc": "Salida de Rávena, cruzando los Apeninos.", "d14-t3-time": "14:00", "d14-t3-desc": "Llegada a Asís. Tiempo libre para almorzar y visitar\n                  la ciudad (vestir con decoro en la basílica de San Francisco).", "d14-t4-time": "17:30", "d14-t4-desc": "Salida de Asís.", "d14-t5-time": "20:30", "d14-t5-desc": "Llegada a Roma.", "d14-free0-time": "Libre", "d14-free0-desc": "Rávena <b>10:00–11:30</b> y Asís\n               <b>14:00–17:30</b> (almuerzo + visita).", "d15-droute": "Ciudad Eterna + Vaticano", "d15-ddate": "Sáb 29 ago · Roma", "d15-t0-time": "Mañana", "d15-t0-desc": "Visita guiada (3h): Roma Imperial a pie y en autobús\n                  — Arco de Constantino, Coliseo (exterior), Foros Imperiales, Circo Máximo, Termas de Caracalla,\n                  Castillo de San Ángel.", "d15-t1-time": "~11:00", "d15-t1-desc": "Fin del tour en la Ciudad del Vaticano.", "d15-t2-time": "18:00", "d15-t2-desc": "Traslado al barrio de Trastévere.", "d15-t3-time": "~20:30", "d15-t3-desc": "Regreso al hotel.", "d15-free0-time": "Libre", "d15-free0-desc": "Tarde, tras la visita opcional a los\n               Museos Vaticanos.", "d15-tk0-title": "🎟 Museos Vaticanos y Capilla Sixtina", "d15-tk0-time": "Duración 2h30", "d15-tk0-detail": "Excursión guiada · 70 €/persona (2 personas) · Roma", "d16-droute": "Día libre — excursión propia a Florencia", "d16-ddate": "Dom 30 ago · Roma", "d16-free0-time": "Libre", "d16-free0-desc": "Día completo (excursión oficial\n               opcional a Capri o Nápoles/Pompeya no tomada).", "d16-tk0-title": "🎟 Tren Italo Roma → Florencia", "d16-tk0-time": "09:20\n                  → 11:17", "d16-tk0-detail": "Tren 9920 · Coche 8, asientos 6-7 · Pasajeros David Ochoa / Elena Valerio · Ref.\n               <code>IH4PPD</code> · 29,90 € c/u\n            ", "d16-tk1-title": "🎟 Galería Uffizi", "d16-tk1-time": "13:00", "d16-tk1-detail": "2 entradas · PNR <code>P44DVYZ9</code> · 29 € c/u", "d16-tk2-title": "🎟 Tren Italo Florencia → Roma", "d16-tk2-time": "18:28\n                  → 20:10", "d16-tk2-detail": "Tren 8923 · Coche 6, asientos 19-20 · Ref. <code>SH3KGT</code> · 23,90 € c/u", "d17-droute": "Roma → Florencia", "d17-ddate": "Lun 31 ago", "d17-t0-time": "08:00", "d17-t0-desc": "Salida de Roma.", "d17-t1-time": "12:15", "d17-t1-desc": "Llegada a Florencia. Visita opcional con guía local:\n                  Duomo, Ponte Vecchio, Plaza de la Signoria.", "d17-free0-time": "Libre", "d17-free0-desc": "Desde <b>12:15 hrs</b> en\n               Florencia.", "d18-droute": "Florencia → Pisa → Sestri Levante → Montecarlo →\n                  Costa Azul", "d18-ddate": "Mar 1 sep", "d18-t0-time": "08:00", "d18-t0-desc": "Salida de Florencia.", "d18-t1-time": "09:15", "d18-t1-desc": "Llegada a Pisa. Recinto monumental (puede requerir\n                  autobús urbano o caminata).", "d18-t2-time": "11:00", "d18-t2-desc": "Salida de Pisa, siguiendo el Mediterráneo por la\n                  Riviera Ligur.", "d18-t3-time": "12:30", "d18-t3-desc": "Llegada a Sestri Levante. Tiempo para almorzar y\n                  pasear.", "d18-t4-time": "14:45", "d18-t4-desc": "Salida de Sestri Levante.", "d18-t5-time": "18:00", "d18-t5-desc": "Llegada a Montecarlo. Tiempo para pasear (casino\n                  opcional, lleve pasaporte).", "d18-t6-time": "19:15", "d18-t6-desc": "Salida de Montecarlo hacia la Costa Azul.", "d18-t7-time": "20:00", "d18-t7-desc": "Llegada a la Costa Azul.", "d18-free0-time": "Libre", "d18-free0-desc": "Sestri Levante <b>12:30–14:45</b> y\n               Montecarlo <b>18:00–19:15</b>.", "d19-droute": "Costa Azul → Arles → Barcelona", "d19-ddate": "Mié 2 sep", "d19-t0-time": "Mañana", "d19-t0-desc": "Visita breve de Niza: Paseo de los Ingleses, Plaza\n                  Massena, puerto antiguo.", "d19-t1-time": "12:00", "d19-t1-desc": "Llegada a Arles. Paseo por el centro monumental que\n                  inspiró a Van Gogh.", "d19-t2-time": "14:30", "d19-t2-desc": "Salida de Arles hacia el sur de Francia.", "d19-t3-time": "20:00", "d19-t3-desc": "Llegada a Barcelona y alojamiento.", "d19-free0-time": "Libre", "d19-free0-desc": "Arles <b>12:00–14:30 hrs</b>.", "d20-droute": "Barcelona → Madrid", "d20-ddate": "Jue 3 sep", "d20-t0-time": "08:00", "d20-t0-desc": "Inicia visita guiada (2h): monumento a Colón, Plaza de\n                  Cataluña, Paseo de Gracia, Sagrada Familia, Montjuïc. Finaliza en zona de Ramblas/barrio\n                  gótico.", "d20-t1-time": "13:00", "d20-t1-desc": "Salida de Barcelona hacia Aragón y Castilla. Parada en\n                  área de servicio para almorzar.", "d20-t2-time": "21:00", "d20-t2-desc": "Llegada a Madrid.", "d20-free0-time": "Libre", "d20-free0-desc": "~10:00–13:00 hrs en el barrio gótico de\n               Barcelona.", "d21-droute": "Panorámica + tarde libre", "d21-ddate": "Vie 4 sep · Madrid", "d21-t0-time": "Mañana", "d21-t0-desc": "Visita panorámica de Madrid (2h30): Cibeles, Puerta\n                  de Alcalá, Retiro, Calle Serrano, Plaza Colón, Paseo del Prado, Palacio Real.", "d21-free0-time": "Libre", "d21-free0-desc": "Resto del día, desde <b>~11:30 hrs</b>\n               (Toledo opcional).", "d21-tk0-title": "🎟 Tour Bernabéu", "d21-tk0-time": "12:00", "d21-tk0-detail": "2 entradas adulto · 39 € c/u", "d21-tk1-title": "🎟 Museo del Prado", "d21-tk1-time": "16:00", "d21-tk1-detail": "2 entradas generales · Localizador <code>M362371F</code> · 15 € c/u", "d22-droute": "Regreso a México", "d22-ddate": "Sáb 5 sep · Madrid → México", "d22-t0-time": "10:00", "d22-t0-desc": "Check-out del hotel (posible dejar equipaje en\n                  recepción).", "d22-t1-time": "~05:00", "d22-t1-desc": "Traslado por cuenta propia rumbo al aeropuerto\n                  <b>Adolfo Suárez Madrid-Barajas (MAD)</b>.", "d22-t2-time": "09:00", "d22-t2-desc": "Salida vuelo Aeroméxico <b>AM020</b> con destino\n                  Ciudad de México.", "d22-t3-time": "12:45", "d22-t3-desc": "Llegada estimada al Aeropuerto Internacional de Ciudad\n                  de México (MEX). Fin de los servicios.", "back-top": "↑ volver arriba", "resumen-title": "Resumen de boletos comprados", "th-0": "Fecha / hora", "th-1": "Actividad", "th-2": "Ciudad", "th-3": "Detalle", "th-4": "Código / Ref.", "th-5": "Precio", "row0-c0": "17 ago · 16:00", "row0-c1": "Museo del Louvre", "row0-c2": "París", "row0-c3": "2 entradas, acceso Pirámide", "row0b-c0": "17 ago · noche", "row0b-c1": "París Iluminado", "row0b-c2": "París", "row0b-c3": "Excursión, 3 hrs, David y Elena", "row0c-c0": "18 ago · tarde", "row0c-c1": "Barrio Latino y Crucero por el Sena", "row0c-c2": "París", "row0c-c3": "Excursión, 5 hrs, David y Elena", "row1-c0": "20 ago · todo el día", "row1-c1": "Torre de Londres", "row1-c2": "Londres", "row1-c3": "2 entradas adulto", "row1b-c0": "24 ago · 14:15", "row1b-c1": "Museo Van Gogh", "row1b-c2": "Ámsterdam", "row1b-c3": "2 entradas adulto", "row2-c0": "21 ago · 11:15", "row2-c1": "Museo de Historia Natural", "row2-c2": "Londres", "row2-c3": "2 entradas (gratis)", "row3-c0": "21 ago · 15:00 y 16:00", "row3-c1": "Science Museum", "row3-c2": "Londres", "row3-c3": "2 entradas por turno (4 total, gratis)", "row4-c0": "21 ago · 19:30", "row4-c1": "London Eye", "row4-c2": "Londres", "row4-c3": "2 entradas adulto", "row5-c0": "29 ago", "row5-c1": "Museos Vaticanos y Capilla Sixtina", "row5-c2": "Roma", "row5-c3": "Excursión guiada, 2h30 min, 70€/persona", "row6-c0": "30 ago · 09:20→11:17", "row6-c1": "Tren Italo Roma→Florencia", "row6-c2": "Roma/Florencia", "row6-c3": "Tren 9920, coche 8, asientos 6-7", "row7-c0": "30 ago · 13:00", "row7-c1": "Galería Uffizi", "row7-c2": "Florencia", "row7-c3": "2 entradas", "row8-c0": "30 ago · 18:28→20:10", "row8-c1": "Tren Italo Florencia→Roma", "row8-c2": "Florencia/Roma", "row8-c3": "Tren 8923, coche 6, asientos 19-20", "row9-c0": "4 sep · 12:00", "row9-c1": "Tour Bernabéu", "row9-c2": "Madrid", "row9-c3": "2 entradas adulto", "row10-c0": "4 sep · 16:00", "row10-c1": "Museo del Prado", "row10-c2": "Madrid", "row10-c3": "2 entradas generales", "tfoot-0": "Total en euros", "tfoot-1": "Total en libras", "footer-note": "\n            Todos los horarios del itinerario son orientativos (Europamundo puede ajustarlos). Boletos con entrada\n            nominativa deben coincidir con el nombre del titular. Recuerde llevar pasaporte a mano en los cruces\n            Francia–Reino Unido, Reino Unido–Bélgica y Francia–Suiza.\n         " },
+            en: { "hdr-title": "Europe 2026 Honeymoon", "hdr-sub": "22-Day Itinerary - David & Elenita", "hdr-route": "<span class=\"dates\">Aug 15 – Sep 5, 2026</span><br><b>MEX</b> → Paris → London → Brussels / Amsterdam → Geneva → Italy (Venice · Rome · Florence) → French Riviera → Barcelona → <b>Madrid</b> → MEX", "legend-0": "Free time (with schedule)", "legend-1": "Ticket already purchased", "toc-title": "Jump to a day", "toc-d1": "Day 1 · Sat Aug 15 · Mexico", "toc-d2": "Day 2 · Sun Aug 16 · Paris", "toc-d3": "Day 3 · Mon Aug 17 · Paris", "toc-d4": "Day 4 · Tue Aug 18 · Paris", "toc-d5": "Day 5 · Wed Aug 19 · London", "toc-d6": "Day 6 · Thu Aug 20 · London", "toc-d7": "Day 7 · Fri Aug 21 · London", "toc-d8": "Day 8 · Sat Aug 22 · Ghent", "toc-d9": "Day 9 · Sun Aug 23 · Amsterdam", "toc-d10": "Day 10 · Mon Aug 24 · Amsterdam", "toc-d11": "Day 11 · Tue Aug 25 · Paris", "toc-d12": "Day 12 · Wed Aug 26 · Aosta", "toc-d13": "Day 13 · Thu Aug 27 · Venice", "toc-d14": "Day 14 · Fri Aug 28 · Rome", "toc-d15": "Day 15 · Sat Aug 29 · Rome", "toc-d16": "Day 16 · Sun Aug 30 · Florence", "toc-d17": "Day 17 · Mon Aug 31 · Florence", "toc-d18": "Day 18 · Tue Sep 1 · French Riviera", "toc-d19": "Day 19 · Wed Sep 2 · Barcelona", "toc-d20": "Day 20 · Thu Sep 3 · Madrid", "toc-d21": "Day 21 · Fri Sep 4 · Madrid", "toc-d22": "Day 22 · Sat Sep 5 · Mexico", "toc-resumen": "📋 Ticket summary", "d1-droute": "Departure Mexico → Paris", "d1-ddate": "Sat Aug 15 · Mexico", "d1-t0-time": "13:10*", "d1-t0-desc": "Check-in at the airport (4 hours before the flight) <b>MEX Terminal 2</b>.", "d1-t1-time": "17:10", "d1-t1-desc": "Departure of Aeroméxico flight <b>AM005</b> bound for Paris.", "d2-droute": "Arrival in Paris", "d2-ddate": "Sun Aug 16 · Paris", "d2-t0-time": "12:10", "d2-t0-desc": "Estimated arrival at <b>Charles de Gaulle (CDG)</b> airport. Welcome and transfer to the hotel.", "d2-free0-time": "Free", "d2-free0-desc": "<b>From arrival</b> until activities begin the next day. Information sheet with directions at the hotel front desk.", "d3-droute": "Panoramic tour + Montmartre", "d3-ddate": "Mon Aug 17 · Paris", "d3-t0-time": "08:00", "d3-t0-desc": "Panoramic tour of Paris with a local guide (approx. 2h30): Arc de Triomphe, Champs-Élysées, Place de la Concorde, Louvre Museum, Notre Dame, Latin Quarter, Eiffel Tower.", "d3-t1-time": "~10:30", "d3-t1-desc": "Transfer to the Montmartre district. Time to stroll and have lunch in the bohemian neighborhood.", "d3-t2-time": "14:00", "d3-t2-desc": "After lunch, return to the hotel with a stop by the Louvre Museum.", "d3-free0-time": "Free", "d3-free0-desc": "From <b>~14:00</b>, the whole afternoon and evening (optional cabaret / Moulin Rouge at night).", "d3-tk0-title": "🎟 Louvre Museum", "d3-tk0-time": "16:00", "d3-tk0-detail": "2 tickets (David Ochoa / Maria Valerio) · Pyramid entrance · Sale No. <code>V260781743919</code> · €32 each", "d3-tk1-title": "🎟 Paris Illuminated", "d3-tk1-time": "Night · 3 hrs", "d3-tk1-detail": "Evening excursion (David / Elena) · Paris · Duration 3 hrs · €40 each · Paid", "d4-droute": "Versailles", "d4-ddate": "Tue Aug 18 · Paris", "d4-t0-time": "08:00", "d4-t0-desc": "Departure from the hotel to Versailles. Entry to the palace/gardens not included.", "d4-t1-time": "~11:00", "d4-t1-desc": "Return to central Paris for lunch. Guide optionally offers a Seine river cruise and a walk through the Latin Quarter.", "d4-free0-time": "Free", "d4-free0-desc": "<b>2h30</b> in Versailles from arrival, plus the afternoon/evening in Paris.", "d4-tk0-title": "🎟 Latin Quarter and Seine River Cruise", "d4-tk0-time": "Duration 5 hrs", "d4-tk0-detail": "Excursion (David / Elena) · Paris · Duration 5 hrs · €50 each · Paid", "d5-droute": "Paris → Canterbury → London", "d5-ddate": "Wed Aug 19 · Crossing to the UK", "d5-t0-time": "07:30", "d5-t0-desc": "Departure from Paris.", "d5-t1-time": "~11:45", "d5-t1-desc": "Arrival at the port of Calais. Customs and border procedures (keep your passport handy).", "d5-t2-time": "13:00", "d5-t2-desc": "Ferry departure to Dover. 1h30 crossing.", "d5-t3-time": "14:30", "d5-t3-desc": "<i>(local time, set your clock back 1h)</i> Arrival in Canterbury. Free time to explore the medieval city.", "d5-t4-time": "17:00", "d5-t4-desc": "Departure from Canterbury.", "d5-t5-time": "18:30", "d5-t5-desc": "Arrival in London.", "d5-free0-time": "Free", "d5-free0-desc": "Canterbury <b>14:30–17:00</b> and evening in London from <b>18:30</b>.", "d6-droute": "Panoramic tour + Soho", "d6-ddate": "Thu Aug 20 · London", "d6-t0-time": "Morning", "d6-t0-desc": "Panoramic tour: Hyde Park, Oxford St, St Paul's, Tower of London, the Thames, Piccadilly Circus, Parliament, Westminster Abbey, Buckingham Palace (changing of the guard).", "d6-t1-time": "18:00", "d6-t1-desc": "Meeting point at Piccadilly Circus. Walking tour through Leicester Square, China Town and Soho.", "d6-t2-time": "20:30", "d6-t2-desc": "Transfer back to the hotel.", "d6-free0-time": "Free", "d6-free0-desc": "Afternoon, from the end of the panoramic tour until <b>18:00</b> (optional excursion to Windsor).", "d6-tk0-title": "🎟 Tower of London", "d6-tk0-time": "All day", "d6-tk0-detail": "2 adult tickets · Total £74.00 · Ref. <code>DVO8MPADXCN8D</code>", "d7-droute": "Free day in London", "d7-ddate": "Fri Aug 21 · London", "d7-free0-time": "Free", "d7-free0-desc": "All day — no scheduled circuit activities.", "d7-tk0-title": "🎟 Natural History Museum", "d7-tk0-time": "11:15", "d7-tk0-detail": "2 free tickets · South Kensington · Ref. <code>20260806-S17285237</code>", "d7-tk1-title": "🎟 Science Museum", "d7-tk1-time": "15:00 and 16:00", "d7-tk1-detail": "2 free tickets per time slot (4 total) · Order <code>17579470</code>", "d7-tk2-title": "🎟 London Eye", "d7-tk2-time": "19:30", "d7-tk2-detail": "2 adult tickets · £30.63 each · Order <code>120225492</code>", "d8-droute": "London → Calais → Bruges → Ghent", "d8-ddate": "Sat Aug 22 · Ferry + Belgium", "d8-t0-time": "07:30", "d8-t0-desc": "Departure from London.", "d8-t1-time": "09:30", "d8-t1-desc": "Arrival in Dover, ferry boarding (departure ~11:30). 1h15 crossing.", "d8-t2-time": "~13:00", "d8-t2-desc": "Passing through Calais (possible technical stop). Continuing on to Belgium.", "d8-t3-time": "16:30", "d8-t3-desc": "Arrival in Bruges. Free time in the medieval city (Belfry Tower, canals).", "d8-t4-time": "20:00", "d8-t4-desc": "Departure from Bruges.", "d8-t5-time": "21:00", "d8-t5-desc": "Arrival in Ghent and check-in.", "d8-free0-time": "Free", "d8-free0-desc": "Bruges <b>16:30–20:00</b>.", "d9-droute": "Ghent → The Hague → Amsterdam", "d9-ddate": "Sun Aug 23", "d9-t0-time": "08:00", "d9-t0-desc": "Transfer to central Ghent. Free time in the university city.", "d9-t1-time": "11:00", "d9-t1-desc": "Departure from Ghent to the Netherlands.", "d9-t2-time": "13:45", "d9-t2-desc": "Arrival in The Hague. Tour of the Peace Palace and Parliament. Time to stroll and have lunch, with a stop at Scheveningen beach.", "d9-t3-time": "18:00", "d9-t3-desc": "Departure from The Hague.", "d9-t4-time": "19:00", "d9-t4-desc": "Arrival in Amsterdam.", "d9-free0-time": "Free", "d9-free0-desc": "Ghent <b>08:00–11:00</b> and The Hague <b>13:45–18:00</b>.", "d10-droute": "Guided tour + free afternoon", "d10-ddate": "Mon Aug 24 · Amsterdam", "d10-t0-time": "08:30", "d10-t0-desc": "Tour of Amsterdam with a local guide (approx. 2h): Rembrandt's windmill, Jewish quarter, Diamond Museum, Maritime Museum. Ends at Central Station.", "d10-free0-time": "Free", "d10-free0-desc": "Afternoon, from <b>~10:30</b> (optional canal boat tour, plus nearby villages suggested by the guide). If the hotel is in the airport area, transfer back ~20:00.", "d10-tk0-title": "🎟 Van Gogh Museum", "d10-tk0-time": "14:15", "d10-tk0-detail": "2 adult tickets (David Ochoa) · Museumplein 6, Amsterdam · Ticket No. <code>772656477214201421</code> / <code>773428232642275322</code> · €25 each", "d11-droute": "Amsterdam → Delft → Brussels → Paris", "d11-ddate": "Tue Aug 25", "d11-t0-time": "08:00", "d11-t0-desc": "Departure from Amsterdam.", "d11-t1-time": "09:15", "d11-t1-desc": "Arrival in Delft, a town known for its blue-and-white pottery.", "d11-t2-time": "10:30", "d11-t2-desc": "Departure from Delft to Belgium.", "d11-t3-time": "13:00", "d11-t3-desc": "Arrival in Brussels. Free time for lunch, then a guided panoramic tour (1h30): Laeken, Royal Palace, Grand Place.", "d11-t4-time": "16:00", "d11-t4-desc": "Departure from Brussels to France.", "d11-t5-time": "20:15", "d11-t5-desc": "Arrival in Paris.", "d11-free0-time": "Free", "d11-free0-desc": "Brussels <b>13:00–14:30</b> approx., before the panoramic tour.", "d12-droute": "Paris → Geneva → Aosta", "d12-ddate": "Wed Aug 26 · Crossing the Alps", "d12-t0-time": "07:30", "d12-t0-desc": "Departure from Paris to Switzerland.", "d12-t1-time": "14:30", "d12-t1-desc": "Arrival in Geneva. Time for lunch and a stroll along the shores of Lake Geneva.", "d12-t2-time": "17:30", "d12-t2-desc": "Departure from Geneva. Passing through Chamonix and the Mont Blanc tunnel into Italy.", "d12-t3-time": "20:00", "d12-t3-desc": "Arrival in the Aosta region. Overnight stay (possibly in Aosta, St. Christophe or Ivrea).", "d12-free0-time": "Free", "d12-free0-desc": "Geneva <b>14:30–17:30</b>.", "d13-droute": "Aosta → Venice", "d13-ddate": "Thu Aug 27", "d13-t0-time": "07:30", "d13-t0-desc": "Departure from Aosta, traveling across the Po plain, stop on the outskirts of Milan.", "d13-t1-time": "13:15", "d13-t1-desc": "Arrival at the Tronchetto terminal (Venice); private boat to the historic center. After lunch, guided tour of Venice: St. Mark's Square, Basilica, Campanile, Murano glass factory.", "d13-t2-time": "20:00", "d13-t2-desc": "Transfer to the hotel (metropolitan area: Mestre, Marghera or surroundings).", "d13-free0-time": "Free", "d13-free0-desc": "Afternoon, after the guided tour (gondola ride suggested by the guide).", "d14-droute": "Venice → Ravenna → Assisi → Rome", "d14-ddate": "Fri Aug 28", "d14-t0-time": "07:30", "d14-t0-desc": "Departure from Venice, skirting the lagoon toward Ravenna.", "d14-t1-time": "10:00", "d14-t1-desc": "Arrival in Ravenna. Orientation on the main basilicas. Free visit.", "d14-t2-time": "11:30", "d14-t2-desc": "Departure from Ravenna, crossing the Apennines.", "d14-t3-time": "14:00", "d14-t3-desc": "Arrival in Assisi. Free time for lunch and to visit the town (dress modestly in the Basilica of St. Francis).", "d14-t4-time": "17:30", "d14-t4-desc": "Departure from Assisi.", "d14-t5-time": "20:30", "d14-t5-desc": "Arrival in Rome.", "d14-free0-time": "Free", "d14-free0-desc": "Ravenna <b>10:00–11:30</b> and Assisi <b>14:00–17:30</b> (lunch + visit).", "d15-droute": "Eternal City + Vatican", "d15-ddate": "Sat Aug 29 · Rome", "d15-t0-time": "Morning", "d15-t0-desc": "Guided tour (3h): Imperial Rome on foot and by bus — Arch of Constantine, Colosseum (exterior), Imperial Forums, Circus Maximus, Baths of Caracalla, Castel Sant'Angelo.", "d15-t1-time": "~11:00", "d15-t1-desc": "Tour ends at Vatican City.", "d15-t2-time": "18:00", "d15-t2-desc": "Transfer to the Trastevere district.", "d15-t3-time": "~20:30", "d15-t3-desc": "Return to the hotel.", "d15-free0-time": "Free", "d15-free0-desc": "Afternoon, after the optional visit to the Vatican Museums.", "d15-tk0-title": "🎟 Vatican Museums and Sistine Chapel", "d15-tk0-time": "Duration 2h30", "d15-tk0-detail": "Guided excursion · €70/person (2 people) · Rome", "d16-droute": "Free day — self-guided excursion to Florence", "d16-ddate": "Sun Aug 30 · Rome", "d16-free0-time": "Free", "d16-free0-desc": "Full day (optional official excursion to Capri or Naples/Pompeii not taken).", "d16-tk0-title": "🎟 Italo Train Rome → Florence", "d16-tk0-time": "09:20 → 11:17", "d16-tk0-detail": "Train 9920 · Car 8, seats 6-7 · Passengers David Ochoa / Elena Valerio · Ref. <code>IH4PPD</code> · €29.90 each", "d16-tk1-title": "🎟 Uffizi Gallery", "d16-tk1-time": "13:00", "d16-tk1-detail": "2 tickets · PNR <code>P44DVYZ9</code> · €29 each", "d16-tk2-title": "🎟 Italo Train Florence → Rome", "d16-tk2-time": "18:28 → 20:10", "d16-tk2-detail": "Train 8923 · Car 6, seats 19-20 · Ref. <code>SH3KGT</code> · €23.90 each", "d17-droute": "Rome → Florence", "d17-ddate": "Mon Aug 31", "d17-t0-time": "08:00", "d17-t0-desc": "Departure from Rome.", "d17-t1-time": "12:15", "d17-t1-desc": "Arrival in Florence. Optional tour with a local guide: Duomo, Ponte Vecchio, Piazza della Signoria.", "d17-free0-time": "Free", "d17-free0-desc": "From <b>12:15</b> in Florence.", "d18-droute": "Florence → Pisa → Sestri Levante → Monte Carlo → French Riviera", "d18-ddate": "Tue Sep 1", "d18-t0-time": "08:00", "d18-t0-desc": "Departure from Florence.", "d18-t1-time": "09:15", "d18-t1-desc": "Arrival in Pisa. Monumental grounds (may require a city bus or walking).", "d18-t2-time": "11:00", "d18-t2-desc": "Departure from Pisa, following the Mediterranean along the Ligurian Riviera.", "d18-t3-time": "12:30", "d18-t3-desc": "Arrival in Sestri Levante. Time for lunch and a stroll.", "d18-t4-time": "14:45", "d18-t4-desc": "Departure from Sestri Levante.", "d18-t5-time": "18:00", "d18-t5-desc": "Arrival in Monte Carlo. Time to stroll (casino optional, bring your passport).", "d18-t6-time": "19:15", "d18-t6-desc": "Departure from Monte Carlo toward the French Riviera.", "d18-t7-time": "20:00", "d18-t7-desc": "Arrival on the French Riviera.", "d18-free0-time": "Free", "d18-free0-desc": "Sestri Levante <b>12:30–14:45</b> and Monte Carlo <b>18:00–19:15</b>.", "d19-droute": "French Riviera → Arles → Barcelona", "d19-ddate": "Wed Sep 2", "d19-t0-time": "Morning", "d19-t0-desc": "Brief visit to Nice: Promenade des Anglais, Place Masséna, old port.", "d19-t1-time": "12:00", "d19-t1-desc": "Arrival in Arles. Stroll through the historic center that inspired Van Gogh.", "d19-t2-time": "14:30", "d19-t2-desc": "Departure from Arles toward southern France.", "d19-t3-time": "20:00", "d19-t3-desc": "Arrival in Barcelona and check-in.", "d19-free0-time": "Free", "d19-free0-desc": "Arles <b>12:00–14:30</b>.", "d20-droute": "Barcelona → Madrid", "d20-ddate": "Thu Sep 3", "d20-t0-time": "08:00", "d20-t0-desc": "Guided tour begins (2h): Columbus Monument, Plaça de Catalunya, Passeig de Gràcia, Sagrada Família, Montjuïc. Ends near Las Ramblas/Gothic Quarter.", "d20-t1-time": "13:00", "d20-t1-desc": "Departure from Barcelona to Aragon and Castile. Stop at a service area for lunch.", "d20-t2-time": "21:00", "d20-t2-desc": "Arrival in Madrid.", "d20-free0-time": "Free", "d20-free0-desc": "~10:00–13:00 in Barcelona's Gothic Quarter.", "d21-droute": "Panoramic tour + free afternoon", "d21-ddate": "Fri Sep 4 · Madrid", "d21-t0-time": "Morning", "d21-t0-desc": "Panoramic tour of Madrid (2h30): Cibeles, Puerta de Alcalá, Retiro Park, Calle Serrano, Plaza Colón, Paseo del Prado, Royal Palace.", "d21-free0-time": "Free", "d21-free0-desc": "Rest of the day, from <b>~11:30</b> (Toledo optional).", "d21-tk0-title": "🎟 Bernabéu Tour", "d21-tk0-time": "12:00", "d21-tk0-detail": "2 adult tickets · €39 each", "d21-tk1-title": "🎟 Prado Museum", "d21-tk1-time": "16:00", "d21-tk1-detail": "2 general admission tickets · Confirmation <code>M362371F</code> · €15 each", "d22-droute": "Return to Mexico", "d22-ddate": "Sat Sep 5 · Madrid → Mexico", "d22-t0-time": "10:00", "d22-t0-desc": "Hotel check-out (possible to leave luggage at reception).", "d22-t1-time": "~05:00", "d22-t1-desc": "Self-arranged transfer to <b>Adolfo Suárez Madrid–Barajas Airport (MAD)</b>.", "d22-t2-time": "09:00", "d22-t2-desc": "Departure of Aeroméxico flight <b>AM020</b> bound for Mexico City.", "d22-t3-time": "12:45", "d22-t3-desc": "Estimated arrival at Mexico City International Airport (MEX). End of services.", "back-top": "↑ back to top", "resumen-title": "Summary of purchased tickets", "th-0": "Date / time", "th-1": "Activity", "th-2": "City", "th-3": "Detail", "th-4": "Code / Ref.", "th-5": "Price", "row0-c0": "Aug 17 · 16:00", "row0-c1": "Louvre Museum", "row0-c2": "Paris", "row0-c3": "2 tickets, Pyramid entrance", "row0b-c0": "Aug 17 · evening", "row0b-c1": "Paris Illuminated", "row0b-c2": "Paris", "row0b-c3": "Excursion, 3 hrs, David & Elena", "row0c-c0": "Aug 18 · afternoon", "row0c-c1": "Latin Quarter and Seine River Cruise", "row0c-c2": "Paris", "row0c-c3": "Excursion, 5 hrs, David & Elena", "row1-c0": "Aug 20 · all day", "row1-c1": "Tower of London", "row1-c2": "London", "row1-c3": "2 adult tickets", "row1b-c0": "Aug 24 · 14:15", "row1b-c1": "Van Gogh Museum", "row1b-c2": "Amsterdam", "row1b-c3": "2 adult tickets", "row2-c0": "Aug 21 · 11:15", "row2-c1": "Natural History Museum", "row2-c2": "London", "row2-c3": "2 tickets (free)", "row3-c0": "Aug 21 · 15:00 and 16:00", "row3-c1": "Science Museum", "row3-c2": "London", "row3-c3": "2 tickets per slot (4 total, free)", "row4-c0": "Aug 21 · 19:30", "row4-c1": "London Eye", "row4-c2": "London", "row4-c3": "2 adult tickets", "row5-c0": "Aug 29", "row5-c1": "Vatican Museums and Sistine Chapel", "row5-c2": "Rome", "row5-c3": "Guided excursion, 2h30 min, €70/person", "row6-c0": "Aug 30 · 09:20→11:17", "row6-c1": "Italo Train Rome→Florence", "row6-c2": "Rome/Florence", "row6-c3": "Train 9920, car 8, seats 6-7", "row7-c0": "Aug 30 · 13:00", "row7-c1": "Uffizi Gallery", "row7-c2": "Florence", "row7-c3": "2 tickets", "row8-c0": "Aug 30 · 18:28→20:10", "row8-c1": "Italo Train Florence→Rome", "row8-c2": "Florence/Rome", "row8-c3": "Train 8923, car 6, seats 19-20", "row9-c0": "Sep 4 · 12:00", "row9-c1": "Bernabéu Tour", "row9-c2": "Madrid", "row9-c3": "2 adult tickets", "row10-c0": "Sep 4 · 16:00", "row10-c1": "Prado Museum", "row10-c2": "Madrid", "row10-c3": "2 general admission tickets", "tfoot-0": "Total in euros", "tfoot-1": "Total in pounds", "footer-note": "All itinerary times are approximate (Europamundo may adjust them). Tickets with named entry must match the ticket holder's name. Remember to keep your passport handy at the France–UK, UK–Belgium, and France–Switzerland crossings." }
+         };
+         var switchEl = document.getElementById('langSwitch');
+         var toggleBtn = document.getElementById('langToggleBtn');
+         var currentLabel = document.getElementById('langCurrentLabel');
+         var menuButtons = switchEl.querySelectorAll('.lang-menu button');
+         var LANG_NAMES = { es: 'Español', en: 'English' };
+         function applyLang(lang) {
+            var dict = DICT[lang] || DICT.es;
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+               var key = el.getAttribute('data-i18n');
+               if (dict.hasOwnProperty(key)) {
+                  el.innerHTML = dict[key];
+               }
+            });
+            document.documentElement.setAttribute('lang', lang);
+            document.title = (lang === 'en')
+               ? 'Europe 2026 Honeymoon'
+               : 'Europa 2026 Luna de Miel';
+            currentLabel.textContent = LANG_NAMES[lang] || LANG_NAMES.es;
+            menuButtons.forEach(function (btn) {
+               btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            try { localStorage.setItem('itinerary-lang', lang); } catch (e) { }
+            switchEl.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+         }
+         toggleBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isOpen = switchEl.classList.toggle('open');
+            toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+         });
+         document.addEventListener('click', function (e) {
+            if (!switchEl.contains(e.target)) {
+               switchEl.classList.remove('open');
+               toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+         });
+         menuButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+               applyLang(btn.getAttribute('data-lang'));
+            });
+         });
+         var saved = null;
+         try { saved = localStorage.getItem('itinerary-lang'); } catch (e) { }
+         applyLang(saved === 'en' ? 'en' : 'es');
+      })();
+      /* ---------- MODO NOCTURNO (auto por hora + toggle manual) ---------- */
+      (function () {
+         var NIGHT_START = 20; // 20:00 empieza el modo nocturno
+         var NIGHT_END = 7;    // 07:00 vuelve el modo claro
+         var STORAGE_KEY = 'itinerary-theme-mode'; // 'auto' | 'light' | 'dark'
+         var root = document.documentElement;
+         var metaTheme = document.querySelector('meta[name="theme-color"]');
+         var btn = document.getElementById('themeToggleBtn');
+         var icon = document.getElementById('themeIcon');
+         var label = document.getElementById('themeLabel');
+         var ICONS = {
+            sun: '<circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.2" y1="4.2" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.8" y2="19.8"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.2" y1="19.8" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.8" y2="4.2"></line>',
+            moon: '<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"></path>',
+            auto: '<circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"></path>'
+         };
+         var LABELS = { auto: 'Auto', light: 'Claro', dark: 'Oscuro' };
+         var THEME_COLOR = { light: '#0c2340', dark: '#10161c' };
+         function getMode() {
+            try {
+               var m = localStorage.getItem(STORAGE_KEY);
+               if (m === 'light' || m === 'dark' || m === 'auto') return m;
+            } catch (e) { }
+            return 'auto';
+         }
+         function setMode(mode) {
+            try { localStorage.setItem(STORAGE_KEY, mode); } catch (e) { }
+         }
+         function isNightNow() {
+            var h = new Date().getHours();
+            if (NIGHT_START > NIGHT_END) {
+               return h >= NIGHT_START || h < NIGHT_END;
+            }
+            return h >= NIGHT_START && h < NIGHT_END;
+         }
+         function effectiveTheme(mode) {
+            if (mode === 'light' || mode === 'dark') return mode;
+            return isNightNow() ? 'dark' : 'light';
+         }
+         function render(mode) {
+            var effective = effectiveTheme(mode);
+            root.setAttribute('data-theme', effective);
+            if (metaTheme) metaTheme.setAttribute('content', THEME_COLOR[effective]);
+            icon.innerHTML = (mode === 'auto') ? ICONS.auto : (effective === 'dark' ? ICONS.moon : ICONS.sun);
+            label.textContent = LABELS[mode];
+            btn.setAttribute('aria-label', 'Tema: ' + LABELS[mode] + (mode === 'auto' ? (' (' + (effective === 'dark' ? 'oscuro' : 'claro') + ' ahora)') : ''));
+         }
+         function applyThemeMode(mode) {
+            setMode(mode);
+            render(mode);
+         }
+         btn.addEventListener('click', function () {
+            var current = getMode();
+            var next = current === 'auto' ? 'light' : (current === 'light' ? 'dark' : 'auto');
+            applyThemeMode(next);
+         });
+         // Re-evalúa el modo automático cada 5 minutos y al volver a la pestaña,
+         // por si la página queda abierta durante horas mientras cambia la luz.
+         setInterval(function () {
+            if (getMode() === 'auto') render('auto');
+         }, 5 * 60 * 1000);
+         document.addEventListener('visibilitychange', function () {
+            if (!document.hidden && getMode() === 'auto') render('auto');
+         });
+         render(getMode());
+      })();
+   </script>
+</body>
+
+</html>

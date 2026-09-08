@@ -1,406 +1,550 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="robots" content="noindex, nofollow">
-<title>Las gemas del infinito amor</title>
-<style>
-  :root {
-    --bg-deep: #1C0E15;
-    --bg-mid: #2C1420;
-    --surface: #34141F;
-    --surface-line: #5A2C3D;
-    --ink: #F6E4EA;
-    --ink-soft: #C99AAC;
-    --deep: #F2B6C9;
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+   <meta name="theme-color" content="#7a3350" />
+   <title>Las Gemas del Amor Infinito · David &amp; Elenita</title>
+   
+   <link rel="icon" href="papeles.ico" type="image/x-icon">
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@400;500;600&display=swap"
+      rel="stylesheet" />
 
-    --gem-1: #E58CB0; /* rosa */
-    --gem-2: #B383D6; /* violeta */
-    --gem-3: #F2C15C; /* dorado */
-    --gem-4: #7FD9C4; /* verde agua */
-  }
+   <style>
+      :root {
+         --blush-50: #fdf3f6;
+         --blush-100: #f8e5eb;
+         --paper: #fffbfa;
+         --rose-600: #b4547a;
+         --rose-700: #9a4468;
+         --rose-800: #7a3350;
+         --ink: #3a1f2b;
+         --muted: #8a6c76;
+         --line: rgba(122, 51, 80, .16);
+         --gold: #c9a15a;
 
-  * { box-sizing: border-box; }
+         --gem-space: #1b75bb;
+         --gem-space-d: #0f4d7d;
+         --gem-soul: #f07b1d;
+         --gem-soul-d: #b8590f;
+         --gem-time: #1e824c;
+         --gem-time-d: #135a33;
 
-  html { -webkit-font-smoothing: antialiased; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    min-height: 100dvh; /* alto real en Safari iOS, sin saltos por la barra de UI */
-    background: radial-gradient(ellipse at 50% -10%, var(--bg-mid), var(--bg-deep) 65%);
-    color: var(--ink);
-    font-family: -apple-system, "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 48px 20px;
-    padding-top: max(48px, env(safe-area-inset-top));
-    padding-bottom: max(48px, env(safe-area-inset-bottom));
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
-    position: relative;
-    overflow-x: hidden;
-    -webkit-tap-highlight-color: transparent;
-    text-rendering: optimizeLegibility;
-  }
-
-  @media (max-width: 430px) {
-    body { padding: 32px 16px; padding-top: max(32px, env(safe-area-inset-top)); padding-bottom: max(32px, env(safe-area-inset-bottom)); }
-  }
-
-  /* estrellas de fondo */
-  .stars {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .wrap {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    width: 100%;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 44px;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.9s ease-out 0.1s forwards;
-  }
-
-  .infinity-mark {
-    font-size: 1.6rem;
-    color: var(--gem-1);
-    letter-spacing: 6px;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  h1 {
-    font-family: Iowan Old Style, "Palatino Linotype", Georgia, "Times New Roman", serif;
-    font-weight: 500;
-    font-size: clamp(2.1rem, 5vw, 3.2rem);
-    line-height: 1.15;
-    letter-spacing: 0.2px;
-    margin: 0 0 16px;
-    background: linear-gradient(120deg, var(--deep), var(--gem-2) 70%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  header p {
-    font-size: 1.02rem;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    max-width: 480px;
-    margin: 0 auto;
-    font-style: italic;
-  }
-
-  .snap-btn {
-    margin-top: 22px;
-    background: transparent;
-    border: 1px solid var(--surface-line);
-    color: var(--ink-soft);
-    font-size: 0.82rem;
-    padding: 9px 18px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-family: inherit;
-    letter-spacing: 0.3px;
-    transition: border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
-  }
-
-  .snap-btn:hover,
-  .snap-btn:focus-visible {
-    border-color: var(--gem-1);
-    color: var(--ink);
-  }
-
-  .snap-btn:active {
-    transform: scale(0.97);
-  }
-
-  .snap-btn[disabled] {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  .gems {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.9s ease-out 0.35s forwards;
-  }
-
-  @media (max-width: 560px) {
-    .gems { grid-template-columns: 1fr; gap: 14px; }
-  }
-
-  /* rango específico iPhone 16e (390) – iPhone 17 (402) y similares */
-  @media (max-width: 430px) {
-    .infinity-mark { font-size: 1.3rem; letter-spacing: 4px; }
-    header { margin-bottom: 32px; }
-    header p { font-size: 0.95rem; padding: 0 8px; }
-    .gem-card { padding: 22px 18px; border-radius: 16px; }
-    .gem-name { font-size: 1.05rem; }
-    .gem-desc { font-size: 0.87rem; }
-    .snap-btn { padding: 11px 20px; font-size: 0.85rem; min-height: 44px; }
-  }
-
-  @media (max-width: 360px) {
-    h1 { font-size: 1.9rem; }
-    .gem-card { padding: 18px 16px; }
-  }
-
-  /* los efectos :hover solo cuando hay puntero real; evita que queden "pegados" al tocar */
-  @media (hover: hover) and (pointer: fine) {
-    .gem-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--gem-color, var(--deep));
-      box-shadow: 0 0 0 1px var(--gem-color, var(--deep)) inset,
-                  0 16px 32px -14px color-mix(in srgb, var(--gem-color, var(--deep)) 60%, transparent);
-    }
-    .snap-btn:hover { border-color: var(--gem-1); color: var(--ink); }
-  }
-
-  /* en táctil, feedback inmediato al presionar en vez de hover */
-  @media (hover: none) {
-    .gem-card:active {
-      transform: scale(0.98);
-      border-color: var(--gem-color, var(--deep));
-    }
-    .snap-btn:active { border-color: var(--gem-1); color: var(--ink); }
-  }
-
-  .gem-card {
-    background: linear-gradient(160deg, var(--surface), var(--bg-mid));
-    border: 1px solid var(--surface-line);
-    border-radius: 18px;
-    padding: 28px 22px;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  }
-
-  .gem-card:focus-visible {
-    transform: translateY(-4px);
-    border-color: var(--gem-color, var(--deep));
-    box-shadow: 0 0 0 1px var(--gem-color, var(--deep)) inset,
-                0 16px 32px -14px color-mix(in srgb, var(--gem-color, var(--deep)) 60%, transparent);
-    outline: 2px solid var(--gem-color, var(--deep));
-    outline-offset: 3px;
-  }
-
-  .gem-icon-wrap {
-    width: 42px;
-    height: 42px;
-    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--gem-color) 65%, transparent));
-  }
-
-  .gem-name {
-    font-family: Iowan Old Style, "Palatino Linotype", Georgia, serif;
-    font-size: 1.15rem;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .gem-service {
-    font-size: 0.78rem;
-    color: var(--gem-color);
-    margin: -8px 0 0;
-    letter-spacing: 0.3px;
-  }
-
-  .gem-desc {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 0;
-    flex-grow: 1;
-  }
-
-  /* animación de chasquido: disolver en partículas */
-  .gem-card.dissolving {
-    animation: dissolve 1.1s ease-in forwards;
-    pointer-events: none;
-  }
-
-  .gem-card.reforming {
-    animation: reform 0.9s ease-out forwards;
-  }
-
-  @keyframes dissolve {
-    0%   { opacity: 1; filter: blur(0px); transform: scale(1); }
-    60%  { opacity: 0.4; filter: blur(2px); transform: scale(1.02) translateY(-6px); }
-    100% { opacity: 0; filter: blur(6px); transform: scale(0.9) translateY(-18px); }
-  }
-
-  @keyframes reform {
-    0%   { opacity: 0; filter: blur(6px); transform: scale(0.9) translateY(-18px); }
-    100% { opacity: 1; filter: blur(0px); transform: scale(1) translateY(0); }
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 44px;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    opacity: 0;
-    animation: rise 0.9s ease-out 0.55s forwards;
-  }
-
-  @keyframes rise {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    header, .gems, footer {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-    .gem-card { transition: none; }
-    .gem-card.dissolving, .gem-card.reforming { animation: none !important; opacity: 1 !important; }
-  }
-</style>
-</head>
-<body>
-
-<canvas class="stars" id="stars"></canvas>
-
-<div class="wrap">
-  <header>
-    <span class="infinity-mark">∞</span>
-    <h1>Las gemas del infinito amor</h1>
-    <p>Cuatro gemas, cuatro caminos. Reúnelas todas y el equilibrio será perfecto.</p>
-    <button class="snap-btn" id="snapBtn" type="button">Chasquear ✌</button>
-  </header>
-
-  <nav class="gems" id="gemsGrid" aria-label="Enlaces a las cuatro gemas">
-    <a class="gem-card" style="--gem-color: var(--gem-1);" href="https://www.google.com" target="_blank" rel="noopener noreferrer">
-      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-1)" stroke="#fff" stroke-opacity="0.25"/>
-        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
-      </svg>
-      <p class="gem-name">Gema de la búsqueda infinita</p>
-      <p class="gem-service">GOOGLE</p>
-      <p class="gem-desc">Para cuando quieras encontrar cualquier cosa bajo el sol.</p>
-    </a>
-
-    <a class="gem-card" style="--gem-color: var(--gem-2);" href="https://github.com" target="_blank" rel="noopener noreferrer">
-      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-2)" stroke="#fff" stroke-opacity="0.25"/>
-        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
-      </svg>
-      <p class="gem-name">Gema del código eterno</p>
-      <p class="gem-service">GITHUB</p>
-      <p class="gem-desc">Donde se guardan las ideas hechas de líneas y lógica.</p>
-    </a>
-
-    <a class="gem-card" style="--gem-color: var(--gem-3);" href="https://www.thunderbird.net" target="_blank" rel="noopener noreferrer">
-      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-3)" stroke="#fff" stroke-opacity="0.25"/>
-        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
-      </svg>
-      <p class="gem-name">Gema del mensaje sincero</p>
-      <p class="gem-service">THUNDERBIRD</p>
-      <p class="gem-desc">Para las palabras que merecen llegar bien guardadas.</p>
-    </a>
-
-    <a class="gem-card" style="--gem-color: var(--gem-4);" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-      <svg class="gem-icon-wrap" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="21,2 37,12 37,30 21,40 5,30 5,12" fill="var(--gem-4)" stroke="#fff" stroke-opacity="0.25"/>
-        <polygon points="21,10 30,16 30,26 21,32 12,26 12,16" fill="#fff" fill-opacity="0.2"/>
-      </svg>
-      <p class="gem-name">Gema del vínculo eterno</p>
-      <p class="gem-service">FACEBOOK</p>
-      <p class="gem-desc">El hilo que sostiene a la gente, sin importar la distancia.</p>
-    </a>
-  </nav>
-
-  <footer>
-    Ni todo el poder del universo cambia lo hecho a mano.
-  </footer>
-</div>
-
-<script>
-  // estrellas de fondo, dibujadas una sola vez
-  (function () {
-    var canvas = document.getElementById('stars');
-    var ctx = canvas.getContext('2d');
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      draw();
-    }
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      var count = Math.floor((canvas.width * canvas.height) / 9000);
-      for (var i = 0; i < count; i++) {
-        var x = Math.random() * canvas.width;
-        var y = Math.random() * canvas.height;
-        var r = Math.random() * 1.1 + 0.2;
-        var a = Math.random() * 0.5 + 0.15;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(246, 228, 234,' + a + ')';
-        ctx.fill();
+         --gem-mind: #f0c419;
+         --gem-reality: #e0261c;
+         --gem-power: #7b2d8e;
       }
-    }
-    window.addEventListener('resize', resize);
-    resize();
-  })();
 
-  // chasquido: disuelve las gemas y las vuelve a traer
-  (function () {
-    var btn = document.getElementById('snapBtn');
-    var grid = document.getElementById('gemsGrid');
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      * {
+         box-sizing: border-box;
+      }
 
-    btn.addEventListener('click', function () {
-      if (reduceMotion) return;
-      var cards = grid.querySelectorAll('.gem-card');
-      btn.disabled = true;
-      btn.textContent = 'Reordenando el universo…';
+      html {
+         -webkit-text-size-adjust: 100%;
+      }
 
-      cards.forEach(function (card, i) {
-        setTimeout(function () {
-          card.classList.add('dissolving');
-        }, i * 90);
-      });
+      body {
+         margin: 0;
+         min-height: 100dvh;
+         background:
+            radial-gradient(circle at 12% 8%, rgba(180, 84, 122, .10), transparent 40%),
+            radial-gradient(circle at 88% 92%, rgba(201, 161, 90, .10), transparent 42%),
+            linear-gradient(180deg, var(--blush-50), var(--blush-100));
+         color: var(--ink);
+         font-family: 'Cormorant Garamond', serif;
+         display: flex;
+         justify-content: center;
+         padding: max(48px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(56px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+      }
 
-      setTimeout(function () {
-        cards.forEach(function (card) {
-          card.classList.remove('dissolving');
-          card.classList.add('reforming');
-        });
-        btn.textContent = 'Chasquear ✌';
-        btn.disabled = false;
-      }, 1500);
+      main {
+         width: 100%;
+         max-width: 620px;
+      }
 
-      setTimeout(function () {
-        cards.forEach(function (card) {
-          card.classList.remove('reforming');
-        });
-      }, 2500);
-    });
-  })();
-</script>
+      /* ---------- HERO ---------- */
+      .seal {
+         display: flex;
+         justify-content: center;
+         margin-bottom: 18px;
+         opacity: 0;
+         animation: rise .9s ease .1s forwards;
+      }
 
+      .seal span {
+         width: 46px;
+         height: 46px;
+         border-radius: 50%;
+         border: 1px solid var(--line);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-family: 'Cinzel', serif;
+         font-size: 13px;
+         color: var(--rose-700);
+         letter-spacing: .04em;
+      }
+
+      h1 {
+         text-align: center;
+         font-weight: 500;
+         font-size: clamp(34px, 8.5vw, 54px);
+         line-height: 1.08;
+         margin: 0 0 10px;
+         color: var(--rose-800);
+         opacity: 0;
+         animation: rise 1s ease .25s forwards;
+      }
+
+      p.lede {
+         text-align: center;
+         font-style: italic;
+         color: var(--muted);
+         font-size: clamp(16px, 3.6vw, 19px);
+         margin: 0 0 44px;
+         opacity: 0;
+         animation: rise 1s ease .4s forwards;
+      }
+
+      @keyframes rise {
+         from {
+            opacity: 0;
+            transform: translateY(10px);
+         }
+
+         to {
+            opacity: 1;
+            transform: translateY(0);
+         }
+      }
+
+      /* ---------- GEM CARDS (activas) ---------- */
+      .gems {
+         list-style: none;
+         margin: 0 0 40px;
+         padding: 0;
+         display: flex;
+         flex-direction: column;
+         gap: 14px;
+      }
+
+      .gem-card {
+         opacity: 0;
+         transform: translateY(14px);
+         animation: rise .8s ease forwards;
+      }
+
+      .gems li:nth-child(1) .gem-card {
+         animation-delay: .55s;
+      }
+
+      .gems li:nth-child(2) .gem-card {
+         animation-delay: .72s;
+      }
+
+      .gems li:nth-child(3) .gem-card {
+         animation-delay: .89s;
+      }
+
+      .gem-card {
+         --gc: var(--gem-space);
+         --gc-d: var(--gem-space-d);
+         display: flex;
+         align-items: center;
+         gap: 18px;
+         text-decoration: none;
+         color: var(--ink);
+         background: var(--paper);
+         border: 1px solid var(--line);
+         border-radius: 18px;
+         padding: 18px 20px;
+         box-shadow: 0 10px 30px rgba(122, 51, 80, .06);
+         transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+      }
+
+      .gem-card:hover,
+      .gem-card:focus-visible {
+         transform: translateY(-3px);
+         border-color: color-mix(in srgb, var(--gc) 45%, var(--line));
+         box-shadow: 0 16px 34px rgba(122, 51, 80, .12), 0 0 0 1px color-mix(in srgb, var(--gc) 25%, transparent);
+         outline: none;
+      }
+
+
+      li[data-gem="alma"] .gem-card {
+         --gc: var(--gem-soul);
+         --gc-d: var(--gem-soul-d);
+      }
+
+      li[data-gem="tiempo"] .gem-card {
+         --gc: var(--gem-time);
+         --gc-d: var(--gem-time-d);
+      }
+
+      .gem-icon {
+         flex-shrink: 0;
+         width: 54px;
+         height: 54px;
+         position: relative;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 18% 100%, 0% 35%);
+         background: radial-gradient(circle at 32% 26%, color-mix(in srgb, var(--gc) 55%, white), var(--gc) 55%, var(--gc-d) 100%);
+         box-shadow: 0 0 16px 1px color-mix(in srgb, var(--gc) 55%, transparent);
+         animation: pulse-glow 3.6s ease-in-out infinite;
+      }
+
+      .gem-icon svg {
+         width: 24px;
+         height: 24px;
+         stroke: rgba(255, 255, 255, .92);
+         fill: none;
+         stroke-width: 1.6;
+         stroke-linecap: round;
+         stroke-linejoin: round;
+         filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .25));
+      }
+
+      .gems li:nth-child(1) .gem-icon {
+         animation-delay: .1s;
+      }
+
+      .gems li:nth-child(2) .gem-icon {
+         animation-delay: .5s;
+      }
+
+      .gems li:nth-child(3) .gem-icon {
+         animation-delay: .9s;
+      }
+
+      @keyframes pulse-glow {
+
+         0%,
+         100% {
+            box-shadow: 0 0 14px 0 color-mix(in srgb, var(--gc) 45%, transparent);
+         }
+
+         50% {
+            box-shadow: 0 0 22px 3px color-mix(in srgb, var(--gc) 65%, transparent);
+         }
+      }
+
+      .gem-text {
+         flex: 1;
+         min-width: 0;
+      }
+
+      .gem-name {
+         font-family: 'Cinzel', serif;
+         font-size: 11px;
+         letter-spacing: .12em;
+         color: var(--gc-d);
+         display: block;
+         margin-bottom: 3px;
+      }
+
+      .gem-title {
+         font-size: 22px;
+         font-weight: 500;
+         color: var(--rose-800);
+         margin: 0 0 4px;
+      }
+
+      .gem-blurb {
+         margin: 0 0 8px;
+         color: var(--muted);
+         font-size: 15px;
+         line-height: 1.45;
+      }
+
+      .gem-cta {
+         font-family: 'Cinzel', serif;
+         font-size: 11px;
+         letter-spacing: .08em;
+         color: var(--gc-d);
+      }
+
+      /* ---------- DIVIDER ---------- */
+      .divider {
+         display: flex;
+         align-items: center;
+         gap: 14px;
+         color: var(--muted);
+         font-style: italic;
+         font-size: 14.5px;
+         margin: 0 0 22px;
+         opacity: 0;
+         animation: rise .9s ease 1.05s forwards;
+      }
+
+      .divider::before,
+      .divider::after {
+         content: '';
+         flex: 1;
+         height: 1px;
+         background: linear-gradient(90deg, transparent, var(--line), transparent);
+      }
+
+      /* ---------- GEMAS BLOQUEADAS ---------- */
+      .locked-row {
+         list-style: none;
+         margin: 0 0 48px;
+         padding: 0;
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 12px;
+         opacity: 0;
+         animation: rise .9s ease 1.2s forwards;
+      }
+
+      .locked-card {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+         gap: 8px;
+         padding: 16px 8px;
+         border: 1px dashed var(--line);
+         border-radius: 16px;
+         background: rgba(255, 255, 255, .4);
+      }
+
+      .locked-icon {
+         width: 34px;
+         height: 34px;
+         clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 18% 100%, 0% 35%);
+         background: var(--lc, var(--gem-mind));
+         filter: grayscale(55%);
+         opacity: .4;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         transition: opacity .3s ease, filter .3s ease;
+      }
+
+      .locked-card:hover .locked-icon,
+      .locked-card:focus-visible .locked-icon {
+         opacity: .65;
+         filter: grayscale(15%);
+      }
+
+      .locked-icon svg {
+         width: 16px;
+         height: 16px;
+         stroke: rgba(255, 255, 255, .9);
+         fill: none;
+         stroke-width: 1.6;
+      }
+
+      li[data-gem="realidad"] .locked-icon {
+         --lc: var(--gem-reality);
+      }
+
+      li[data-gem="poder"] .locked-icon {
+         --lc: var(--gem-power);
+      }
+
+      .locked-name {
+         font-family: 'Cinzel', serif;
+         font-size: 10px;
+         letter-spacing: .08em;
+         color: var(--muted);
+      }
+
+      .locked-note {
+         font-size: 12.5px;
+         font-style: italic;
+         color: var(--muted);
+         opacity: .8;
+      }
+
+      /* ---------- FOOTER ---------- */
+      footer {
+         text-align: center;
+         opacity: 0;
+         animation: rise .9s ease 1.3s forwards;
+      }
+
+      footer .quote {
+         font-style: italic;
+         color: var(--rose-700);
+         font-size: 16px;
+         margin: 0 0 14px;
+      }
+
+      footer .mono {
+         font-family: 'Cinzel', serif;
+         font-size: 12px;
+         letter-spacing: .1em;
+         color: var(--muted);
+      }
+
+      /* ---------- DESKTOP ---------- */
+      @media (min-width: 700px) {
+         main {
+            max-width: 900px;
+         }
+
+         .gems {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+         }
+
+         .gem-card {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            height: 100%;
+            padding: 26px 24px 24px;
+         }
+
+         .gem-icon {
+            margin-bottom: 6px;
+         }
+
+         .locked-row {
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+         }
+      }
+
+      /* ---------- MOTION / ACCESIBILIDAD ---------- */
+      @media (prefers-reduced-motion: reduce) {
+
+         .seal,
+         h1,
+         p.lede,
+         .gem-card,
+         .divider,
+         .locked-row,
+         footer {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+         }
+
+         .gem-icon {
+            animation: none !important;
+         }
+      }
+
+      a.gem-card:focus-visible,
+      .locked-card:focus-visible {
+         outline: 2px solid var(--rose-600);
+         outline-offset: 3px;
+      }
+   </style>
+</head>
+
+<body>
+   <main>
+      <div class="seal"><span>D ♥ E</span></div>
+
+      <h1>Las Gemas del<br />Amor Infinito</h1>
+      <p class="lede">David &amp; Elenita · una colección que sigue creciendo</p>
+
+      <ul class="gems">
+         <li data-gem="espacio">
+            <a class="gem-card" href="viaje.html" aria-label="Gema del Espacio: abrir el itinerario del viaje">
+               <span class="gem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                     <circle cx="12" cy="12" r="9" />
+                     <path d="M15.2 8.8 13 13l-4.2 2.2L11 11z" />
+                  </svg>
+               </span>
+               <span class="gem-text">
+                  <span class="gem-name">Gema del Espacio</span>
+                  <span class="gem-title">El viaje</span>
+                  <span class="gem-blurb">22 días, un océano y medio continente — el mapa completo de nuestra luna
+                     de miel, de París a Madrid.</span>
+                  <span class="gem-cta">Explorar el itinerario</span>
+               </span>
+            </a>
+         </li>
+         <li data-gem="alma">
+            <a class="gem-card" href="propuesta.html" aria-label="Gema del Alma: comenzar el juego de la propuesta">
+               <span class="gem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                     <circle cx="9" cy="14" r="5" />
+                     <circle cx="15" cy="14" r="5" />
+                     <path d="M12 4 9.5 9h5z" />
+                  </svg>
+               </span>
+               <span class="gem-text">
+                  <span class="gem-name">Gema del Alma</span>
+                  <span class="gem-title">La propuesta</span>
+                  <span class="gem-blurb">¿Quieres jugar un juego? Al final del camino, una pregunta espera
+                     sellar dos almas en una sola.</span>
+                  <span class="gem-cta">Aceptar el juego</span>
+               </span>
+            </a>
+         </li>
+         <li data-gem="tiempo">
+            <a class="gem-card" href="votos.html" aria-label="Gema del Tiempo: leer la carta de los votos">
+               <span class="gem-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                     <path d="M19 5c-4 0-8 2-10 6-1.2 2.4-1 5-1 5s2.6.2 5-1c4-2 6-6 6-10z" />
+                     <path d="M9 15 5 19" />
+                  </svg>
+               </span>
+               <span class="gem-text">
+                  <span class="gem-name">Gema del Tiempo</span>
+                  <span class="gem-title">Los votos</span>
+                  <span class="gem-blurb">Hoy, mañana y siempre — la carta donde prometimos toda una vida
+                     juntos.</span>
+                  <span class="gem-cta">Leer la carta</span>
+               </span>
+            </a>
+         </li>
+      </ul>
+
+      <p class="divider">Aún quedan gemas por reunir</p>
+
+      <ul class="locked-row">
+         <li data-gem="mente">
+            <div class="locked-card" tabindex="0" title="Próximamente">
+               <span class="locked-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
+                     <rect x="6" y="11" width="12" height="9" rx="1.5" />
+                     <path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3" />
+                  </svg></span>
+               <span class="locked-name">Gema de la Mente</span>
+               <span class="locked-note">Próximamente</span>
+            </div>
+         </li>
+         <li data-gem="realidad">
+            <div class="locked-card" tabindex="0" title="Próximamente">
+               <span class="locked-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
+                     <rect x="6" y="11" width="12" height="9" rx="1.5" />
+                     <path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3" />
+                  </svg></span>
+               <span class="locked-name">Gema de la Realidad</span>
+               <span class="locked-note">Próximamente</span>
+            </div>
+         </li>
+         <li data-gem="poder">
+            <div class="locked-card" tabindex="0" title="Próximamente">
+               <span class="locked-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
+                     <rect x="6" y="11" width="12" height="9" rx="1.5" />
+                     <path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3" />
+                  </svg></span>
+               <span class="locked-name">Gema del Poder</span>
+               <span class="locked-note">Próximamente</span>
+            </div>
+         </li>
+      </ul>
+
+      <footer>
+         <p class="quote">Cada gema, un capítulo. Cada capítulo, nosotros.</p>
+         <p class="mono">D &amp; M · MMXXVI</p>
+      </footer>
+   </main>
 </body>
+
 </html>
